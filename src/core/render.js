@@ -182,7 +182,7 @@ rules.image = (tokens, idx, opts, env) => {
 
   return (
     `<p style="${t.image.figure}"><img src="${esc(resolved.src)}" alt="${esc(alt)}" style="${imgStyle}"></p>` +
-    `<p style="${t.image.caption}"><span style="${t.image.captionMark}">▍</span>${esc(captionText)}</p>`
+    `<p style="${t.image.caption}">${esc(captionText)}</p>`
   )
 }
 

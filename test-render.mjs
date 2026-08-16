@@ -29,7 +29,7 @@ const checks = [
   ['行内代码', html.includes('background:#e8edf2;color:#4a7fa5')],
   ['列表渐变圆点', html.includes('border-radius:50%;background:#2273b8;background:linear-gradient(135deg,#2273b8,#3a8ee6)')],
   ['列表悬挂缩进', html.includes('padding-left:16px;text-indent:-16px')],
-  ['图注格式', html.includes('图 1 ·') && html.includes('▍')],
+  ['图注格式', html.includes('图 1 ·')],
   ['无 ul/ol 标签', !/<\/?(ul|ol)[\s>]/.test(html)],
   ['无 class 属性', !/class=/.test(html)],
   ['无 style 块', !/<style/.test(html)],

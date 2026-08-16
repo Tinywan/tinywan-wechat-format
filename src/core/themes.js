@@ -99,7 +99,6 @@ export function buildTheme(p) {
       img: `max-width:100%;display:block;margin:0 auto;`,
       imgMissing: `max-width:100%;display:block;margin:0 auto;outline:2px dashed #e06c75;outline-offset:4px;`,
       caption: `font-size:12px;line-height:1.8;color:${c.gray};text-align:center;margin:0 0 20px 0;font-family:${FONT};`,
-      captionMark: `color:${c.primary};`,
     },
 
     inlineCode: `background:${c.inlineCodeBg};color:${c.inlineCodeText};border-radius:3px;padding:1px 6px;font-size:13px;font-family:${MONO};`,
