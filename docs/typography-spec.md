@@ -225,11 +225,11 @@ margin:0 0 20px 0;
 
 /* th */
 background:#2273b8; color:#ffffff;
-font-size:14px; font-weight:bold; line-height:1.7; letter-spacing:1px;
+font-size:16px; font-weight:bold; line-height:1.7; letter-spacing:1px;
 padding:10px 12px; border:1px solid #2273b8; text-align:left;
 
 /* td */
-font-size:14px; line-height:1.7; color:#333;
+font-size:16px; line-height:1.7; color:#333;
 padding:10px 12px; border:1px solid #d5e2ef;   /* tableBorder */
 text-align:left; vertical-align:top;
 ```

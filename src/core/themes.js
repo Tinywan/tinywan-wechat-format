@@ -105,9 +105,9 @@ export function buildTheme(p) {
 
     table: `border-collapse:collapse;width:100%;margin:0 0 20px 0;font-family:${FONT};`,
 
-    tableTh: `background:${c.primary};color:#ffffff;font-size:14px;font-weight:bold;line-height:1.7;letter-spacing:1px;padding:10px 12px;border:1px solid ${c.primary};text-align:left;font-family:${FONT};`,
+    tableTh: `background:${c.primary};color:#ffffff;font-size:16px;font-weight:bold;line-height:1.7;letter-spacing:1px;padding:10px 12px;border:1px solid ${c.primary};text-align:left;font-family:${FONT};`,
 
-    tableTd: `font-size:14px;line-height:1.7;color:${c.text};padding:10px 12px;border:1px solid ${p.tableBorder};text-align:left;vertical-align:top;font-family:${FONT};`,
+    tableTd: `font-size:16px;line-height:1.7;color:${c.text};padding:10px 12px;border:1px solid ${p.tableBorder};text-align:left;vertical-align:top;font-family:${FONT};`,
 
     code: {
       block: `background:${c.codeBg};border-radius:6px;padding:16px 14px;margin:0 0 20px 0;`,
