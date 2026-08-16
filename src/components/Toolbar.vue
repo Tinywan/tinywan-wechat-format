@@ -8,8 +8,14 @@
         <option v-for="t in themes" :key="t.id" :value="t.id">{{ t.name }}</option>
       </select>
       <div class="mode-switch">
-        <button :class="{ active: mode === 'pc' }" @click="$emit('mode-change', 'pc')">PC</button>
-        <button :class="{ active: mode === 'mobile' }" @click="$emit('mode-change', 'mobile')">手机</button>
+        <button :class="{ active: mode === 'pc' }" @click="$emit('mode-change', 'pc')" title="PC 预览">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+          PC
+        </button>
+        <button :class="{ active: mode === 'mobile' }" @click="$emit('mode-change', 'mobile')" title="手机预览">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"></rect><line x1="11" y1="18" x2="13" y2="18"></line></svg>
+          手机
+        </button>
       </div>
       <span class="status">{{ statusText }}</span>
     </div>
