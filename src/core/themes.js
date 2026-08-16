@@ -115,8 +115,8 @@ export function buildTheme(p) {
       dot: `display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;`,
       dots: { red: '#ff5f57', yellow: '#febc2e', green: '#28c840' },
       label: `font-size:11px;line-height:1;color:${p.codeLabel};font-family:${MONO};vertical-align:middle;`,
-      line: `font-size:13px;line-height:1.9;color:${c.codeText};font-family:${MONO};margin:0;`,
-      titleLine: `font-size:13px;line-height:1.9;color:${p.codeTitleColor};font-weight:bold;font-family:${MONO};margin:0;`,
+      line: `font-size:13px;line-height:1.9;color:${c.codeText};font-family:${MONO};word-break:break-all;margin:0;`,
+      titleLine: `font-size:13px;line-height:1.9;color:${p.codeTitleColor};font-weight:bold;font-family:${MONO};word-break:break-all;margin:0;`,
       tokens: tokenMap(p.syntax),
     },
 

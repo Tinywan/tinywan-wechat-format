@@ -26,6 +26,7 @@ const checks = [
   ['代码块深底', html.includes('background:#2a2f3a')],
   ['代码窗口圆点', html.includes('background:#ff5f57')],
   ['代码语言标签', html.includes('PHP')],
+  ['代码行自动折行', html.includes('word-break:break-all')],
   ['行内代码', html.includes('background:#e8edf2;color:#4a7fa5')],
   ['列表渐变圆点', html.includes('border-radius:50%;background:#2273b8;background:linear-gradient(135deg,#2273b8,#3a8ee6)')],
   ['列表悬挂缩进', html.includes('padding-left:16px;text-indent:-16px')],
