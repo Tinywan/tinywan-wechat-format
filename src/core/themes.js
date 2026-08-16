@@ -68,23 +68,23 @@ export function buildTheme(p) {
 
     container: `max-width:677px;margin:0 auto;padding:0 8px;`,
 
-    h1: `font-size:20px;font-weight:bold;text-align:center;color:${c.deep};line-height:2;margin:28px 0 24px 0;font-family:${FONT};`,
+    h1: `font-size:22px;font-weight:bold;text-align:center;color:${c.deep};line-height:2;margin:28px 0 24px 0;font-family:${FONT};`,
 
     h2: `font-size:20px;font-weight:bold;text-align:center;color:${c.deep};line-height:1.8;margin:40px 0 22px 0;font-family:${FONT};`,
 
     h2Chip: `display:inline-block;padding:0 10px;border-radius:6px;background:${c.primary};background:linear-gradient(135deg,${c.primary},${c.light});color:#ffffff;font-size:16px;line-height:1.7;margin-right:10px;vertical-align:middle;font-family:${FONT};`,
 
-    h3: `font-size:18px;font-weight:bold;text-align:left;color:${c.primary};line-height:1.6;border-left:4px solid ${c.primary};padding-left:10px;margin:0 0 16px 0;font-family:${FONT};`,
+    h3: `font-size:17px;font-weight:bold;text-align:left;color:${c.primary};line-height:1.6;border-left:4px solid ${c.primary};padding-left:10px;margin:0 0 16px 0;font-family:${FONT};`,
 
     h4: `font-size:16px;font-weight:bold;text-align:left;color:${c.primary};line-height:1.8;margin:0 0 14px 0;font-family:${FONT};`,
 
-    paragraph: `font-size:16px;line-height:1.8;letter-spacing:1px;color:${c.text};text-align:justify;margin:0 0 20px 0;font-family:${FONT};`,
+    paragraph: `font-size:16px;line-height:2;letter-spacing:1px;color:${c.text};text-align:justify;margin:0 0 20px 0;font-family:${FONT};`,
 
-    listItem: `font-size:16px;line-height:1.7;letter-spacing:1px;color:${c.text};text-align:justify;padding-left:16px;text-indent:-16px;margin:0 0 18px 0;font-family:${FONT};`,
+    listItem: `font-size:16px;line-height:2;letter-spacing:1px;color:${c.text};text-align:justify;padding-left:16px;text-indent:-16px;margin:0 0 18px 0;font-family:${FONT};`,
 
     listMarker: `color:${c.primary};font-weight:bold;`,
 
-    listBullet: `display:inline-block;width:8px;height:8px;border-radius:50%;background:${c.primary};background:linear-gradient(135deg,${c.primary},${c.light});margin-right:8px;vertical-align:2px;`,
+    listBullet: `color:${c.primary};font-weight:bold;margin-right:6px;`,
 
     blockquote: {
       box: `background:${c.quoteBg};border-left:4px solid ${c.primary};border-radius:4px;padding:14px 16px;margin:0 0 20px 0;`,
@@ -99,6 +99,7 @@ export function buildTheme(p) {
       img: `max-width:100%;display:block;margin:0 auto;`,
       imgMissing: `max-width:100%;display:block;margin:0 auto;outline:2px dashed #e06c75;outline-offset:4px;`,
       caption: `font-size:12px;line-height:1.8;color:${c.gray};text-align:center;margin:0 0 20px 0;font-family:${FONT};`,
+      captionBar: `color:${c.primary};`,
     },
 
     inlineCode: `background:${c.inlineCodeBg};color:${c.inlineCodeText};border-radius:3px;padding:1px 6px;font-size:13px;font-family:${MONO};`,

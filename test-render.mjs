@@ -17,7 +17,7 @@ fs.writeFileSync('test-output.html', html, 'utf-8')
 
 const checks = [
   ['容器 677px', html.includes('max-width:677px')],
-  ['h1 样式', html.includes('font-size:20px;font-weight:bold;text-align:center;color:#1f5fa6;line-height:2')],
+  ['h1 样式', html.includes('font-size:22px;font-weight:bold;text-align:center;color:#1f5fa6;line-height:2')],
   ['h2 渐变色块', html.includes('background:linear-gradient(135deg,#2273b8,#3a8ee6)')],
   ['色块序号 01', html.includes('<span style="display:inline-block;padding:0 10px;border-radius:6px') && html.includes('>01</span>')],
   ['h3 竖线', html.includes('border-left:4px solid #2273b8;padding-left:10px')],
@@ -28,7 +28,8 @@ const checks = [
   ['代码语言标签', html.includes('PHP')],
   ['代码行自动折行', html.includes('word-break:break-all')],
   ['行内代码', html.includes('background:#e8edf2;color:#4a7fa5')],
-  ['列表渐变圆点', html.includes('border-radius:50%;background:#2273b8;background:linear-gradient(135deg,#2273b8,#3a8ee6)')],
+  ['列表 ▸ 标记', html.includes('<span style="color:#2273b8;font-weight:bold;margin-right:6px;">▸</span>')],
+  ['图注 ▍ 前缀', html.includes('<span style="color:#2273b8;">▍</span>图 1 ·')],
   ['列表悬挂缩进', html.includes('padding-left:16px;text-indent:-16px')],
   ['图注格式', html.includes('图 1 ·')],
   ['无 ul/ol 标签', !/<\/?(ul|ol)[\s>]/.test(html)],

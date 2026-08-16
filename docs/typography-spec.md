@@ -41,9 +41,9 @@ padding: 0 8px;
 
 | 级别 | 字号 | 行高 | 颜色 | 对齐 | 其他 |
 |---|---|---|---|---|---|
-| h1 | 20px | 2 | `deep` | 居中 | margin `28px 0 24px` |
+| h1 | 22px | 2 | `deep` | 居中 | margin `28px 0 24px` |
 | h2 | 20px | 1.8 | `deep` | 居中 | margin `40px 0 22px`，支持数字色块 |
-| h3 | 18px | 1.6 | `primary` | 左 | 左侧 4px `primary` 竖条，`padding-left:10px`，margin `0 0 16px` |
+| h3 | 17px | 1.6 | `primary` | 左 | 左侧 4px `primary` 竖条，`padding-left:10px`，margin `0 0 16px` |
 | h4 | 16px | 1.8 | `primary` | 左 | margin `0 0 14px` |
 
 所有标题 `font-weight:bold`。
@@ -67,7 +67,7 @@ margin-right:10px; vertical-align:middle;
 ## 5. 正文段落
 
 ```css
-font-size:16px; line-height:1.8; letter-spacing:1px;
+font-size:16px; line-height:2; letter-spacing:1px;
 color:#333; text-align:justify;
 margin:0 0 20px 0;
 ```
@@ -101,19 +101,17 @@ font-size:13px; font-family:Consolas,Menlo,monospace;
 微信不保留 `ul/ol`，统一输出为 `<p>` + 标记。列表项公共样式：
 
 ```css
-font-size:16px; line-height:1.7; letter-spacing:1px; color:#333;
+font-size:16px; line-height:2; letter-spacing:1px; color:#333;
 text-align:justify;
 padding-left:16px; text-indent:-16px;   /* 悬挂缩进：折行后文字对齐首行文字 */
 margin:0 0 18px 0;
 ```
 
-### 无序列表：渐变圆点
+### 无序列表：▸ 字符标记
 
 ```css
-display:inline-block; width:8px; height:8px; border-radius:50%;
-background:#2273b8;                                      /* 纯色降级 */
-background:linear-gradient(135deg, #2273b8, #3a8ee6);
-margin-right:8px; vertical-align:2px;
+color:#2273b8; font-weight:bold; margin-right:6px;
+/* 内容：▸ */
 ```
 
 ### 有序列表：主题色数字
@@ -170,7 +168,7 @@ text-align:center; margin:0 0 20px 0;
 规则：
 
 1. **base64 内嵌**：图片按文件名匹配用户上传的本地文件，命中则替换为 base64（微信不加载外链图）；
-2. **图注自动生成**：`图 N · alt`（alt 已含 `图 N ·` 前缀则不重复编号），N 为全文递增序号；alt 为空时取文件名；
+2. **图注自动生成**：`图 N · alt`（alt 已含 `图 N ·` 前缀则不重复编号），N 为全文递增序号；alt 为空时取文件名；图注前带 `primary` 色 `▍` 竖条；
 3. **未匹配警示**：未命中的图片加红色虚线外框（`outline:2px dashed #e06c75`）并计入顶部警告条。
 
 ---
