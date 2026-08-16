@@ -17,7 +17,7 @@ fs.writeFileSync('test-output.html', html, 'utf-8')
 
 const checks = [
   ['容器 677px', html.includes('max-width:677px')],
-  ['h1 样式', html.includes('font-size:22px;font-weight:bold;text-align:center;color:#1f5fa6;line-height:2')],
+  ['h1 样式', html.includes('font-size:20px;font-weight:bold;text-align:center;color:#1f5fa6;line-height:2')],
   ['h2 渐变色块', html.includes('background:linear-gradient(135deg,#2273b8,#3a8ee6)')],
   ['色块序号 01', html.includes('<span style="display:inline-block;padding:0 10px;border-radius:6px') && html.includes('>01</span>')],
   ['h3 竖线', html.includes('border-left:4px solid #2273b8;padding-left:10px')],

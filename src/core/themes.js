@@ -68,13 +68,13 @@ export function buildTheme(p) {
 
     container: `max-width:677px;margin:0 auto;padding:0 8px;`,
 
-    h1: `font-size:22px;font-weight:bold;text-align:center;color:${c.deep};line-height:2;margin:28px 0 24px 0;font-family:${FONT};`,
+    h1: `font-size:20px;font-weight:bold;text-align:center;color:${c.deep};line-height:2;margin:28px 0 24px 0;font-family:${FONT};`,
 
     h2: `font-size:20px;font-weight:bold;text-align:center;color:${c.deep};line-height:1.8;margin:40px 0 22px 0;font-family:${FONT};`,
 
     h2Chip: `display:inline-block;padding:0 10px;border-radius:6px;background:${c.primary};background:linear-gradient(135deg,${c.primary},${c.light});color:#ffffff;font-size:16px;line-height:1.7;margin-right:10px;vertical-align:middle;font-family:${FONT};`,
 
-    h3: `font-size:17px;font-weight:bold;text-align:left;color:${c.primary};line-height:1.6;border-left:4px solid ${c.primary};padding-left:10px;margin:0 0 16px 0;font-family:${FONT};`,
+    h3: `font-size:18px;font-weight:bold;text-align:left;color:${c.primary};line-height:1.6;border-left:4px solid ${c.primary};padding-left:10px;margin:0 0 16px 0;font-family:${FONT};`,
 
     h4: `font-size:16px;font-weight:bold;text-align:left;color:${c.primary};line-height:1.8;margin:0 0 14px 0;font-family:${FONT};`,
 
