@@ -95,6 +95,42 @@ body {
   color: #1b365d;
 }
 
+.toolbar .mode-switch {
+  display: flex;
+  gap: 4px;
+  background: #e8e6dc;
+  border-radius: 8px;
+  padding: 2px;
+}
+
+.toolbar .mode-switch button {
+  padding: 4px 12px;
+  border-radius: 6px;
+  background: transparent;
+  color: #6b6a64;
+}
+
+.toolbar .mode-switch button:hover:not(:disabled) {
+  background: #dfddd0;
+}
+
+.toolbar .mode-switch button.active {
+  background: #1b365d;
+  color: #fff;
+}
+
+.preview-scroll.mobile {
+  padding: 28px 12px 56px;
+}
+
+.preview-scroll.mobile .preview-sheet {
+  max-width: 390px;
+  border: 10px solid #141413;
+  border-radius: 28px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+  padding: 4px 6px 24px;
+}
+
 .panes {
   flex: 1;
   display: flex;

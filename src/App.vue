@@ -6,10 +6,12 @@
       :has-html="!!html"
       :theme-id="themeId"
       :themes="themes"
+      :mode="previewMode"
       @open-md="editor.openMd()"
       @pick-images="editor.pickImages()"
       @load-sample="loadSample"
       @theme-change="onThemeChange"
+      @mode-change="onModeChange"
       @copy-rich="copyRich"
       @copy-html="copyHtmlSource"
       @export="exportHtml"
@@ -22,7 +24,7 @@
         @md-file="onMdFile"
         @image-files="onImageFiles"
       />
-      <PreviewPane ref="preview" :html="html" :warnings="warnings" />
+      <PreviewPane ref="preview" :html="html" :warnings="warnings" :mode="previewMode" />
     </div>
     <ToastTip ref="toast" />
   </div>
@@ -55,6 +57,11 @@ const onThemeChange = (id) => {
   themeId.value = id
   const name = themes.find((t) => t.id === id)?.name || id
   toast.value.show(`已切换主题：${name}`)
+}
+
+const previewMode = ref('pc')
+const onModeChange = (m) => {
+  previewMode.value = m
 }
 
 const onMdFile = async (file) => {

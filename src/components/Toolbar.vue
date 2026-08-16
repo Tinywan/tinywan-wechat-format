@@ -7,6 +7,10 @@
       <select class="theme-select" :value="themeId" @change="$emit('theme-change', $event.target.value)">
         <option v-for="t in themes" :key="t.id" :value="t.id">{{ t.name }}</option>
       </select>
+      <div class="mode-switch">
+        <button :class="{ active: mode === 'pc' }" @click="$emit('mode-change', 'pc')">PC</button>
+        <button :class="{ active: mode === 'mobile' }" @click="$emit('mode-change', 'mobile')">手机</button>
+      </div>
       <span class="status">{{ statusText }}</span>
     </div>
     <div class="toolbar-right">
@@ -25,6 +29,7 @@ defineProps({
   hasHtml: { type: Boolean, default: false },
   themeId: { type: String, default: 'blue-tech' },
   themes: { type: Array, default: () => [] },
+  mode: { type: String, default: 'pc' },
 })
-defineEmits(['open-md', 'pick-images', 'load-sample', 'theme-change', 'copy-rich', 'copy-html', 'export', 'clear'])
+defineEmits(['open-md', 'pick-images', 'load-sample', 'theme-change', 'mode-change', 'copy-rich', 'copy-html', 'export', 'clear'])
 </script>
