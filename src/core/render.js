@@ -103,7 +103,7 @@ rules.list_item_open = (tokens, idx, opts, env) => {
     const n = env.listCounters[env.listCounters.length - 1]
     env.pendingMarker = `${indent}<span style="${th(env).listMarker}">${n}.</span>&nbsp;`
   } else {
-    env.pendingMarker = `${indent}<span style="${th(env).listBullet}">▸</span>&nbsp;`
+    env.pendingMarker = `${indent}<span style="${th(env).listBullet}"></span>`
   }
   return ''
 }
@@ -195,7 +195,7 @@ rules.image = (tokens, idx, opts, env) => {
 
   return (
     `<p style="${t.image.figure}"><img src="${esc(resolved.src)}" alt="${esc(alt)}" style="${imgStyle}"></p>` +
-    `<p style="${t.image.caption}"><span style="${t.image.captionBar}">▍</span>${esc(captionText)}</p>`
+    `<p style="${t.image.caption}">${esc(captionText)}</p>`
   )
 }
 
