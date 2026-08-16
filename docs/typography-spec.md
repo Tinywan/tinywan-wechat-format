@@ -91,7 +91,7 @@ margin:0 0 20px 0;
 ```css
 background:#e8edf2; color:#4a7fa5;   /* blue-tech 取值 */
 border-radius:3px; padding:1px 6px;
-font-size:13px; font-family:Consolas,Menlo,monospace;
+font-size:15px; font-family:Consolas,Menlo,monospace;
 ```
 
 ---

@@ -101,7 +101,7 @@ export function buildTheme(p) {
       caption: `font-size:12px;line-height:1.8;color:${c.gray};text-align:center;margin:0 0 20px 0;font-family:${FONT};`,
     },
 
-    inlineCode: `background:${c.inlineCodeBg};color:${c.inlineCodeText};border-radius:3px;padding:1px 6px;font-size:13px;font-family:${MONO};`,
+    inlineCode: `background:${c.inlineCodeBg};color:${c.inlineCodeText};border-radius:3px;padding:1px 6px;font-size:15px;font-family:${MONO};`,
 
     table: `border-collapse:collapse;width:100%;margin:0 0 20px 0;font-family:${FONT};`,
 
