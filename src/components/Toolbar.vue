@@ -1,9 +1,12 @@
 <template>
   <div class="toolbar">
-    <div class="toolbar-left">
-      <button @click="$emit('open-md')">打开 .md</button>
-      <button @click="$emit('pick-images')">选择图片（{{ imageCount }}）</button>
-      <button @click="$emit('load-sample')">示例文章</button>
+    <div class="toolbar-group">
+      <button class="ghost" @click="$emit('open-md')">打开 .md</button>
+      <button class="ghost" @click="$emit('pick-images')">图片{{ imageCount ? ' · ' + imageCount : '' }}</button>
+      <button class="ghost" @click="$emit('load-sample')">示例</button>
+    </div>
+    <span class="sep"></span>
+    <div class="toolbar-group">
       <select class="theme-select" :value="themeId" @change="$emit('theme-change', $event.target.value)">
         <option v-for="t in themes" :key="t.id" :value="t.id">{{ t.name }}</option>
       </select>
@@ -17,14 +20,15 @@
           手机
         </button>
       </div>
-      <span class="status">{{ statusText }}</span>
     </div>
-    <div class="toolbar-right">
+    <span class="sep"></span>
+    <div class="toolbar-group">
       <button class="primary" :disabled="!hasHtml" @click="$emit('copy-rich')">复制富文本</button>
-      <button :disabled="!hasHtml" @click="$emit('copy-html')">复制 HTML</button>
+      <button :disabled="!hasHtml" @click="$emit('copy-html')">HTML</button>
       <button :disabled="!hasHtml" @click="$emit('export')">导出</button>
-      <button :disabled="!hasHtml" @click="$emit('clear')">清空</button>
+      <button class="ghost" :disabled="!hasHtml" @click="$emit('clear')">清空</button>
     </div>
+    <span v-if="statusText" class="status">{{ statusText }}</span>
   </div>
 </template>
 

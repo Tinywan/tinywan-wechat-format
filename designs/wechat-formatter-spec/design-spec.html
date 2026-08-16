@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MD → 公众号排版工具 · 设计规范 v1.0</title>
+<style>
+  :root {
+    --parchment: #f5f4ed;
+    --ivory: #faf9f5;
+    --sand: #e8e6dc;
+    --sand-deep: #dfddd0;
+    --ink: #1b365d;
+    --ink-bright: #2d5a8a;
+    --olive: #504e49;
+    --stone: #6b6a64;
+    --dark: #141413;
+    --serif: Charter, Georgia, 'Songti SC', 'SimSun', serif;
+    --sans: -apple-system, 'HarmonyOS Sans', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    --mono: 'JetBrains Mono', Consolas, Menlo, monospace;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--parchment);
+    color: var(--olive);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.75;
+  }
+  .paper {
+    max-width: 900px;
+    margin: 40px auto 80px;
+    background: var(--ivory);
+    border-radius: 12px;
+    box-shadow: 0 0 0 1px var(--sand), 0 4px 24px rgba(0,0,0,0.05);
+    padding: 64px 72px 72px;
+  }
+  @media (max-width: 960px) { .paper { margin: 0; border-radius: 0; padding: 40px 20px 56px; } }
+
+  /* ---------- 排版 ---------- */
+  h1 {
+    font-family: var(--serif);
+    font-size: 34px;
+    font-weight: 600;
+    color: var(--dark);
+    line-height: 1.3;
+    margin: 0 0 8px;
+    letter-spacing: 1px;
+  }
+  .masthead-meta {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    color: var(--stone);
+    font-size: 13px;
+    margin-bottom: 40px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--sand);
+  }
+  .masthead-meta .tag {
+    background: var(--ink);
+    color: #fff;
+    border-radius: 6px;
+    padding: 2px 10px;
+    font-size: 12px;
+  }
+  h2 {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 56px 0 20px;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+  h2 .no {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--sand-deep);
+    color: #b9b6a6;
+    letter-spacing: 2px;
+  }
+  h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--olive);
+    margin: 32px 0 12px;
+  }
+  h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 22px 0 8px;
+  }
+  p { margin: 0 0 14px; }
+  .muted { color: var(--stone); font-size: 13px; }
+  code {
+    font-family: var(--mono);
+    font-size: 12px;
+    background: var(--sand);
+    border-radius: 4px;
+    padding: 1px 6px;
+    color: var(--ink);
+  }
+
+  /* ---------- 色板 ---------- */
+  .swatches {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 16px 0 8px;
+  }
+  @media (max-width: 720px) { .swatches { grid-template-columns: repeat(2, 1fr); } }
+  .swatch {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px var(--sand);
+    background: #fff;
+  }
+  .swatch .chip { height: 52px; }
+  .swatch .meta {
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .swatch .name { font-size: 12px; font-weight: 700; color: var(--olive); }
+  .swatch .hex { font-family: var(--mono); font-size: 11px; color: var(--stone); }
+
+  /* ---------- 表格 ---------- */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0 8px;
+    font-size: 13px;
+  }
+  th {
+    background: var(--ink);
+    color: #fff;
+    text-align: left;
+    font-weight: 600;
+    padding: 8px 12px;
+    border: 1px solid var(--ink);
+  }
+  td {
+    padding: 8px 12px;
+    border: 1px solid var(--sand);
+    vertical-align: top;
+  }
+  td .mono { font-family: var(--mono); font-size: 12px; color: var(--ink); }
+
+  /* ---------- 组件样张 ---------- */
+  .sample-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    background: var(--parchment);
+    border-radius: 8px;
+    padding: 16px;
+    margin: 12px 0;
+  }
+  .btn {
+    padding: 6px 14px;
+    border: none;
+    border-radius: 8px;
+    background: var(--sand);
+    color: var(--olive);
+    font-size: 13px;
+    font-family: var(--sans);
+  }
+  .btn.primary { background: var(--ink); color: #fff; font-weight: 700; }
+  .seg {
+    display: flex;
+    gap: 4px;
+    background: var(--sand);
+    border-radius: 8px;
+    padding: 2px;
+  }
+  .seg button {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 12px;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--stone);
+    font-size: 13px;
+    font-family: var(--sans);
+  }
+  .seg button.active { background: var(--ink); color: #fff; }
+  .toast-sample {
+    background: var(--dark);
+    color: #fff;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 13px;
+  }
+  .warn-sample {
+    background: #f3ead3;
+    color: #7a6a45;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+
+  /* ---------- 文章样张 ---------- */
+  .article-sample {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 0 1px var(--sand);
+    padding: 28px 32px;
+    margin: 12px 0;
+  }
+
+  /* ---------- 预览模式图示 ---------- */
+  .frames {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    margin: 16px 0;
+  }
+  .frame-pc {
+    width: 300px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 0 1px var(--sand), 0 4px 24px rgba(0,0,0,0.05);
+    padding: 14px;
+  }
+  .frame-mobile {
+    width: 150px;
+    background: #fff;
+    border: 6px solid var(--dark);
+    border-radius: 20px;
+    padding: 10px 6px;
+    overflow: hidden;
+  }
+  .frame-line { height: 6px; border-radius: 3px; background: var(--sand); margin: 6px 0; }
+  .frame-line.short { width: 60%; }
+  .frame-line.ink { background: var(--ink); width: 40%; }
+  .frame-cap { font-size: 12px; color: var(--stone); margin-top: 10px; text-align: center; }
+
+  /* ---------- 编辑器布局图（双纸悬浮） ---------- */
+  .layout-diagram {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px var(--sand);
+    margin: 16px 0;
+    font-size: 12px;
+    background: var(--parchment);
+    padding: 16px 16px 12px;
+  }
+  .ld-toolbar {
+    background: var(--ivory);
+    border-radius: 10px;
+    box-shadow: 0 0 0 1px var(--sand), 0 4px 16px rgba(0,0,0,0.05);
+    padding: 7px 12px;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-wrap: wrap;
+    color: var(--stone);
+    width: max-content;
+    max-width: 100%;
+    margin: 0 auto 14px;
+  }
+  .ld-btn {
+    background: var(--sand);
+    border-radius: 6px;
+    padding: 3px 10px;
+    color: var(--olive);
+  }
+  .ld-btn.ghost { background: transparent; color: var(--stone); }
+  .ld-btn.primary { background: var(--ink); color: #fff; }
+  .ld-sep { width: 1px; height: 14px; background: var(--sand); }
+  .ld-status { color: var(--stone); opacity: 0.8; margin-left: 2px; }
+  .ld-body { display: flex; gap: 12px; min-height: 220px; }
+  .ld-editor {
+    flex: 1;
+    background: var(--ivory);
+    border-radius: 10px;
+    box-shadow: 0 0 0 1px var(--sand), 0 4px 16px rgba(0,0,0,0.05);
+    padding: 14px 16px;
+    color: var(--stone);
+    font-family: var(--mono);
+    line-height: 1.9;
+  }
+  .ld-preview {
+    flex: 1;
+    background: transparent;
+    display: flex;
+    min-width: 0;
+  }
+  .ld-sheet {
+    width: 100%;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 0 1px var(--sand), 0 4px 16px rgba(0,0,0,0.05);
+    padding: 14px;
+  }
+  .ld-cap { margin-top: 10px; padding: 8px 14px; background: var(--ivory); border-radius: 8px; box-shadow: 0 0 0 1px var(--sand); color: var(--stone); }
+
+  ul.plain { margin: 0 0 14px; padding-left: 20px; }
+  ul.plain li { margin-bottom: 6px; }
+
+  footer {
+    margin-top: 64px;
+    padding-top: 20px;
+    border-top: 1px solid var(--sand);
+    color: var(--stone);
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  @media print {
+    body { background: #fff; }
+    .paper { box-shadow: none; margin: 0; max-width: none; padding: 24px 32px; }
+    h2 { break-after: avoid; }
+    .swatch, .sample-row, .article-sample, table { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="paper">
+
+  <h1>MD → 公众号排版工具 · 设计规范</h1>
+  <div class="masthead-meta">
+    <span class="tag">v1.0</span>
+    <span>tinywan-wechat-format</span>
+    <span>2026-08-16</span>
+    <span>UI 参考 Kami · 文章排版面向微信公众号</span>
+  </div>
+
+  <h2><span class="no">01</span>产品定位</h2>
+  <p>把 Markdown 一键排版成「公众号兼容的全内联样式 HTML」的在线工具：左侧编辑、右侧实时预览，复制富文本后直接粘贴进公众号编辑器。三条硬约束决定全部设计：</p>
+  <ul class="plain">
+    <li><strong>微信兼容</strong>——输出只允许内联 style，无 class、无 &lt;style&gt; 块，任何元素不依赖继承；</li>
+    <li><strong>多主题</strong>——同一份 Markdown 可切换 5 套文章主题，色板集中在 <code>src/core/themes.js</code> 工厂生成；</li>
+    <li><strong>本地图片</strong>——按文件名匹配并转 base64 内嵌，粘贴后由公众号自动转存。</li>
+  </ul>
+
+  <h2><span class="no">02</span>UI 设计语言（编辑器）</h2>
+  <p>编辑器界面参考 Kami 的纸感体系：羊皮纸画布上悬浮象牙白纸张，唯一强调色为墨蓝，中性色全部带暖调，无硬投影。</p>
+
+  <h3>色彩</h3>
+  <div class="swatches">
+    <div class="swatch"><div class="chip" style="background:#f5f4ed;"></div><div class="meta"><span class="name">羊皮纸 · 画布</span><span class="hex">#f5f4ed</span></div></div>
+    <div class="swatch"><div class="chip" style="background:#faf9f5;"></div><div class="meta"><span class="name">象牙 · 面板</span><span class="hex">#FAF9F5</span></div></div>
+    <div class="swatch"><div class="chip" style="background:#e8e6dc;"></div><div class="meta"><span class="name">暖沙 · 交互面</span><span class="hex">#E8E6DC</span></div></div>
+    <div class="swatch"><div class="chip" style="background:#1b365d;"></div><div class="meta"><span class="name">墨蓝 · 强调</span><span class="hex">#1B365D</span></div></div>
+    <div class="swatch"><div class="chip" style="background:#2d5a8a;"></div><div class="meta"><span class="name">墨蓝亮 · 悬停</span><span class="hex">#2D5A8A</span></div></div>
+    <div class="swatch"><div class="chip" style="background:#504e49;"></div><div class="meta"><span class="name">橄榄 · 正文</span><span class="hex">#504E49</span></div></div>
+    <div class="swatch"><div class="chip" style="background:#6b6a64;"></div><div class="meta"><span class="name">石灰 · 次级文字</span><span class="hex">#6B6A64</span></div></div>
+    <div class="swatch"><div class="chip" style="background:#141413;"></div><div class="meta"><span class="name">深黑 · Toast/手机框</span><span class="hex">#141413</span></div></div>
+  </div>
+
+  <h3>圆角 · 阴影 · 字体</h3>
+  <table>
+    <thead><tr><th>Token</th><th>取值</th><th>用途</th></tr></thead>
+    <tbody>
+      <tr><td>radius-sm</td><td class="mono">8px</td><td>按钮、下拉、分段控件、Toast</td></tr>
+      <tr><td>radius-lg</td><td class="mono">12px</td><td>预览纸张容器</td></tr>
+      <tr><td>radius-phone</td><td class="mono">28px</td><td>手机预览边框</td></tr>
+      <tr><td>ring</td><td class="mono">0 0 0 1px #E8E6DC</td><td>以环代描边，无硬投影</td></tr>
+      <tr><td>whisper</td><td class="mono">0 4px 24px rgba(0,0,0,.05)</td><td>纸张悬浮感</td></tr>
+      <tr><td>font-ui</td><td class="mono">-apple-system, PingFang SC…</td><td>界面正文</td></tr>
+      <tr><td>font-display</td><td class="mono">Charter, Songti SC, serif</td><td>标题 / 空状态</td></tr>
+      <tr><td>font-mono</td><td class="mono">JetBrains Mono, Consolas</td><td>编辑区 / 代码</td></tr>
+    </tbody>
+  </table>
+
+  <h3>组件样张</h3>
+  <div class="sample-row">
+    <button class="btn primary">复制富文本</button>
+    <button class="btn">复制 HTML</button>
+    <button class="btn">导出</button>
+    <div class="seg">
+      <button class="active">PC</button>
+      <button>手机</button>
+    </div>
+    <span class="toast-sample">已复制富文本</span>
+    <span class="warn-sample">2 张图片未匹配</span>
+  </div>
+  <p class="muted">主按钮墨蓝填充、次按钮暖沙无边框；分段控件激活态墨蓝白字；Toast 深黑、警告条暖黄 <code>#F3EAD3</code>。</p>
+
+  <h2><span class="no">03</span>编辑器布局</h2>
+  <p>「双纸悬浮」：羊皮纸画布上不设任何硬分隔，工具条收拢为一条居中悬浮胶囊，左右各悬浮一张纸 —— 左侧象牙白编辑纸、右侧白色预览纸，画布本身成为唯一的视觉容器。</p>
+
+  <div class="layout-diagram">
+    <div class="ld-toolbar">
+      <span class="ld-btn ghost">打开 .md</span>
+      <span class="ld-btn ghost">图片 · 3</span>
+      <span class="ld-btn ghost">示例</span>
+      <span class="ld-sep"></span>
+      <span class="ld-btn">主题 ▾</span>
+      <span class="ld-btn">PC | 手机</span>
+      <span class="ld-sep"></span>
+      <span class="ld-btn primary">复制富文本</span>
+      <span class="ld-btn">HTML</span>
+      <span class="ld-btn">导出</span>
+      <span class="ld-btn ghost">清空</span>
+      <span class="ld-status">1234 字 · 3 张图片</span>
+    </div>
+    <div class="ld-body">
+      <div class="ld-editor">
+        # 标题<br>
+        正文 Markdown …<br>
+        &gt; 引用提示框<br>
+        ```php 代码块<br>
+        <br>
+        拖入 .md / 图片亦可直接载入
+      </div>
+      <div class="ld-preview">
+        <div class="ld-sheet">
+          <div class="frame-line ink"></div>
+          <div class="frame-line"></div>
+          <div class="frame-line"></div>
+          <div class="frame-line short"></div>
+        </div>
+      </div>
+    </div>
+    <div class="ld-cap">结构：悬浮工具胶囊（输入 ｜ 主题与模式 ｜ 输出，细线分组）｜左·编辑纸（象牙白）｜右·预览纸（纯白铺满右栏，正文 677px 居中）</div>
+  </div>
+
+  <h3>布局尺寸</h3>
+  <table>
+    <thead><tr><th>区域</th><th>规则</th></tr></thead>
+    <tbody>
+      <tr><td>悬浮工具条</td><td>居中胶囊：象牙底、12px 圆角、ring + whisper；上边距 16，内边距 8×12；三组按钮以 1px 暖沙竖线分隔；窄屏自动换行</td></tr>
+      <tr><td>按钮分级</td><td>幽灵按钮（打开/图片/示例/清空）透明底石灰字；常规按钮暖沙底；主按钮「复制富文本」墨蓝填充</td></tr>
+      <tr><td>双纸区</td><td>flex 1:1 等分，间距 20px，画布内边距 20；两纸均 12px 圆角 + ring + whisper，无硬分隔线</td></tr>
+      <tr><td>编辑纸</td><td>象牙白 <code>#FAF9F5</code>，内边距 24×28，JetBrains Mono 13/1.7</td></tr>
+      <tr><td>预览纸</td><td>PC：铺满右栏（width 100%），正文由输出容器 677px 居中；手机：390px 手机框居中（10px 深黑边框、28px 圆角、overflow 裁切）</td></tr>
+      <tr><td>警告卡片</td><td>预览栏顶部圆角小卡（暖黄 <code>#F3EAD3</code>），仅在有未匹配图片时出现</td></tr>
+      <tr><td>空状态</td><td>预览区垂直居中偏上（margin-top 96），衬线主句 + 无衬线小字说明</td></tr>
+      <tr><td>Toast</td><td>视口底部 32 居中，深黑 8px 圆角，进出场 0.25s 淡入上浮</td></tr>
+    </tbody>
+  </table>
+
+  <h3>交互状态</h3>
+  <ul class="plain">
+    <li>按钮悬停：常规暖沙加深 <code>#DFDDD0</code>；幽灵按钮悬停浅暖沙底；主按钮悬停墨蓝亮 <code>#2D5A8A</code>；禁用 45% 透明；</li>
+    <li>编辑 300ms 防抖后重渲染；主题/模式切换即时生效并持久化（localStorage）；</li>
+    <li>拖拽：.md 与图片文件可直接拖入编辑纸，按类型分发；</li>
+    <li>演进方向（未实现）：窄屏双纸改上下堆叠、可拖拽分栏比例。</li>
+  </ul>
+
+  <h2><span class="no">04</span>文章排版系统（输出侧）</h2>
+  <p>输出面向公众号正文：白底、677px 容器、全内联样式。完整逐元素规范见 <code>docs/typography-spec.md</code>（15 章：元素取值、主题色板、兼容清单）。字号节奏如下：</p>
+  <table>
+    <thead><tr><th>元素</th><th>字号 / 行高</th><th>特征</th></tr></thead>
+    <tbody>
+      <tr><td>h1</td><td class="mono">20 / 2</td><td>居中，主题深色</td></tr>
+      <tr><td>h2</td><td class="mono">20 / 1.8</td><td>居中 + 渐变色块序号（01–NN）</td></tr>
+      <tr><td>h3</td><td class="mono">18 / 1.6</td><td>左 4px 主题竖线</td></tr>
+      <tr><td>正文</td><td class="mono">16 / 1.8</td><td>字距 1px，两端对齐</td></tr>
+      <tr><td>列表项</td><td class="mono">16 / 1.7</td><td>渐变圆点 + 悬挂缩进 16px</td></tr>
+      <tr><td>引用块</td><td class="mono">15 / 1.9</td><td>主题浅底 + 左竖线；「——」开头为签名小字 13</td></tr>
+      <tr><td>代码行</td><td class="mono">13 / 1.9</td><td>深色窗口 + 三圆点 + 语言标签；word-break 折行</td></tr>
+      <tr><td>表格</td><td class="mono">14 / 1.7</td><td>表头主题底白字，单元格主题浅边框</td></tr>
+      <tr><td>图注</td><td class="mono">12 / 1.8</td><td>灰字居中，「图 N · 说明」自动编号</td></tr>
+    </tbody>
+  </table>
+  <p class="muted">以下为逐元素完整规则（默认主题「蓝色科技」取值），与 <code>docs/typography-spec.md</code> 同源。</p>
+
+  <h3>逐元素详解</h3>
+
+  <h4>容器与字体</h4>
+  <ul class="plain">
+    <li>全文包裹 <code>&lt;section&gt;</code>：<code>max-width:677px; margin:0 auto; padding:0 8px</code>；</li>
+    <li>正文字体栈（每个文字元素显式声明）：<code>'HarmonyOS Sans','PingFang SC','MiSans','Source Han Sans SC','Microsoft YaHei',-apple-system,sans-serif</code>；</li>
+    <li>等宽字体栈（代码）：<code>Consolas,Menlo,monospace</code>。</li>
+  </ul>
+
+  <h4>标题 h1–h4</h4>
+  <table>
+    <thead><tr><th>级别</th><th>样式规则</th></tr></thead>
+    <tbody>
+      <tr><td>h1</td><td>20px / line-height 2 / 居中 / 主题深色 <code>#1f5fa6</code>，margin 28·0·24</td></tr>
+      <tr><td>h2</td><td>20px / 1.8 / 居中 / 深色，margin 40·0·22；以数字开头时（<code>1、</code> <code>2.</code>）抽出为渐变色块：16px 白字、圆角 6、padding 0 10、<code>linear-gradient(135deg, 主色, 亮色)</code> + 纯色降级</td></tr>
+      <tr><td>h3</td><td>18px / 1.6 / 左对齐 / 主色字 + 左 4px 主色竖条、padding-left 10，margin 0·0·16</td></tr>
+      <tr><td>h4</td><td>16px / 1.8 / 左对齐 / 主色字，margin 0·0·14</td></tr>
+    </tbody>
+  </table>
+
+  <h4>正文与行内元素</h4>
+  <table>
+    <thead><tr><th>Markdown</th><th>输出</th></tr></thead>
+    <tbody>
+      <tr><td>段落</td><td>16px / 1.8 / 字距 1px / <code>text-align:justify</code>，margin 0·0·20</td></tr>
+      <tr><td><code>**加粗**</code></td><td><code>&lt;strong&gt;</code>；引用块内着主色</td></tr>
+      <tr><td><code>*斜体*</code></td><td><code>&lt;em&gt;</code> 原样</td></tr>
+      <tr><td><code>[链接](url)</code></td><td>主色加粗 <code>&lt;span&gt;</code>（公众号外链无效，丢弃 href）</td></tr>
+      <tr><td>换行</td><td>软 / 硬换行均输出 <code>&lt;br&gt;</code></td></tr>
+      <tr><td><code>`行内代码`</code></td><td><code>#e8edf2</code> 底 / <code>#4a7fa5</code> 字、圆角 3、padding 1·6、13px 等宽</td></tr>
+      <tr><td><code>---</code></td><td>60px 宽、3px 高、居中渐变条（圆角 2，margin 32 auto）</td></tr>
+    </tbody>
+  </table>
+
+  <h4>列表（无 ul/ol，段落 + 标记）</h4>
+  <ul class="plain">
+    <li>列表项公共：16px / 1.7 / 字距 1px / 两端对齐，<code>padding-left:16px; text-indent:-16px</code> 悬挂缩进，margin 0·0·18；</li>
+    <li>无序：8px 渐变圆点（主色→亮色 135°，纯色降级），<code>margin-right:8px; vertical-align:2px</code>；</li>
+    <li>有序：主色加粗 <code>N.</code> + 不换行空格；渲染器维护计数器，嵌套各层独立计数；</li>
+    <li>嵌套缩进：每深一层前缀 4 个 <code>\u00a0</code>。</li>
+  </ul>
+
+  <h4>引用块（输出为 section 卡片）</h4>
+  <ul class="plain">
+    <li>外框：浅底 <code>#eaf2fa</code> + 左 4px 主色竖线 + 圆角 4 + padding 14·16，margin 0·0·20；</li>
+    <li>文字：15px / 1.9 / 字距 1px；非末段 margin 0·0·8 留缝，末段 margin 0；</li>
+    <li>以 <code>——</code> 开头的段落判为签名行：13px、灰字 <code>#8a94a0</code>；</li>
+    <li>引用内加粗着主色。</li>
+  </ul>
+
+  <h4>图片与图注</h4>
+  <ul class="plain">
+    <li>图按文件名匹配本地文件 → base64 内嵌（微信不加载外链图）；未匹配加红色虚线外框并计入警告；</li>
+    <li>图：<code>max-width:100%; display:block; margin:0 auto</code>，容器居中；</li>
+    <li>图注：自动生成「图 N · alt」（alt 已带编号则不重复；alt 空取文件名），12px 灰字居中，margin 0·0·20。</li>
+  </ul>
+
+  <h4>代码块（窗口风格）</h4>
+  <ul class="plain">
+    <li>外框：深底 <code>#2a2f3a</code>、圆角 6、padding 16·14，margin 0·0·20；</li>
+    <li>头部（有语言/标题时）：macOS 三圆点（<code>#ff5f57/#febc2e/#28c840</code>）+ 11px 标签 <code>LANG · 标题</code>（如 <code>```php app.php</code>）；</li>
+    <li>代码行：13px / 1.9 等宽，空格硬化 <code>\u00a0</code>，<code>word-break:break-all</code> 长行折行；</li>
+    <li>首行整行注释 → 标题行：加粗、着 <code>#c678dd</code>；</li>
+    <li>语法高亮：hljs → class 转内联色（深色底用 One Dark，绿意主题浅色底用 GitHub Light）。</li>
+  </ul>
+
+  <h4>表格</h4>
+  <ul class="plain">
+    <li>table：<code>border-collapse:collapse; width:100%</code>，margin 0·0·20；</li>
+    <li>th：主色底白字、14px 加粗、字距 1px、padding 10·12、1px 主色边框、左对齐；</li>
+    <li>td：14px / 1.7、padding 10·12、1px 浅边框 <code>#d5e2ef</code>、<code>vertical-align:top</code>。</li>
+  </ul>
+
+  <h3>五套主题色板</h3>
+  <div class="swatches">
+    <div class="swatch"><div class="chip" style="background:linear-gradient(135deg,#2273b8,#3a8ee6);"></div><div class="meta"><span class="name">蓝色科技 · 默认</span><span class="hex">#2273B8 → #3A8EE6</span></div></div>
+    <div class="swatch"><div class="chip" style="background:linear-gradient(135deg,#ff3502,#ff8052);"></div><div class="meta"><span class="name">橙心</span><span class="hex">#FF3502 → #FF8052</span></div></div>
+    <div class="swatch"><div class="chip" style="background:linear-gradient(135deg,#5d3587,#8e5fc0);"></div><div class="meta"><span class="name">姹紫</span><span class="hex">#5D3587 → #8E5FC0</span></div></div>
+    <div class="swatch"><div class="chip" style="background:linear-gradient(135deg,#0e8c64,#3fb88f);"></div><div class="meta"><span class="name">绿意</span><span class="hex">#0E8C64 → #3FB88F</span></div></div>
+    <div class="swatch"><div class="chip" style="background:linear-gradient(135deg,#b39ddb,#7e57c2);"></div><div class="meta"><span class="name">凝夜</span><span class="hex">#B39DDB → #7E57C2</span></div></div>
+  </div>
+  <table>
+    <thead><tr><th>主题</th><th>引用底</th><th>代码底</th><th>行内代码</th><th>表格边框</th><th>语法色板</th></tr></thead>
+    <tbody>
+      <tr><td>蓝色科技</td><td class="mono">#eaf2fa</td><td class="mono">#2a2f3a</td><td class="mono">#e8edf2 / #4a7fa5</td><td class="mono">#d5e2ef</td><td>One Dark</td></tr>
+      <tr><td>橙心</td><td class="mono">#fff2ec</td><td class="mono">#2d2a26</td><td class="mono">#ffece3 / #d4380d</td><td class="mono">#ffd9cc</td><td>One Dark</td></tr>
+      <tr><td>姹紫</td><td class="mono">#f4eef9</td><td class="mono">#2b2436</td><td class="mono">#efe6f7 / #6b3fa0</td><td class="mono">#e2d5f0</td><td>One Dark</td></tr>
+      <tr><td>绿意</td><td class="mono">#eaf7f1</td><td class="mono">#f6f8fa</td><td class="mono">#e6f4ef / #0e8c64</td><td class="mono">#cfe8df</td><td>GitHub Light</td></tr>
+      <tr><td>凝夜</td><td class="mono">#232733</td><td class="mono">#14161c</td><td class="mono">#2b3040 / #b39ddb</td><td class="mono">#3a4152</td><td>One Dark</td></tr>
+    </tbody>
+  </table>
+  <p class="muted">每套主题约 15 个色值，经 <code>buildTheme(调色板)</code> 工厂展开为全部输出 token；新增主题只需追加一个调色板对象。</p>
+
+  <h3>文章组件样张（蓝色科技）</h3>
+  <div class="article-sample">
+    <h2 style="font-size:20px;font-weight:bold;text-align:center;color:#1f5fa6;line-height:1.8;margin:0 0 22px 0;"><span style="display:inline-block;padding:0 10px;border-radius:6px;background:#2273b8;background:linear-gradient(135deg,#2273b8,#3a8ee6);color:#ffffff;font-size:16px;line-height:1.7;margin-right:10px;vertical-align:middle;">01</span>为什么需要异步</h2>
+    <p style="font-size:16px;line-height:1.8;letter-spacing:1px;color:#333;text-align:justify;margin:0 0 20px 0;">传统 PHP-FPM 模型下，每个请求在 I/O 等待时被完全阻塞，<span style="background:#e8edf2;color:#4a7fa5;border-radius:3px;padding:1px 6px;font-size:13px;font-family:Consolas,Menlo,monospace;">curl_multi</span> 只能解决部分问题。</p>
+    <p style="font-size:16px;line-height:1.7;letter-spacing:1px;color:#333;text-align:justify;padding-left:16px;text-indent:-16px;margin:0 0 18px 0;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#2273b8;background:linear-gradient(135deg,#2273b8,#3a8ee6);margin-right:8px;vertical-align:2px;"></span>完整可运行的协程机制，换行后与首行对齐演示。</p>
+    <section style="background:#eaf2fa;border-left:4px solid #2273b8;border-radius:4px;padding:14px 16px;margin:0 0 20px 0;">
+      <p style="font-size:15px;line-height:1.9;letter-spacing:1px;color:#333;margin:0 0 8px 0;">写在前面：本文基于 <strong style="color:#2273b8;">v0.9.3</strong> 实测。</p>
+      <p style="font-size:13px;line-height:1.8;color:#8a94a0;margin:0;">—— 你的 PHP 技术观察员 Tinywan</p>
+    </section>
+    <section style="background:#2a2f3a;border-radius:6px;padding:16px 14px;margin:0;">
+      <p style="margin:0 0 12px 0;font-size:0;line-height:0;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;background:#ff5f57;"></span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;background:#febc2e;"></span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;background:#28c840;"></span><span style="font-size:11px;line-height:1;color:#7f848e;font-family:Consolas,Menlo,monospace;vertical-align:middle;">PHP</span></p>
+      <p style="font-size:13px;line-height:1.9;color:#c678dd;font-weight:bold;font-family:Consolas,Menlo,monospace;word-break:break-all;margin:0;">// 并发写文件</p>
+      <p style="font-size:13px;line-height:1.9;color:#aeb6c2;font-family:Consolas,Menlo,monospace;word-break:break-all;margin:0;"><span style="color:#c678dd;">await</span> Async::<span style="color:#61afef;">parallel</span>(...$tasks);</p>
+    </section>
+  </div>
+
+  <h2><span class="no">05</span>预览模式</h2>
+  <p>右侧预览在羊皮纸画布上以白色纸张呈现，两种模式一键切换：</p>
+  <div class="frames">
+    <div>
+      <div class="frame-pc">
+        <div class="frame-line ink"></div>
+        <div class="frame-line"></div>
+        <div class="frame-line"></div>
+        <div class="frame-line short"></div>
+      </div>
+      <div class="frame-cap">PC · 纸张铺满右栏，正文 677px 居中，12px 圆角 + ring + whisper</div>
+    </div>
+    <div>
+      <div class="frame-mobile">
+        <div class="frame-line ink"></div>
+        <div class="frame-line"></div>
+        <div class="frame-line short"></div>
+      </div>
+      <div class="frame-cap">手机 · 390px + 10px 深黑边框，28px 圆角，overflow 裁切</div>
+    </div>
+  </div>
+
+  <h2><span class="no">06</span>微信兼容约束</h2>
+  <ul class="plain">
+    <li>仅内联 style；不输出 class、&lt;style&gt;、ul/ol（列表转为段落 + 标记）；</li>
+    <li>渐变一律先写纯色降级：<code>background:#2273b8;background:linear-gradient(…)</code>；</li>
+    <li>代码空格硬化为 <code>\u00a0</code> 保对齐，同时 <code>word-break:break-all</code> 允许长行折行；</li>
+    <li>外链渲染为主题色加粗文字（公众号正文外链无效，丢弃 href）；</li>
+    <li>每个文字元素自带完整字体栈，不依赖继承。</li>
+  </ul>
+
+  <h2><span class="no">07</span>源码映射与回归</h2>
+  <table>
+    <thead><tr><th>文件</th><th>职责</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">src/core/themes.js</td><td>调色板 → 全量输出 token 的工厂；5 套主题注册表</td></tr>
+      <tr><td class="mono">src/core/render.js</td><td>markdown-it 规则：色块序号、引用、列表、表格、代码窗口、图注</td></tr>
+      <tr><td class="mono">src/core/highlight.js</td><td>hljs → 内联样式逐行转换（class→CSS 映射 + 空格硬化）</td></tr>
+      <tr><td class="mono">src/style.css</td><td>编辑器 UI（Kami 体系），与输出样式完全隔离</td></tr>
+      <tr><td class="mono">test-render.mjs</td><td>30 项渲染断言：默认主题逐字比对 + 多主题合规 + 表格</td></tr>
+    </tbody>
+  </table>
+  <p class="muted">回归命令：<code>npm test</code>；部署：push 后 GitHub Actions 自动构建并发布 Pages。</p>
+
+  <footer>
+    <span>MD → 公众号排版工具 · 设计规范 v1.0</span>
+    <span>tinywan.github.io/tinywan-wechat-format</span>
+  </footer>
+</div>
+</body>
+</html>
