@@ -1,3 +1,4 @@
+/* UI 视觉参考 Kami（kami.tw93.fun）：羊皮纸底 + 象牙面板 + 墨蓝强调 */
 * {
   box-sizing: border-box;
 }
@@ -10,10 +11,10 @@ body,
 }
 
 body {
-  font-family: 'HarmonyOS Sans', 'PingFang SC', 'MiSans', 'Microsoft YaHei', -apple-system, sans-serif;
+  font-family: -apple-system, 'HarmonyOS Sans', 'PingFang SC', 'Microsoft YaHei', sans-serif;
   font-size: 14px;
-  color: #333;
-  background: #f5f7fa;
+  color: #504e49;
+  background: #f5f4ed;
 }
 
 .app {
@@ -28,8 +29,8 @@ body {
   justify-content: space-between;
   gap: 12px;
   padding: 10px 16px;
-  background: #fff;
-  border-bottom: 1px solid #e3e8ef;
+  background: #faf9f5;
+  border-bottom: 1px solid #e8e6dc;
   flex-wrap: wrap;
 }
 
@@ -43,30 +44,27 @@ body {
 
 .toolbar button {
   padding: 6px 14px;
-  border: 1px solid #d3dce6;
-  border-radius: 6px;
-  background: #fff;
-  color: #333;
+  border: none;
+  border-radius: 8px;
+  background: #e8e6dc;
+  color: #504e49;
   font-size: 13px;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: background 0.15s, color 0.15s;
 }
 
 .toolbar button:hover:not(:disabled) {
-  border-color: #2273b8;
-  color: #2273b8;
+  background: #dfddd0;
 }
 
 .toolbar button.primary {
-  background: linear-gradient(135deg, #2273b8, #3a8ee6);
-  border-color: transparent;
+  background: #1b365d;
   color: #fff;
   font-weight: bold;
 }
 
 .toolbar button.primary:hover:not(:disabled) {
-  color: #fff;
-  opacity: 0.9;
+  background: #2d5a8a;
 }
 
 .toolbar button:disabled {
@@ -76,16 +74,16 @@ body {
 
 .toolbar .status {
   font-size: 12px;
-  color: #8a94a0;
+  color: #6b6a64;
   margin-left: 6px;
 }
 
 .toolbar .theme-select {
   padding: 6px 10px;
-  border: 1px solid #d3dce6;
-  border-radius: 6px;
-  background: #fff;
-  color: #333;
+  border: none;
+  border-radius: 8px;
+  background: #e8e6dc;
+  color: #504e49;
   font-size: 13px;
   cursor: pointer;
   outline: none;
@@ -93,8 +91,8 @@ body {
 
 .toolbar .theme-select:hover,
 .toolbar .theme-select:focus {
-  border-color: #2273b8;
-  color: #2273b8;
+  background: #dfddd0;
+  color: #1b365d;
 }
 
 .panes {
@@ -106,8 +104,8 @@ body {
 .editor-pane {
   flex: 1;
   display: flex;
-  border-right: 1px solid #e3e8ef;
-  background: #fff;
+  border-right: 1px solid #e8e6dc;
+  background: #faf9f5;
 }
 
 .editor-pane textarea {
@@ -116,11 +114,12 @@ body {
   border: none;
   outline: none;
   resize: none;
-  padding: 16px;
-  font-family: Consolas, Menlo, monospace;
+  padding: 20px 24px;
+  font-family: 'JetBrains Mono', Consolas, Menlo, monospace;
   font-size: 13px;
   line-height: 1.7;
-  color: #333;
+  color: #504e49;
+  background: transparent;
 }
 
 .preview-pane {
@@ -128,13 +127,13 @@ body {
   display: flex;
   flex-direction: column;
   min-width: 0;
-  background: #eef1f5;
+  background: #f5f4ed;
 }
 
 .warn-bar {
-  background: #fff4e5;
-  color: #b26a00;
-  border-bottom: 1px solid #f0dcb8;
+  background: #f3ead3;
+  color: #7a6a45;
+  border-bottom: 1px solid #e8e6dc;
   padding: 8px 16px;
   font-size: 13px;
 }
@@ -142,22 +141,36 @@ body {
 .preview-scroll {
   flex: 1;
   overflow-y: auto;
-  padding: 24px 12px 48px;
+  padding: 28px 20px 56px;
+  background: #f5f4ed;
+}
+
+.preview-sheet {
+  max-width: 720px;
+  margin: 0 auto;
   background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 0 1px #e8e6dc, 0 4px 24px rgba(0, 0, 0, 0.05);
+  padding: 8px 16px 32px;
 }
 
 .empty {
   text-align: center;
-  color: #8a94a0;
-  margin-top: 80px;
+  color: #6b6a64;
+  margin-top: 96px;
 }
 
 .empty p {
   margin: 6px 0;
+  font-family: Charter, Georgia, 'Songti SC', 'SimSun', serif;
+  font-size: 16px;
+  color: #504e49;
 }
 
 .empty .empty-sub {
+  font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   font-size: 12px;
+  color: #6b6a64;
 }
 
 .toast {
@@ -167,15 +180,15 @@ body {
   transform: translateX(-50%);
   padding: 10px 20px;
   border-radius: 8px;
-  background: #2a2f3a;
+  background: #141413;
   color: #fff;
   font-size: 13px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
   z-index: 99;
 }
 
 .toast.warn {
-  background: #b26a00;
+  background: #8a5a12;
 }
 
 .toast-enter-active,

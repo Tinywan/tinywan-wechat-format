@@ -80,7 +80,7 @@ export function buildTheme(p) {
 
     paragraph: `font-size:16px;line-height:1.8;letter-spacing:1px;color:${c.text};text-align:justify;margin:0 0 20px 0;font-family:${FONT};`,
 
-    listItem: `font-size:16px;line-height:1.8;letter-spacing:1px;color:${c.text};text-align:justify;padding-left:16px;text-indent:-16px;margin:0 0 18px 0;font-family:${FONT};`,
+    listItem: `font-size:16px;line-height:1.7;letter-spacing:1px;color:${c.text};text-align:justify;padding-left:16px;text-indent:-16px;margin:0 0 18px 0;font-family:${FONT};`,
 
     listMarker: `color:${c.primary};font-weight:bold;`,
 
