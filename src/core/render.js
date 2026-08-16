@@ -169,6 +169,19 @@ rules.fence = (tokens, idx, opts, env) => {
 }
 rules.code_block = rules.fence
 
+rules.table_open = (tokens, idx, opts, env) => `<table style="${th(env).table}">`
+rules.table_close = () => '</table>'
+rules.thead_open = () => '<thead>'
+rules.thead_close = () => '</thead>'
+rules.tbody_open = () => '<tbody>'
+rules.tbody_close = () => '</tbody>'
+rules.tr_open = () => '<tr>'
+rules.tr_close = () => '</tr>'
+rules.th_open = (tokens, idx, opts, env) => `<th style="${th(env).tableTh}">`
+rules.th_close = () => '</th>'
+rules.td_open = (tokens, idx, opts, env) => `<td style="${th(env).tableTd}">`
+rules.td_close = () => '</td>'
+
 rules.image = (tokens, idx, opts, env) => {
   const t = th(env)
   const token = tokens[idx]

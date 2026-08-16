@@ -55,6 +55,14 @@ for (const t of themes) {
   ])
 }
 
+// ---------- 表格 ----------
+const tableHtml = render('| 通知 | 触发时机 |\n|---|---|\n| Launch | 调度器启动时 |\n| Suspend | 挂起前 |\n')
+checks.push(
+  ['表格表头主题底色', tableHtml.includes('<th style="background:#2273b8;color:#ffffff')],
+  ['表格单元格边框', tableHtml.includes('border:1px solid #d5e2ef')],
+  ['表格字体栈', tableHtml.includes('border-collapse:collapse;width:100%')],
+)
+
 let failed = 0
 for (const [name, ok] of checks) {
   console.log(`${ok ? 'PASS' : 'FAIL'}  ${name}`)

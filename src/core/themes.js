@@ -103,6 +103,12 @@ export function buildTheme(p) {
 
     inlineCode: `background:${c.inlineCodeBg};color:${c.inlineCodeText};border-radius:3px;padding:1px 6px;font-size:13px;font-family:${MONO};`,
 
+    table: `border-collapse:collapse;width:100%;margin:0 0 20px 0;font-family:${FONT};`,
+
+    tableTh: `background:${c.primary};color:#ffffff;font-size:14px;font-weight:bold;line-height:1.7;letter-spacing:1px;padding:10px 12px;border:1px solid ${c.primary};text-align:left;font-family:${FONT};`,
+
+    tableTd: `font-size:14px;line-height:1.7;color:${c.text};padding:10px 12px;border:1px solid ${p.tableBorder};text-align:left;vertical-align:top;font-family:${FONT};`,
+
     code: {
       block: `background:${c.codeBg};border-radius:6px;padding:16px 14px;margin:0 0 20px 0;`,
       header: `margin:0 0 12px 0;font-size:0;line-height:0;`,
@@ -125,7 +131,7 @@ export const themes = [
     primary: '#2273b8', deep: '#1f5fa6', light: '#3a8ee6', accent: '#e8833a',
     quoteBg: '#eaf2fa',
     codeBg: '#2a2f3a', codeText: '#aeb6c2', codeLabel: '#7f848e', codeTitleColor: '#c678dd',
-    inlineCodeBg: '#e8edf2', inlineCodeText: '#4a7fa5',
+    inlineCodeBg: '#e8edf2', inlineCodeText: '#4a7fa5', tableBorder: '#d5e2ef',
     syntax: oneDark,
   },
   {
@@ -133,7 +139,7 @@ export const themes = [
     primary: '#ff3502', deep: '#e6461f', light: '#ff8052', accent: '#1e80ff',
     quoteBg: '#fff2ec',
     codeBg: '#2d2a26', codeText: '#c8c2bb', codeLabel: '#8a8178', codeTitleColor: '#c678dd',
-    inlineCodeBg: '#ffece3', inlineCodeText: '#d4380d',
+    inlineCodeBg: '#ffece3', inlineCodeText: '#d4380d', tableBorder: '#ffd9cc',
     syntax: oneDark,
   },
   {
@@ -141,7 +147,7 @@ export const themes = [
     primary: '#5d3587', deep: '#4a2a6b', light: '#8e5fc0', accent: '#e8833a',
     quoteBg: '#f4eef9',
     codeBg: '#2b2436', codeText: '#b9aecb', codeLabel: '#857a96', codeTitleColor: '#c678dd',
-    inlineCodeBg: '#efe6f7', inlineCodeText: '#6b3fa0',
+    inlineCodeBg: '#efe6f7', inlineCodeText: '#6b3fa0', tableBorder: '#e2d5f0',
     syntax: oneDark,
   },
   {
@@ -149,7 +155,7 @@ export const themes = [
     primary: '#0e8c64', deep: '#0a6b4c', light: '#3fb88f', accent: '#e8833a',
     quoteBg: '#eaf7f1',
     codeBg: '#f6f8fa', codeText: '#24292e', codeLabel: '#6a737d', codeTitleColor: '#d73a49',
-    inlineCodeBg: '#e6f4ef', inlineCodeText: '#0e8c64',
+    inlineCodeBg: '#e6f4ef', inlineCodeText: '#0e8c64', tableBorder: '#cfe8df',
     syntax: githubLight,
   },
   {
@@ -157,7 +163,7 @@ export const themes = [
     primary: '#b39ddb', deep: '#5e35b1', light: '#7e57c2', accent: '#ffb74d',
     quoteBg: '#232733', quoteText: '#cfd4e3', quoteGray: '#8b93a7',
     codeBg: '#14161c', codeText: '#aab2c0', codeLabel: '#6b7280', codeTitleColor: '#c678dd',
-    inlineCodeBg: '#2b3040', inlineCodeText: '#b39ddb',
+    inlineCodeBg: '#2b3040', inlineCodeText: '#b39ddb', tableBorder: '#3a4152',
     syntax: oneDark,
   },
 ].map((p) => ({ id: p.id, name: p.name, theme: buildTheme(p) }))
