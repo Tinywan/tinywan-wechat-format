@@ -158,8 +158,8 @@ border-left:2px solid #2273b8;          /* Kami 2pt 蓝线，由 4px 收敛 */
 border-radius:4px; padding:16px 20px; margin:0 0 20px 0;
 
 /* 段落 */
-font-size:15px; line-height:1.7; letter-spacing:0.5px;
-color:#333; margin:0;                    /* 末段 */
+font-size:16px; line-height:1.7; letter-spacing:0.5px;
+color:#333; margin:0;                    /* 末段，与正文同号 */
 /* 非末段 margin 改为 0 0 8px，段间留缝 */
 ```
 

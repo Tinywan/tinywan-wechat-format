@@ -86,8 +86,8 @@ export function buildTheme(p) {
 
     blockquote: {
       box: `background:${c.quoteBg};border-left:2px solid ${c.primary};border-radius:4px;padding:16px 20px;margin:0 0 20px 0;`,
-      text: `font-size:15px;line-height:1.7;letter-spacing:0.5px;color:${c.quoteText};margin:0;font-family:${FONT};`,
-      textGap: `font-size:15px;line-height:1.7;letter-spacing:0.5px;color:${c.quoteText};margin:0 0 8px 0;font-family:${FONT};`,
+      text: `font-size:16px;line-height:1.7;letter-spacing:0.5px;color:${c.quoteText};margin:0;font-family:${FONT};`,
+      textGap: `font-size:16px;line-height:1.7;letter-spacing:0.5px;color:${c.quoteText};margin:0 0 8px 0;font-family:${FONT};`,
       strongColor: c.primary,
       signature: `font-size:13px;line-height:1.8;color:${c.quoteGray};margin:0;font-family:${FONT};`,
     },
