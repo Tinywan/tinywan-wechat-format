@@ -34,6 +34,9 @@ const checks = [
   ['全文无 border-radius:50%', !html.includes('border-radius:50%')],
   ['列表悬挂缩进', html.includes('padding-left:16px;text-indent:-16px')],
   ['图注格式', imgHtml.includes('图 1 · 架构图')],
+  ['strong 虚线划线', html.includes('border-bottom:1px dashed #2273b8')],
+  ['引用装饰引号', html.includes('>“</p>')],
+  ['图片圆角', imgHtml.includes('border-radius:6px')],
   ['无 ul/ol 标签', !/<\/?(ul|ol)[\s>]/.test(html)],
   ['无 class 属性', !/class=/.test(html)],
   ['无 style 块', !/<style/.test(html)],
@@ -68,6 +71,7 @@ const tableHtml = render('| 通知 | 触发时机 |\n|---|---|\n| Launch | 调�
 checks.push(
   ['表格表头主题底色', tableHtml.includes('<th style="background:#2273b8;color:#ffffff')],
   ['表格单元格边框', tableHtml.includes('border:1px solid #d5e2ef')],
+  ['表格斑马纹', tableHtml.includes('background:#f0f6fb;font-size:15px;line-height:1.6')],
   ['表格字体栈', tableHtml.includes('border-collapse:collapse;width:100%')],
 )
 

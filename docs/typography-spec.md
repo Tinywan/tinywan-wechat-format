@@ -99,7 +99,7 @@ margin:0 0 24px 0;
 
 | 元素 | 输出 | 说明 |
 |---|---|---|
-| `**加粗**` | `<strong>` | 引用块内加粗着 `primary` 色 |
+| `**加粗**` | `<strong>` | 全部带主题色 1px 虚线下划线（`border-bottom:1px dashed ${primary}`，重点划线）；引用块内再叠 `primary` 字色 |
 | `*斜体*` | `<em>` | 原样输出 |
 | `[链接](url)` | 主题色加粗 `<span>` | 公众号正文外链无效，丢弃 href：`color:${primary};font-weight:bold` |
 | 软/硬换行 | `<br>` | — |
@@ -157,6 +157,10 @@ background:#f0f6fb;                     /* quoteBg，各主题统一调浅一档
 border-left:2px solid #2273b8;          /* Kami 2pt 蓝线，由 4px 收敛 */
 border-radius:4px; padding:16px 20px; margin:0 0 20px 0;
 
+/* 装饰引号（框内首行，字符 U+201C） */
+font-size:24px; line-height:1; color:#3a8ee6;   /* light 浅主题色 */
+margin:0;
+
 /* 段落 */
 font-size:15px; line-height:1.7; letter-spacing:0.5px;
 color:#333; margin:0;                    /* 末段 */
@@ -181,6 +185,7 @@ text-align:center; margin:0; font-size:0; line-height:0;
 
 /* 图片 */
 max-width:100%; display:block; margin:0 auto;
+border-radius:6px;                      /* 圆角分级：大图 6px，小元素 4px */
 
 /* 图注 */
 font-size:13px; line-height:1.6; color:#8a94a0;
@@ -256,9 +261,12 @@ padding:8px 12px; border:1px solid #2273b8; text-align:left;
 font-size:15px; line-height:1.6; color:#333;
 padding:8px 12px; border:1px solid #d5e2ef;   /* tableBorder */
 text-align:left; vertical-align:top;
+
+/* 斑马纹：第 2、4… 数据行 td 前置 */
+background:#f0f6fb;                     /* quoteBg 浅底色 */
 ```
 
-15px 密排档与正文 16px 形成层级；padding 走 4px 网格。
+15px 密排档与正文 16px 形成层级；padding 走 4px 网格。斑马纹直接写在 td 内联样式上（tr 样式粘贴易丢），表头行不参与。
 
 ---
 
@@ -281,7 +289,7 @@ Kami 0.5pt 暖灰虚线的微信适配：0.5pt 无 CSS 对应，1px 为最小可
 
 ```js
 palette: {
-  primary, deep, light,       // 主色 / 深色（h1、h2、h4 文字）/ 亮色（渐变端点）
+  primary, deep, light,       // 主色 / 深色（h1、h2、h4 文字）/ 亮色（引用装饰引号）
   accent,                     // 备用强调色
   quoteBg,                    // 引用底色（统一取浅一档）
   codeBg, codeText, codeLabel, codeTitleColor,

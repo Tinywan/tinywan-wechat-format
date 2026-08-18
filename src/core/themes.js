@@ -86,6 +86,7 @@ export function buildTheme(p) {
 
     blockquote: {
       box: `background:${c.quoteBg};border-left:2px solid ${c.primary};border-radius:4px;padding:16px 20px;margin:0 0 20px 0;`,
+      mark: `font-size:24px;line-height:1;color:${c.light};margin:0;font-family:${FONT};`,
       text: `font-size:15px;line-height:1.7;letter-spacing:0.5px;color:${c.quoteText};margin:0;font-family:${FONT};`,
       textGap: `font-size:15px;line-height:1.7;letter-spacing:0.5px;color:${c.quoteText};margin:0 0 8px 0;font-family:${FONT};`,
       strongColor: c.primary,
@@ -94,8 +95,8 @@ export function buildTheme(p) {
 
     image: {
       figure: `text-align:center;margin:0;font-size:0;line-height:0;`,
-      img: `max-width:100%;display:block;margin:0 auto;`,
-      imgMissing: `max-width:100%;display:block;margin:0 auto;outline:2px dashed #e06c75;outline-offset:4px;`,
+      img: `max-width:100%;display:block;margin:0 auto;border-radius:6px;`,
+      imgMissing: `max-width:100%;display:block;margin:0 auto;border-radius:6px;outline:2px dashed #e06c75;outline-offset:4px;`,
       caption: `font-size:13px;line-height:1.6;color:${c.gray};text-align:center;margin:4px 0 24px 0;font-family:${FONT};`,
     },
 

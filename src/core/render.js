@@ -66,8 +66,11 @@ rules.heading_open = (tokens, idx, opts, env) => {
 }
 rules.heading_close = (tokens, idx) => `</${tokens[idx].tag}>`
 
-rules.strong_open = (tokens, idx, opts, env) =>
-  inQuote(env) ? `<strong style="color:${th(env).blockquote.strongColor};">` : '<strong>'
+rules.strong_open = (tokens, idx, opts, env) => {
+  const t = th(env)
+  const color = inQuote(env) ? `color:${t.blockquote.strongColor};` : ''
+  return `<strong style="${color}border-bottom:1px dashed ${t.colors.primary};">`
+}
 rules.strong_close = () => '</strong>'
 rules.em_open = () => '<em>'
 rules.em_close = () => '</em>'
@@ -75,7 +78,8 @@ rules.em_close = () => '</em>'
 rules.blockquote_open = (tokens, idx, opts, env) => {
   env.contextStack.push('blockquote')
   env.quoteDepth += 1
-  return `<section style="${th(env).blockquote.box}">`
+  const t = th(env)
+  return `<section style="${t.blockquote.box}"><p style="${t.blockquote.mark}">“</p>`
 }
 rules.blockquote_close = (tokens, idx, opts, env) => {
   env.contextStack.pop()
@@ -173,13 +177,27 @@ rules.table_open = (tokens, idx, opts, env) => `<table style="${th(env).table}">
 rules.table_close = () => '</table>'
 rules.thead_open = () => '<thead>'
 rules.thead_close = () => '</thead>'
-rules.tbody_open = () => '<tbody>'
-rules.tbody_close = () => '</tbody>'
-rules.tr_open = () => '<tr>'
+rules.tbody_open = (tokens, idx, opts, env) => {
+  env.inTbody = true
+  env.tbodyRow = -1
+  return '<tbody>'
+}
+rules.tbody_close = (tokens, idx, opts, env) => {
+  env.inTbody = false
+  return '</tbody>'
+}
+rules.tr_open = (tokens, idx, opts, env) => {
+  if (env.inTbody) env.tbodyRow += 1
+  return '<tr>'
+}
 rules.tr_close = () => '</tr>'
 rules.th_open = (tokens, idx, opts, env) => `<th style="${th(env).tableTh}">`
 rules.th_close = () => '</th>'
-rules.td_open = (tokens, idx, opts, env) => `<td style="${th(env).tableTd}">`
+rules.td_open = (tokens, idx, opts, env) => {
+  const t = th(env)
+  const zebra = env.inTbody && env.tbodyRow % 2 === 1 ? `background:${t.colors.quoteBg};` : ''
+  return `<td style="${zebra}${t.tableTd}">`
+}
 rules.td_close = () => '</td>'
 
 rules.image = (tokens, idx, opts, env) => {
@@ -258,6 +276,8 @@ export function render(src, env = {}) {
   env.figureCount = 0
   env.warnings = env.warnings || []
   env.skipPara = false
+  env.inTbody = false
+  env.tbodyRow = -1
   const body = md.render(src, env)
   return `<section style="${env.theme.container}">${body}</section>`
 }
