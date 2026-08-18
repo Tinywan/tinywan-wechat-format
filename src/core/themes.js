@@ -86,7 +86,6 @@ export function buildTheme(p) {
 
     blockquote: {
       box: `background:${c.quoteBg};border-left:2px solid ${c.primary};border-radius:4px;padding:16px 20px;margin:0 0 20px 0;`,
-      mark: `font-size:24px;line-height:1;color:${c.light};margin:0;font-family:${FONT};`,
       text: `font-size:15px;line-height:1.7;letter-spacing:0.5px;color:${c.quoteText};margin:0;font-family:${FONT};`,
       textGap: `font-size:15px;line-height:1.7;letter-spacing:0.5px;color:${c.quoteText};margin:0 0 8px 0;font-family:${FONT};`,
       strongColor: c.primary,
@@ -114,8 +113,8 @@ export function buildTheme(p) {
       dot: `display:inline-block;width:8px;height:8px;border-radius:4px;margin-right:8px;`,
       dots: { red: '#ff5f57', yellow: '#febc2e', green: '#28c840' },
       label: `font-size:11px;line-height:1;letter-spacing:0.5px;color:${p.codeLabel};font-family:${MONO};vertical-align:middle;`,
-      line: `font-size:13px;line-height:1.7;color:${c.codeText};font-family:${MONO};word-break:break-all;margin:0;`,
-      titleLine: `font-size:13px;line-height:1.7;color:${p.codeTitleColor};font-weight:bold;font-family:${MONO};word-break:break-all;margin:0;`,
+      line: `font-size:16px;line-height:1.7;color:${c.codeText};font-family:${MONO};word-break:break-all;margin:0;`,
+      titleLine: `font-size:16px;line-height:1.7;color:${p.codeTitleColor};font-weight:bold;font-family:${MONO};word-break:break-all;margin:0;`,
       tokens: tokenMap(p.syntax),
     },
 

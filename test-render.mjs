@@ -35,7 +35,6 @@ const checks = [
   ['列表悬挂缩进', html.includes('padding-left:16px;text-indent:-16px')],
   ['图注格式', imgHtml.includes('图 1 · 架构图')],
   ['strong 虚线划线', html.includes('border-bottom:1px dashed #2273b8')],
-  ['引用装饰引号', html.includes('>“</p>')],
   ['图片圆角', imgHtml.includes('border-radius:6px')],
   ['无 ul/ol 标签', !/<\/?(ul|ol)[\s>]/.test(html)],
   ['无 class 属性', !/class=/.test(html)],

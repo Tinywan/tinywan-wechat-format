@@ -79,7 +79,7 @@ rules.blockquote_open = (tokens, idx, opts, env) => {
   env.contextStack.push('blockquote')
   env.quoteDepth += 1
   const t = th(env)
-  return `<section style="${t.blockquote.box}"><p style="${t.blockquote.mark}">“</p>`
+  return `<section style="${t.blockquote.box}">`
 }
 rules.blockquote_close = (tokens, idx, opts, env) => {
   env.contextStack.pop()

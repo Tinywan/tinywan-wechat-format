@@ -157,10 +157,6 @@ background:#f0f6fb;                     /* quoteBg，各主题统一调浅一档
 border-left:2px solid #2273b8;          /* Kami 2pt 蓝线，由 4px 收敛 */
 border-radius:4px; padding:16px 20px; margin:0 0 20px 0;
 
-/* 装饰引号（框内首行，字符 U+201C） */
-font-size:24px; line-height:1; color:#3a8ee6;   /* light 浅主题色 */
-margin:0;
-
 /* 段落 */
 font-size:15px; line-height:1.7; letter-spacing:0.5px;
 color:#333; margin:0;                    /* 末段 */
@@ -218,7 +214,7 @@ border-radius:4px; padding:20px 16px; margin:0 0 20px 0;
 ### 代码行
 
 ```css
-font-size:13px; line-height:1.7; color:#aeb6c2;   /* codeText */
+font-size:16px; line-height:1.7; color:#aeb6c2;   /* codeText，与正文同号 */
 font-family:Consolas,Menlo,monospace;
 word-break:break-all;                              /* 长行折行，手机不溢出 */
 margin:0;
@@ -289,7 +285,7 @@ Kami 0.5pt 暖灰虚线的微信适配：0.5pt 无 CSS 对应，1px 为最小可
 
 ```js
 palette: {
-  primary, deep, light,       // 主色 / 深色（h1、h2、h4 文字）/ 亮色（引用装饰引号）
+  primary, deep, light,       // 主色 / 深色（h1、h2、h4 文字）/ 亮色（预留浅主题色）
   accent,                     // 备用强调色
   quoteBg,                    // 引用底色（统一取浅一档）
   codeBg, codeText, codeLabel, codeTitleColor,
