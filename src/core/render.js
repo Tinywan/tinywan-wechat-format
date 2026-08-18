@@ -22,7 +22,7 @@ md.core.ruler.push('h2_number_chip', (state) => {
     const rest = first.content.slice(m[0].length)
     const chip = [
       Object.assign(new state.Token('h2_chip', '', 0), {}),
-      Object.assign(new state.Token('text', '', 0), { content: m[1] }),
+      Object.assign(new state.Token('text', '', 0), { content: m[1].padStart(2, '0') }),
       Object.assign(new state.Token('h2_chip_close', '', 0), {}),
     ]
     if (rest) {
@@ -97,13 +97,13 @@ rules.ordered_list_open = (tokens, idx) => {
 rules.ordered_list_close = () => ''
 rules.list_item_open = (tokens, idx, opts, env) => {
   env.contextStack.push('li')
-  const indent = '\u00a0\u00a0\u00a0\u00a0'.repeat(Math.max(0, listDepth(env) - 1))
+  const indent = '\u00a0\u00a0\u00a0'.repeat(Math.max(0, listDepth(env) - 1))
   if (env.inOrderedList) {
     env.listCounters[env.listCounters.length - 1] += 1
     const n = env.listCounters[env.listCounters.length - 1]
     env.pendingMarker = `${indent}<span style="${th(env).listMarker}">${n}.</span>&nbsp;`
   } else {
-    env.pendingMarker = `${indent}<span style="${th(env).listBullet}"></span>`
+    env.pendingMarker = `${indent}<span style="${th(env).listMarker}">•</span>&nbsp;&nbsp;`
   }
   return ''
 }

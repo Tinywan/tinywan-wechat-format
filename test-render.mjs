@@ -15,22 +15,25 @@ const html = render(md, env)
 
 fs.writeFileSync('test-output.html', html, 'utf-8')
 
+const imgHtml = render('![架构图](arch.png)', { warnings: [] })
+
 const checks = [
   ['容器 677px', html.includes('max-width:677px')],
-  ['h1 样式', html.includes('font-size:20px;font-weight:bold;text-align:center;color:#1f5fa6;line-height:2')],
-  ['h2 渐变色块', html.includes('background:linear-gradient(135deg,#2273b8,#3a8ee6)')],
-  ['色块序号 01', html.includes('<span style="display:inline-block;padding:0 10px;border-radius:6px') && html.includes('>01</span>')],
-  ['h3 竖线', html.includes('border-left:4px solid #2273b8;padding-left:10px')],
-  ['提示框底色', html.includes('background:#eaf2fa')],
+  ['h1 样式', html.includes('font-size:20px;font-weight:bold;text-align:center;color:#1f5fa6;line-height:1.4')],
+  ['h2 描边色块', html.includes('border:1px solid #2273b8;border-radius:4px;color:#2273b8;font-weight:bold')],
+  ['色块序号 01', html.includes('<span style="display:inline-block;padding:0 8px;border:1px solid') && html.includes('>01</span>')],
+  ['h3 无竖线', html.includes('font-size:17px;font-weight:bold;text-align:left;color:#2273b8') && !/h3[^>]*border-left/.test(html)],
+  ['提示框底色', html.includes('background:#f0f6fb')],
   ['签名样式', html.includes('font-size:13px;line-height:1.8;color:#8a94a0')],
   ['代码块深底', html.includes('background:#2a2f3a')],
   ['代码窗口圆点', html.includes('background:#ff5f57')],
   ['代码语言标签', html.includes('PHP')],
   ['代码行自动折行', html.includes('word-break:break-all')],
   ['行内代码', html.includes('background:#e8edf2;color:#4a7fa5')],
-  ['列表渐变圆点', html.includes('border-radius:50%;background:#2273b8;background:linear-gradient(135deg,#2273b8,#3a8ee6)')],
+  ['列表圆点标记', html.includes('>•<')],
+  ['全文无 border-radius:50%', !html.includes('border-radius:50%')],
   ['列表悬挂缩进', html.includes('padding-left:16px;text-indent:-16px')],
-  ['图注格式', html.includes('图 1 ·')],
+  ['图注格式', imgHtml.includes('图 1 · 架构图')],
   ['无 ul/ol 标签', !/<\/?(ul|ol)[\s>]/.test(html)],
   ['无 class 属性', !/class=/.test(html)],
   ['无 style 块', !/<style/.test(html)],
@@ -44,9 +47,13 @@ const checks = [
 const orangeHtml = render(md, { theme: getTheme('orange-heart') })
 const nightHtml = render(md, { theme: getTheme('night') })
 checks.push(
-  ['橙心主题主色', orangeHtml.includes('#ff3502') && orangeHtml.includes('background:#fff2ec')],
-  ['橙心主题渐变', orangeHtml.includes('linear-gradient(135deg,#ff3502,#ff8052)')],
+  ['橙心主题主色', orangeHtml.includes('#ff3502') && orangeHtml.includes('background:#fdf3ee')],
+  ['橙心主题描边', orangeHtml.includes('border:1px solid #ff3502;border-radius:4px;color:#ff3502')],
   ['凝夜主题引用块', nightHtml.includes('background:#232733') && nightHtml.includes('color:#cfd4e3')],
+)
+checks.push(
+  ['暖纸主题注册', !!getTheme('kami-paper') && getTheme('kami-paper').colors.primary === '#1B365D'],
+  ['Kimi 蓝主题注册', !!getTheme('kimi-blue') && getTheme('kimi-blue').colors.primary === '#007CFF'],
 )
 for (const t of themes) {
   const out = render(md, { theme: t.theme })
