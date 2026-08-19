@@ -99,7 +99,7 @@ export function buildTheme(p) {
       caption: `font-size:13px;line-height:1.6;color:${c.gray};text-align:center;margin:4px 0 24px 0;font-family:${FONT};`,
     },
 
-    inlineCode: `background:${c.inlineCodeBg};color:${c.inlineCodeText};border-radius:3px;padding:1px 6px;font-size:16px;font-family:${MONO};`,
+    inlineCode: `background:${c.inlineCodeBg};color:${c.inlineCodeText};border-radius:3px;padding:1px 6px;font-size:16px;font-family:${MONO};word-break:break-all;`,
 
     table: `border-collapse:collapse;width:100%;margin:0 0 20px 0;font-family:${FONT};`,
 
@@ -119,6 +119,10 @@ export function buildTheme(p) {
     },
 
     hr: `border:none;border-top:1px dashed ${c.gray};width:100%;margin:40px 0;`,
+
+    footerLead: `font-size:14px;line-height:1.8;color:${c.primary};text-align:center;margin:30px 0 8px 0;font-family:${FONT};`,
+
+    footerText: `font-size:15px;line-height:2;color:${c.text};text-align:center;margin:0 0 8px 0;font-family:${FONT};`,
   }
 }
 

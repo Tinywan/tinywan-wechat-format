@@ -34,6 +34,26 @@ md.core.ruler.push('h2_number_chip', (state) => {
   }
 })
 
+// ---------- core rule: 文末识别 → 最后一个 hr 之后、以 —— 开头的段落组标记 footer（居中） ----------
+md.core.ruler.push('footer_center', (state) => {
+  const tokens = state.tokens
+  let lastHr = -1
+  for (let i = tokens.length - 1; i >= 0; i--) {
+    if (tokens[i].type === 'hr') { lastHr = i; break }
+  }
+  if (lastHr === -1) return
+  let first = -1
+  for (let i = lastHr + 1; i < tokens.length; i++) {
+    if (tokens[i].type === 'paragraph_open') { first = i; break }
+  }
+  if (first === -1) return
+  const inline = tokens[first + 1]
+  if (!inline || inline.type !== 'inline' || !inline.content.replace(/^\*+/, '').trim().startsWith('——')) return
+  for (let i = first; i < tokens.length; i++) {
+    if (tokens[i].type === 'paragraph_open') tokens[i].meta = { footer: true }
+  }
+})
+
 // ---------- 工具 ----------
 const top = (env) => env.contextStack[env.contextStack.length - 1] || 'root'
 const inQuote = (env) => env.contextStack.includes('blockquote')
@@ -68,6 +88,7 @@ rules.heading_close = (tokens, idx) => `</${tokens[idx].tag}>`
 
 rules.strong_open = (tokens, idx, opts, env) => {
   const t = th(env)
+  if (top(env) === 'footer') return '<strong>'
   const color = inQuote(env) ? `color:${t.blockquote.strongColor};` : ''
   return `<strong style="${color}border-bottom:1px dashed ${t.colors.primary};">`
 }
@@ -240,7 +261,11 @@ rules.paragraph_open = (tokens, idx, opts, env) => {
 
   const t = th(env)
   let style
-  if (inQuote(env)) {
+  if (tokens[idx].meta && tokens[idx].meta.footer) {
+    const isLead = inlineTok && inlineTok.content.replace(/^\*+/, '').trim().startsWith('——')
+    style = isLead ? t.footerLead : t.footerText
+    env.contextStack.push('footer')
+  } else if (inQuote(env)) {
     const isSignature = inlineTok && inlineTok.content.trim().startsWith('——')
     if (isSignature) style = t.blockquote.signature
     else style = lastParaInQuote(tokens, idx) ? t.blockquote.text : t.blockquote.textGap
@@ -262,6 +287,7 @@ rules.paragraph_close = (tokens, idx, opts, env) => {
     env.skipPara = false
     return ''
   }
+  if (top(env) === 'footer') env.contextStack.pop()
   return '</p>'
 }
 

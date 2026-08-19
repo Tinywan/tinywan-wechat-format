@@ -93,6 +93,17 @@ margin:0 0 24px 0;
 - `letter-spacing:0.5px` 微字距（由 1px 收紧，去松散感）；
 - 段间距 24px（6×4 网格）：行高收紧后以段间留白补偿节奏。
 
+### 文末居中
+
+最后一个 `---` 之后、首段以 `——` 开头的段落组识别为文末（如 `**—— 如果这篇对你有帮助 ——**`），居中渲染：
+
+| 段落 | 样式 |
+|---|---|
+| 引导行（以 `——` 开头） | 14px、`primary`、line-height 1.8、居中、margin `30px 0 8px` |
+| 其余各段 | 15px、line-height 2、居中、margin `0 0 8px` |
+
+文末内 `**加粗**` 只输出裸 `<strong>`（无虚线划线，继承段色）。参考资料等位于两个 `---` 之间的段落不识别为文末，保持正文样式。
+
 ---
 
 ## 6. 行内元素
@@ -110,9 +121,10 @@ margin:0 0 24px 0;
 background:#e8edf2; color:#4a7fa5;   /* blue-tech 取值 */
 border-radius:3px; padding:1px 6px;
 font-size:16px; font-family:Consolas,Menlo,monospace;
+word-break:break-all;
 ```
 
-字号与正文一致（16px）：等宽字体 x 高偏小，同字号下视觉才对齐。
+字号与正文一致（16px）：等宽字体 x 高偏小，同字号下视觉才对齐。`word-break:break-all`：justify 段落中长标识符若不折行，会整块挤到下一行，上一行余白被两端对齐均摊成字距拉伸。
 
 ---
 
@@ -353,7 +365,7 @@ Kami 原生的暖纸背景（`#f5f4ed`）**不可移植**：微信正文区域�
 | 不用 ul/ol/li | 列表 → `<p>` + 标记 span（见 §7） |
 | 渐变降级 | 若使用 `linear-gradient`：纯色在前、渐变在后（当前输出无渐变） |
 | 空格保形 | 代码空格 → `\u00a0` |
-| 长行不溢出 | 代码行 `word-break:break-all` |
+| 长行不溢出 | 代码块行与行内代码均 `word-break:break-all` |
 | 外链无效 | 链接 → 主题色加粗文本，丢弃 href |
 | 外链图无效 | 图片 → base64 内嵌（文件名匹配） |
 | 字体继承被打断 | 每个文字元素显式声明完整字体栈 |

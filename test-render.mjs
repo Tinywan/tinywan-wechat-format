@@ -74,6 +74,15 @@ checks.push(
   ['表格字体栈', tableHtml.includes('border-collapse:collapse;width:100%')],
 )
 
+// ---------- 文末居中 ----------
+const footerHtml = render('---\n\n**—— 如果这篇对你有帮助 ——**\n\n点赞 · 在看 · 转发\n')
+checks.push(
+  ['文末居中', (footerHtml.match(/text-align:center/g) || []).length >= 2],
+  ['文末引导行主题色', footerHtml.includes('color:#2273b8;text-align:center')],
+  ['文末无虚线划线', !footerHtml.includes('border-bottom:1px dashed')],
+  ['参考资料不居中', !render('---\n\n参考资料：\n\n1. 性能文档\n').includes('text-align:center')],
+)
+
 let failed = 0
 for (const [name, ok] of checks) {
   console.log(`${ok ? 'PASS' : 'FAIL'}  ${name}`)
