@@ -120,11 +120,11 @@ margin:0 0 24px 0;
 ```css
 background:#e8edf2; color:#4a7fa5;   /* blue-tech 取值 */
 border-radius:3px; padding:1px 6px;
-font-size:16px; font-family:Consolas,Menlo,monospace;
+font-size:14px; font-family:Consolas,Menlo,monospace;
 word-break:break-all;
 ```
 
-字号与正文一致（16px）：等宽字体 x 高偏小，同字号下视觉才对齐。`word-break:break-all`：justify 段落中长标识符若不折行，会整块挤到下一行，上一行余白被两端对齐均摊成字距拉伸。
+字号比正文小一档（14px）：代码更紧凑，与正文层级分明。`word-break:break-all`：justify 段落中长标识符若不折行，会整块挤到下一行，上一行余白被两端对齐均摊成字距拉伸。
 
 ---
 
@@ -208,27 +208,23 @@ text-align:center; margin:4px 0 24px 0;
 
 ---
 
-## 10. 代码块（窗口风格，装饰收敛）
+## 10. 代码块（横滑窗口，装饰收敛）
 
 ```css
-/* 外框 */
+/* 外层：横滑窗口 */
+overflow-x:auto; margin:0 0 20px 0;
+/* 内层：撑宽，承载底色与圆角 */
+display:inline-block; min-width:100%; box-sizing:border-box;
 background:#2a2f3a;                     /* codeBg */
-border-radius:4px; padding:20px 16px; margin:0 0 20px 0;
+border-radius:4px; padding:20px 16px;
 ```
-
-### 头部（fence 带语言/标题时显示）
-
-- 三个 macOS 信号点：`#ff5f57` / `#febc2e` / `#28c840`，**8px** 圆点，间距 8px（由 10px 收敛）；
-- 标签：`LANG · 标题`（或仅语言名大写），11px `MONO`，letter-spacing 0.5px，`codeLabel` 色。
-
-示例 fence：` ```php app.php ` → 标签 `PHP · app.php`。
 
 ### 代码行
 
 ```css
-font-size:16px; line-height:1.7; color:#aeb6c2;   /* codeText，与正文同号 */
+font-size:14px; line-height:1.7; color:#aeb6c2;   /* codeText，比正文小一档更紧凑 */
 font-family:Consolas,Menlo,monospace;
-word-break:break-all;                              /* 长行折行，手机不溢出 */
+white-space:nowrap;                                /* 长行不折行，外层横滑查看 */
 margin:0;
 ```
 
@@ -365,7 +361,7 @@ Kami 原生的暖纸背景（`#f5f4ed`）**不可移植**：微信正文区域�
 | 不用 ul/ol/li | 列表 → `<p>` + 标记 span（见 §7） |
 | 渐变降级 | 若使用 `linear-gradient`：纯色在前、渐变在后（当前输出无渐变） |
 | 空格保形 | 代码空格 → `\u00a0` |
-| 长行不溢出 | 代码块行与行内代码均 `word-break:break-all` |
+| 长行不溢出 | 代码块横滑（`overflow-x:auto` + 内层撑宽，行 `white-space:nowrap`）；行内代码 `word-break:break-all` |
 | 外链无效 | 链接 → 主题色加粗文本，丢弃 href |
 | 外链图无效 | 图片 → base64 内嵌（文件名匹配） |
 | 字体继承被打断 | 每个文字元素显式声明完整字体栈 |

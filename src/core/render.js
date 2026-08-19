@@ -165,19 +165,9 @@ rules.hr = (tokens, idx, opts, env) => `<hr style="${th(env).hr}">`
 rules.fence = (tokens, idx, opts, env) => {
   const t = th(env)
   const token = tokens[idx]
-  const info = (token.info || '').trim()
-  const parts = info.split(/\s+/)
-  const lang = parts[0] || ''
-  const title = parts.slice(1).join(' ')
-  const label = lang ? (title ? `${lang.toUpperCase()} · ${title}` : lang.toUpperCase()) : title
+  const lang = (token.info || '').trim().split(/\s+/)[0] || ''
 
   const lines = highlightToLines(token.content.replace(/\n$/, ''), lang, t.code.tokens)
-
-  let header = ''
-  if (label) {
-    const dot = (color) => `<span style="${t.code.dot}background:${color};"></span>`
-    header = `<p style="${t.code.header}">${dot(t.code.dots.red)}${dot(t.code.dots.yellow)}${dot(t.code.dots.green)}<span style="${t.code.label}">${esc(label)}</span></p>`
-  }
 
   // 首行整行注释 → 主题强调标题行
   const commentColor = t.code.tokens['hljs-comment'].match(/color:(#[0-9a-fA-F]+)/)[1]
@@ -190,7 +180,7 @@ rules.fence = (tokens, idx, opts, env) => {
     })
     .join('')
 
-  return `<section style="${t.code.block}">${header}${body}</section>`
+  return `<section style="${t.code.scroll}"><section style="${t.code.block}">${body}</section></section>`
 }
 rules.code_block = rules.fence
 
