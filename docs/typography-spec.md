@@ -213,11 +213,14 @@ text-align:center; margin:4px 0 24px 0;
 ```css
 /* 外层：横滑窗口 */
 overflow-x:auto; margin:0 0 20px 0;
-/* 内层：撑宽，承载底色与圆角 */
-display:inline-block; min-width:100%; box-sizing:border-box;
+/* 中层：单格表格撑宽（auto 布局宽度 = max(100%, 内容宽)） */
+border-collapse:collapse; width:100%; margin:0;
+/* td：承载底色与圆角 */
 background:#2a2f3a;                     /* codeBg */
-border-radius:4px; padding:20px 16px;
+border-radius:4px; padding:20px 16px; white-space:nowrap;
 ```
+
+微信粘贴会剥离 section 的 `display:inline-block`，内层退回容器宽、nowrap 代码滑出底色；table 自动布局随内容撑宽，是微信最稳的撑宽载体。
 
 ### 代码行
 
@@ -361,7 +364,7 @@ Kami 原生的暖纸背景（`#f5f4ed`）**不可移植**：微信正文区域�
 | 不用 ul/ol/li | 列表 → `<p>` + 标记 span（见 §7） |
 | 渐变降级 | 若使用 `linear-gradient`：纯色在前、渐变在后（当前输出无渐变） |
 | 空格保形 | 代码空格 → `\u00a0` |
-| 长行不溢出 | 代码块横滑（`overflow-x:auto` + 内层撑宽，行 `white-space:nowrap`）；行内代码 `word-break:break-all` |
+| 长行不溢出 | 代码块横滑（`overflow-x:auto` + 单格 table 撑宽，行 `white-space:nowrap`）；行内代码 `word-break:break-all` |
 | 外链无效 | 链接 → 主题色加粗文本，丢弃 href |
 | 外链图无效 | 图片 → base64 内嵌（文件名匹配） |
 | 字体继承被打断 | 每个文字元素显式声明完整字体栈 |

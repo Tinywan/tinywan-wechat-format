@@ -109,7 +109,8 @@ export function buildTheme(p) {
 
     code: {
       scroll: `overflow-x:auto;margin:0 0 20px 0;`,
-      block: `display:inline-block;min-width:100%;box-sizing:border-box;background:${c.codeBg};border-radius:4px;padding:20px 16px;`,
+      table: `border-collapse:collapse;width:100%;margin:0;`,
+      block: `background:${c.codeBg};border-radius:4px;padding:20px 16px;white-space:nowrap;`,
       line: `font-size:14px;line-height:1.7;color:${c.codeText};font-family:${MONO};white-space:nowrap;margin:0;`,
       titleLine: `font-size:14px;line-height:1.7;color:${p.codeTitleColor};font-weight:bold;font-family:${MONO};white-space:nowrap;margin:0;`,
       tokens: tokenMap(p.syntax),

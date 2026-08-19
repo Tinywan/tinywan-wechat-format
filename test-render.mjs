@@ -27,6 +27,7 @@ const checks = [
   ['签名样式', html.includes('font-size:13px;line-height:1.8;color:#8a94a0')],
   ['代码块深底', html.includes('background:#2a2f3a')],
   ['代码块横滑窗口', html.includes('overflow-x:auto')],
+  ['代码块单格表格撑宽', html.includes('<table style="border-collapse:collapse;width:100%;margin:0;">')],
   ['代码行不折行', html.includes('white-space:nowrap')],
   ['行内代码', html.includes('background:#e8edf2;color:#4a7fa5')],
   ['列表圆点标记', html.includes('>•<')],

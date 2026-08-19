@@ -180,7 +180,7 @@ rules.fence = (tokens, idx, opts, env) => {
     })
     .join('')
 
-  return `<section style="${t.code.scroll}"><section style="${t.code.block}">${body}</section></section>`
+  return `<section style="${t.code.scroll}"><table style="${t.code.table}"><tbody><tr><td style="${t.code.block}">${body}</td></tr></tbody></table></section>`
 }
 rules.code_block = rules.fence
 
