@@ -61,7 +61,7 @@ padding: 0 16px;    /* 4px 网格，移动端呼吸感 */
 | 档位 | 值 | 应用 |
 |---|---|---|
 | 标题档 | 1.4 | h1–h4（紧凑，标题不占用过多垂直空间） |
-| 密排档 | 1.6–1.7 | 列表 1.7、引用 1.7、代码 1.7、表格 1.6 |
+| 密排档 | 1.6–1.7 | 列表 1.6、引用 1.7、代码 1.7、表格 1.6 |
 | 阅读档 | 1.75 | 正文段落（16px 移动端中文舒适区，Kami 1.55 按字号比例上调适配） |
 
 ### h2 数字色块（chip）
@@ -133,7 +133,7 @@ word-break:break-all;
 微信不保留 `ul/ol`，统一输出为 `<p>` + 标记。列表项公共样式：
 
 ```css
-font-size:16px; line-height:1.7; letter-spacing:0.5px; color:#333;
+font-size:16px; line-height:1.6; letter-spacing:0.5px; color:#333;
 text-align:justify;
 padding-left:16px; text-indent:-16px;   /* 悬挂缩进：折行后文字对齐首行文字 */
 margin:0 0 12px 0;                      /* 项间距收紧成组 */
