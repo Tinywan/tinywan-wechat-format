@@ -155,7 +155,7 @@ rules.code_inline = (tokens, idx, opts, env) =>
   `<span style="${th(env).inlineCode}">${esc(tokens[idx].content)}</span>`
 
 rules.link_open = (tokens, idx, opts, env) =>
-  `<span style="color:${th(env).colors.primary};font-weight:bold;">`
+  `<span style="color:${th(env).colors.primary};font-weight:bold;word-break:break-all;">`
 rules.link_close = () => '</span>'
 
 rules.softbreak = () => '<br>'

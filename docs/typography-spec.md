@@ -75,7 +75,7 @@ font-size:15px; line-height:1.4;
 margin-right:10px; vertical-align:middle;
 ```
 
-描边芯片呼应全局「细线优先」，与虚线分隔线、2px 引用边线同属一套克制语言；无渐变填充，天然免除降级问题。
+描边芯片呼应全局「细线优先」，与虚线分隔线、4px 引用边线同属一套克制语言；无渐变填充，天然免除降级问题。
 
 实现要点：core rule 在解析期产出中性 token（`h2_chip`/`h2_chip_close`），渲染期才套用 env 主题 —— 解析与配色解耦。
 
@@ -112,7 +112,7 @@ margin:0 0 24px 0;
 |---|---|---|
 | `**加粗**` | `<strong>` | 全部带主题色 1px 虚线下划线（`border-bottom:1px dashed ${primary}`，重点划线）；引用块内再叠 `primary` 字色 |
 | `*斜体*` | `<em>` | 原样输出 |
-| `[链接](url)` | 主题色加粗 `<span>` | 公众号正文外链无效，丢弃 href：`color:${primary};font-weight:bold` |
+| `[链接](url)` | 主题色加粗 `<span>` | 公众号正文外链无效，丢弃 href：`color:${primary};font-weight:bold;word-break:break-all`（长 URL 不可断行会在 justify 段落拉伸前一行字距） |
 | 软/硬换行 | `<br>` | — |
 
 ### 行内代码
@@ -166,8 +166,8 @@ margin:0 0 12px 0;                      /* 项间距收紧成组 */
 ```css
 /* 外框 */
 background:#f0f6fb;                     /* quoteBg，各主题统一调浅一档 */
-border-left:2px solid #2273b8;          /* Kami 2pt 蓝线，由 4px 收敛 */
-border-radius:4px; padding:16px 20px; margin:0 0 20px 0;
+border-left:4px solid #2273b8;          /* 引用左线标准宽度；2px 手机端偏细像渲染瑕疵；笔直无弧度 */
+padding:16px 20px; margin:0 0 20px 0;
 
 /* 段落 */
 font-size:16px; line-height:1.7; letter-spacing:0.5px;
@@ -365,7 +365,7 @@ Kami 原生的暖纸背景（`#f5f4ed`）**不可移植**：微信正文区域�
 | 渐变降级 | 若使用 `linear-gradient`：纯色在前、渐变在后（当前输出无渐变） |
 | 空格保形 | 代码空格 → `\u00a0` |
 | 长行不溢出 | 代码块横滑（`overflow-x:auto` + 单格 table 撑宽，行 `white-space:nowrap`）；行内代码 `word-break:break-all` |
-| 外链无效 | 链接 → 主题色加粗文本，丢弃 href |
+| 外链无效 | 链接 → 主题色加粗文本，丢弃 href，`word-break:break-all` 防 justify 拉伸 |
 | 外链图无效 | 图片 → base64 内嵌（文件名匹配） |
 | 字体继承被打断 | 每个文字元素显式声明完整字体栈 |
 | 中间字重不稳 | 不用 600：Android 微信仅 400/700 两档，标题/表头用 bold |

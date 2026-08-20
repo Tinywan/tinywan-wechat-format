@@ -85,7 +85,7 @@ export function buildTheme(p) {
     listMarker: `color:${c.primary};font-weight:bold;`,
 
     blockquote: {
-      box: `background:${c.quoteBg};border-left:2px solid ${c.primary};border-radius:4px;padding:16px 20px;margin:0 0 20px 0;`,
+      box: `background:${c.quoteBg};border-left:4px solid ${c.primary};padding:16px 20px;margin:0 0 20px 0;`,
       text: `font-size:16px;line-height:1.7;letter-spacing:0.5px;color:${c.quoteText};margin:0;font-family:${FONT};`,
       textGap: `font-size:16px;line-height:1.7;letter-spacing:0.5px;color:${c.quoteText};margin:0 0 8px 0;font-family:${FONT};`,
       strongColor: c.primary,
