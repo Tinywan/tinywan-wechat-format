@@ -17,6 +17,7 @@ fs.writeFileSync('test-output.html', html, 'utf-8')
 
 const imgHtml = render('![架构图](arch.png)', { warnings: [] })
 const linkHtml = render('[文档](https://example.com/long/path)', { warnings: [] })
+const footerNoHr = render('**—— 如果这篇对你有帮助 ——**\n\n点赞 · 在看 · 转发', { warnings: [] })
 
 const checks = [
   ['容器 677px', html.includes('max-width:677px')],
@@ -32,6 +33,7 @@ const checks = [
   ['代码行不折行', html.includes('white-space:nowrap')],
   ['行内代码', html.includes('background:#e8edf2;color:#4a7fa5')],
   ['链接断行', linkHtml.includes('font-weight:bold;word-break:break-all')],
+  ['文末居中（无 hr）', footerNoHr.includes('line-height:1.8;color:#2273b8;text-align:center')],
   ['列表圆点标记', html.includes('>•<')],
   ['全文无 border-radius:50%', !html.includes('border-radius:50%')],
   ['列表悬挂缩进', html.includes('padding-left:16px;text-indent:-16px')],

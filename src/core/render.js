@@ -34,21 +34,33 @@ md.core.ruler.push('h2_number_chip', (state) => {
   }
 })
 
-// ---------- core rule: 文末识别 → 最后一个 hr 之后、以 —— 开头的段落组标记 footer（居中） ----------
+// ---------- core rule: 文末识别 → 最后一个 hr 之后、以 —— 开头的段落组标记 footer（居中）；无 hr 时回退到最后一个引用块外的 —— 段落 ----------
 md.core.ruler.push('footer_center', (state) => {
   const tokens = state.tokens
+  const startsWithDash = (i) => {
+    const inline = tokens[i + 1]
+    return !!inline && inline.type === 'inline' && inline.content.replace(/^\*+/, '').trim().startsWith('——')
+  }
   let lastHr = -1
   for (let i = tokens.length - 1; i >= 0; i--) {
     if (tokens[i].type === 'hr') { lastHr = i; break }
   }
-  if (lastHr === -1) return
   let first = -1
-  for (let i = lastHr + 1; i < tokens.length; i++) {
-    if (tokens[i].type === 'paragraph_open') { first = i; break }
+  if (lastHr !== -1) {
+    for (let i = lastHr + 1; i < tokens.length; i++) {
+      if (tokens[i].type === 'paragraph_open') { first = i; break }
+    }
+    if (first === -1 || !startsWithDash(first)) return
+  } else {
+    let quoteDepth = 0
+    for (let i = 0; i < tokens.length; i++) {
+      const ty = tokens[i].type
+      if (ty === 'blockquote_open') quoteDepth++
+      else if (ty === 'blockquote_close') quoteDepth--
+      else if (ty === 'paragraph_open' && quoteDepth === 0 && startsWithDash(i)) first = i
+    }
+    if (first === -1) return
   }
-  if (first === -1) return
-  const inline = tokens[first + 1]
-  if (!inline || inline.type !== 'inline' || !inline.content.replace(/^\*+/, '').trim().startsWith('——')) return
   for (let i = first; i < tokens.length; i++) {
     if (tokens[i].type === 'paragraph_open') tokens[i].meta = { footer: true }
   }
