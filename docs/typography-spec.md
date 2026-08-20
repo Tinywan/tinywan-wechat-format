@@ -69,9 +69,10 @@ padding: 0 16px;    /* 4px 网格，移动端呼吸感 */
 h2 以数字开头（匹配 `^(\d{1,2})[\s、.．·]+`，如 `1、`、`2.`、`3 `）时，数字被抽出为描边色块，单位数补零为两位（`01`、`02`……）：
 
 ```css
-display:inline-block; padding:0 8px; border:1px solid #2273b8;
-border-radius:4px; color:#2273b8; font-weight:bold;
-font-size:15px; line-height:1.4;
+display:inline-block; width:26px; height:26px;  /* 正方形色块，长方形 padding 版已废弃 */
+box-sizing:border-box; line-height:24px; text-align:center;
+border:1px solid #2273b8; border-radius:4px; color:#2273b8; font-weight:bold;
+font-size:14px;                               /* 两位数字收一档，保证方正 */
 margin-right:10px; vertical-align:middle;
 ```
 

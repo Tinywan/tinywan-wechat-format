@@ -22,7 +22,7 @@ const checks = [
   ['容器 677px', html.includes('max-width:677px')],
   ['h1 样式', html.includes('font-size:20px;font-weight:bold;text-align:center;color:#1f5fa6;line-height:1.4')],
   ['h2 描边色块', html.includes('border:1px solid #2273b8;border-radius:4px;color:#2273b8;font-weight:bold')],
-  ['色块序号 01', html.includes('<span style="display:inline-block;padding:0 8px;border:1px solid') && html.includes('>01</span>')],
+  ['色块序号 01', html.includes('<span style="display:inline-block;width:26px;height:26px;') && html.includes('>01</span>')],
   ['h3 无竖线', html.includes('font-size:17px;font-weight:bold;text-align:left;color:#2273b8') && !/h3[^>]*border-left/.test(html)],
   ['提示框底色', html.includes('background:#f0f6fb')],
   ['签名样式', html.includes('font-size:13px;line-height:1.8;color:#8a94a0')],

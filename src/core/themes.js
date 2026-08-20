@@ -72,7 +72,7 @@ export function buildTheme(p) {
 
     h2: `font-size:19px;font-weight:bold;text-align:center;color:${c.deep};line-height:1.4;margin:48px 0 24px 0;font-family:${FONT};`,
 
-    h2Chip: `display:inline-block;padding:0 8px;border:1px solid ${c.primary};border-radius:4px;color:${c.primary};font-weight:bold;font-size:15px;line-height:1.4;margin-right:10px;vertical-align:middle;font-family:${FONT};`,
+    h2Chip: `display:inline-block;width:26px;height:26px;box-sizing:border-box;line-height:24px;text-align:center;border:1px solid ${c.primary};border-radius:4px;color:${c.primary};font-weight:bold;font-size:14px;margin-right:10px;vertical-align:middle;font-family:${FONT};`,
 
     h3: `font-size:17px;font-weight:bold;text-align:left;color:${c.primary};line-height:1.4;margin:0 0 16px 0;font-family:${FONT};`,
 
