@@ -99,10 +99,8 @@ rules.heading_open = (tokens, idx, opts, env) => {
 rules.heading_close = (tokens, idx) => `</${tokens[idx].tag}>`
 
 rules.strong_open = (tokens, idx, opts, env) => {
-  const t = th(env)
   if (top(env) === 'footer') return '<strong>'
-  const color = inQuote(env) ? `color:${t.blockquote.strongColor};` : ''
-  return `<strong style="${color}border-bottom:1px dashed ${t.colors.primary};">`
+  return `<strong style="color:${th(env).colors.primary};">`
 }
 rules.strong_close = () => '</strong>'
 rules.em_open = () => '<em>'

@@ -14,7 +14,7 @@
 3. **渐变必降级**：所有 `linear-gradient` 前先写同位置纯色，旧内核回退到纯色。
 4. **结构扁平化**：不使用 `ul/ol/li`（微信粘贴易丢失），列表转为「段落 + 标记」。
 5. **主题可插拔**：渲染规则与颜色解耦，调色板 → 工厂 → 全量 token，一键换肤。
-6. **克制基线**（Kami × Kimi）：4px 间距网格；行距三档（标题 1.4 / 密排 1.6–1.7 / 阅读 1.75）；细线优先（2px 边线、1px 虚线），装饰收敛，强调色面积严控。
+6. **克制基线**（Kami × Kimi）：4px 间距网格；行距三档（标题 1.4 / 密排 1.6–1.7 / 阅读 1.7）；细线优先（2px 边线、1px 虚线仅用于分隔线），装饰收敛，强调色面积严控。
 
 ---
 
@@ -62,7 +62,7 @@ padding: 0 16px;    /* 4px 网格，移动端呼吸感 */
 |---|---|---|
 | 标题档 | 1.4 | h1–h4（紧凑，标题不占用过多垂直空间） |
 | 密排档 | 1.6–1.7 | 列表 1.6、引用 1.7、代码 1.7、表格 1.6 |
-| 阅读档 | 1.75 | 正文段落（16px 移动端中文舒适区，Kami 1.55 按字号比例上调适配） |
+| 阅读档 | 1.7 | 正文段落（16px 移动端中文舒适区；1.75 收敛至 1.7，去版面膨胀感） |
 
 ### h2 数字色块（chip）
 
@@ -85,13 +85,13 @@ margin-right:10px; vertical-align:middle;
 ## 5. 正文段落
 
 ```css
-font-size:16px; line-height:1.75; letter-spacing:0.5px;
+font-size:16px; line-height:1.7; letter-spacing:0.3px;
 color:#333; text-align:justify;
 margin:0 0 24px 0;
 ```
 
 - `text-align:justify` 两端对齐，中文排版更整齐；
-- `letter-spacing:0.5px` 微字距（由 1px 收紧，去松散感）；
+- `letter-spacing:0.3px` 微字距（1px → 0.5px 再收紧至 0.3px，去松散感）；
 - 段间距 24px（6×4 网格）：行高收紧后以段间留白补偿节奏。
 
 ### 文末居中
@@ -103,7 +103,7 @@ margin:0 0 24px 0;
 | 引导行（以 `——` 开头） | 14px、`primary`、line-height 1.8、居中、margin `30px 0 8px` |
 | 其余各段 | 15px、line-height 2、居中、margin `0 0 8px` |
 
-文末内 `**加粗**` 只输出裸 `<strong>`（无虚线划线，继承段色）。参考资料等位于两个 `---` 之间的段落不识别为文末，保持正文样式。
+文末内 `**加粗**` 只输出裸 `<strong>`（无主题色，继承段色）。参考资料等位于两个 `---` 之间的段落不识别为文末，保持正文样式。
 
 ---
 
@@ -111,7 +111,7 @@ margin:0 0 24px 0;
 
 | 元素 | 输出 | 说明 |
 |---|---|---|
-| `**加粗**` | `<strong>` | 全部带主题色 1px 虚线下划线（`border-bottom:1px dashed ${primary}`，重点划线）；引用块内再叠 `primary` 字色 |
+| `**加粗**` | `<strong>` | 一律 `primary` 主题色字色、无下划线；文末区域内输出裸 `<strong>` |
 | `*斜体*` | `<em>` | 原样输出 |
 | `[链接](url)` | 主题色加粗 `<span>` | 公众号正文外链无效，丢弃 href：`color:${primary};font-weight:bold;word-break:break-all`（长 URL 不可断行会在 justify 段落拉伸前一行字距） |
 | 软/硬换行 | `<br>` | — |
@@ -134,7 +134,7 @@ word-break:break-all;
 微信不保留 `ul/ol`，统一输出为 `<p>` + 标记。列表项公共样式：
 
 ```css
-font-size:16px; line-height:1.6; letter-spacing:0.5px; color:#333;
+font-size:16px; line-height:1.6; letter-spacing:0.3px; color:#333;
 text-align:justify;
 padding-left:16px; text-indent:-16px;   /* 悬挂缩进：折行后文字对齐首行文字 */
 margin:0 0 12px 0;                      /* 项间距收紧成组 */
@@ -171,7 +171,7 @@ border-left:4px solid #2273b8;          /* 引用左线标准宽度；2px 手机
 padding:16px 20px; margin:0 0 20px 0;
 
 /* 段落 */
-font-size:16px; line-height:1.7; letter-spacing:0.5px;
+font-size:16px; line-height:1.7; letter-spacing:0.3px;
 color:#333; margin:0;                    /* 末段，与正文同号 */
 /* 非末段 margin 改为 0 0 8px，段间留缝 */
 ```
@@ -182,7 +182,7 @@ color:#333; margin:0;                    /* 末段，与正文同号 */
 |---|---|
 | 签名行 | 以 `——` 开头的段落：13px、`gray` 色（`#8a94a0`）、line-height 1.8 |
 | 加粗着色 | 引用内 `**加粗**` 着 `primary` 色 |
-| 字距 | 引用文字 `letter-spacing:0.5px`，与正文字感一致 |
+| 字距 | 引用文字 `letter-spacing:0.3px`，与正文字感一致 |
 
 ---
 
@@ -262,7 +262,7 @@ margin:0 0 20px 0;
 
 /* th */
 background:#2273b8; color:#ffffff;
-font-size:15px; font-weight:bold; line-height:1.6; letter-spacing:0.5px;
+font-size:15px; font-weight:bold; line-height:1.6; letter-spacing:0.3px;
 padding:8px 12px; border:1px solid #2273b8; text-align:left;
 
 /* td */

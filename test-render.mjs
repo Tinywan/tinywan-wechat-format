@@ -38,7 +38,7 @@ const checks = [
   ['全文无 border-radius:50%', !html.includes('border-radius:50%')],
   ['列表悬挂缩进', html.includes('padding-left:16px;text-indent:-16px')],
   ['图注格式', imgHtml.includes('图 1 · 架构图')],
-  ['strong 虚线划线', html.includes('border-bottom:1px dashed #2273b8')],
+  ['strong 主色无下划线', html.includes('<strong style="color:#2273b8;">') && !html.includes('border-bottom:1px dashed')],
   ['图片圆角', imgHtml.includes('border-radius:6px')],
   ['无 ul/ol 标签', !/<\/?(ul|ol)[\s>]/.test(html)],
   ['无 class 属性', !/class=/.test(html)],
@@ -83,7 +83,7 @@ const footerHtml = render('---\n\n**—— 如果这篇对你有帮助 ——**\
 checks.push(
   ['文末居中', (footerHtml.match(/text-align:center/g) || []).length >= 2],
   ['文末引导行主题色', footerHtml.includes('color:#2273b8;text-align:center')],
-  ['文末无虚线划线', !footerHtml.includes('border-bottom:1px dashed')],
+  ['文末加粗裸标签', footerHtml.includes('<strong>——')],
   ['参考资料不居中', !render('---\n\n参考资料：\n\n1. 性能文档\n').includes('text-align:center')],
 )
 

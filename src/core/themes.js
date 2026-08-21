@@ -78,17 +78,16 @@ export function buildTheme(p) {
 
     h4: `font-size:16px;font-weight:bold;text-align:left;color:${c.deep};line-height:1.4;margin:0 0 14px 0;font-family:${FONT};`,
 
-    paragraph: `font-size:16px;line-height:1.75;letter-spacing:0.5px;color:${c.text};text-align:justify;margin:0 0 24px 0;font-family:${FONT};`,
+    paragraph: `font-size:16px;line-height:1.7;letter-spacing:0.3px;color:${c.text};text-align:justify;margin:0 0 24px 0;font-family:${FONT};`,
 
-    listItem: `font-size:16px;line-height:1.6;letter-spacing:0.5px;color:${c.text};text-align:justify;padding-left:16px;text-indent:-16px;margin:0 0 12px 0;font-family:${FONT};`,
+    listItem: `font-size:16px;line-height:1.6;letter-spacing:0.3px;color:${c.text};text-align:justify;padding-left:16px;text-indent:-16px;margin:0 0 12px 0;font-family:${FONT};`,
 
     listMarker: `color:${c.primary};font-weight:bold;`,
 
     blockquote: {
       box: `background:${c.quoteBg};border-left:4px solid ${c.primary};padding:16px 20px;margin:0 0 20px 0;`,
-      text: `font-size:16px;line-height:1.7;letter-spacing:0.5px;color:${c.quoteText};margin:0;font-family:${FONT};`,
-      textGap: `font-size:16px;line-height:1.7;letter-spacing:0.5px;color:${c.quoteText};margin:0 0 8px 0;font-family:${FONT};`,
-      strongColor: c.primary,
+      text: `font-size:16px;line-height:1.7;letter-spacing:0.3px;color:${c.quoteText};margin:0;font-family:${FONT};`,
+      textGap: `font-size:16px;line-height:1.7;letter-spacing:0.3px;color:${c.quoteText};margin:0 0 8px 0;font-family:${FONT};`,
       signature: `font-size:13px;line-height:1.8;color:${c.quoteGray};margin:0;font-family:${FONT};`,
     },
 
@@ -103,7 +102,7 @@ export function buildTheme(p) {
 
     table: `border-collapse:collapse;width:100%;margin:0 0 20px 0;font-family:${FONT};`,
 
-    tableTh: `background:${c.primary};color:#ffffff;font-size:15px;font-weight:bold;line-height:1.6;letter-spacing:0.5px;padding:8px 12px;border:1px solid ${c.primary};text-align:left;font-family:${FONT};`,
+    tableTh: `background:${c.primary};color:#ffffff;font-size:15px;font-weight:bold;line-height:1.6;letter-spacing:0.3px;padding:8px 12px;border:1px solid ${c.primary};text-align:left;font-family:${FONT};`,
 
     tableTd: `font-size:15px;line-height:1.6;color:${c.text};padding:8px 12px;border:1px solid ${p.tableBorder};text-align:left;vertical-align:top;font-family:${FONT};`,
 
