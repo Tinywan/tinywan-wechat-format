@@ -94,7 +94,7 @@ rules.heading_open = (tokens, idx, opts, env) => {
   const t = th(env)
   const tag = tokens[idx].tag
   const style = { h1: t.h1, h2: t.h2, h3: t.h3, h4: t.h4 }[tag] || t.h4
-  const marker = tag === 'h3' ? `<span style="${t.listMarker}">▪</span>&nbsp;` : ''
+  const marker = tag === 'h3' ? `<span style="color:${th(env).colors.primary};font-weight:bold;">▪</span>&nbsp;` : ''
   return `<${tag} style="${style}">${marker}`
 }
 rules.heading_close = (tokens, idx) => `</${tokens[idx].tag}>`
@@ -137,9 +137,9 @@ rules.list_item_open = (tokens, idx, opts, env) => {
   if (env.inOrderedList) {
     env.listCounters[env.listCounters.length - 1] += 1
     const n = env.listCounters[env.listCounters.length - 1]
-    env.pendingMarker = `${indent}<span style="${th(env).listMarker}">${n}.</span>&nbsp;`
+    env.pendingMarker = `${indent}&nbsp;<span style="${th(env).listMarker}">${n}.</span>&nbsp;&nbsp;`
   } else {
-    env.pendingMarker = `${indent}<span style="${th(env).listMarker}">•</span>&nbsp;&nbsp;`
+    env.pendingMarker = `${indent}&nbsp;<span style="${th(env).listMarker}">•</span>&nbsp;&nbsp;&nbsp;`
   }
   return ''
 }

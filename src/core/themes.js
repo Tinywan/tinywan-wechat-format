@@ -75,9 +75,9 @@ export function buildTheme(p) {
 
     paragraph: `font-size:15px;line-height:1.7;letter-spacing:0.3px;color:${c.text};text-align:justify;margin:0 0 24px 0;font-family:${FONT};`,
 
-    listItem: `font-size:15px;line-height:1.6;letter-spacing:0.3px;color:${c.text};text-align:justify;padding-left:16px;text-indent:-16px;margin:0 0 12px 0;font-family:${FONT};`,
+    listItem: `font-size:15px;line-height:1.8;letter-spacing:0.3px;color:${c.text};text-align:justify;padding-left:26px;text-indent:-26px;margin:0 0 8px 0;font-family:${FONT};`,
 
-    listMarker: `color:${c.primary};font-weight:bold;`,
+    listMarker: `color:${c.text};font-weight:bold;`,
 
     blockquote: {
       box: `background:${c.quoteBg};border-left:2px solid ${c.primary};padding:16px 20px;margin:0 0 20px 0;`,

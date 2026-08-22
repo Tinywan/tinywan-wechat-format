@@ -106,3 +106,20 @@
 **涉及文件**：`src/core/themes.js`、`test-render.mjs`、`docs/typography-spec.md`
 
 **验证**：`node test-render.mjs` 全部断言通过（代码块浅灰底、代码 13px、关键字高亮红 `#d73a49`、字符串高亮深蓝 `#032f62`、注释高亮灰 `#6a737d`）。
+
+---
+
+## 无序列表排版对齐参考图（宽松行距 + 深色圆点 + 26px 悬挂缩进）
+
+**动机**：用户指定无序列表按参考图排版（像素实测：行距 ≈1.8、项距 ≈6-8px、圆点近黑色且内缩、文字悬挂缩进 26px）。
+
+**改动**：
+
+- `listItem`：`line-height` 1.6 → 1.8，`margin-bottom` 12 → 8px，悬挂缩进 `padding-left/text-indent` 16 → 26px
+- `listMarker`：主色 → 正文深色（`${c.text}`），圆点视觉安静、不抢加粗引导词；有序列表数字共用该 token，同步变深色
+- `render.js` 标记序列：无序 `&nbsp;•&nbsp;&nbsp;&nbsp;`（圆点内缩 ~5px，文字落在 26px 缩进线）；有序 `&nbsp;N.&nbsp;&nbsp;`
+- h3 小方块改为内联主色样式，不再复用 listMarker（样式值不变）
+
+**涉及文件**：`src/core/themes.js`、`src/core/render.js`、`test-render.mjs`、`docs/typography-spec.md`
+
+**验证**：`node test-render.mjs` 全部断言通过（圆点深色、列表行高 1.8、悬挂缩进 26px、h3 小方块均 PASS）。

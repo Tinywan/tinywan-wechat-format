@@ -61,7 +61,7 @@ padding: 0 16px;    /* 4px 网格，移动端呼吸感 */
 | 档位 | 值 | 应用 |
 |---|---|---|
 | 标题档 | 1.4 | h1–h4（紧凑，标题不占用过多垂直空间） |
-| 密排档 | 1.6–1.7 | 列表 1.6、引用 1.7、代码 1.7、表格 1.6 |
+| 密排档 | 1.6–1.8 | 列表 1.8、引用 1.7、代码 1.7、表格 1.6 |
 | 阅读档 | 1.7 | 正文段落（15px 移动端中文舒适区；1.75 收敛至 1.7，去版面膨胀感） |
 
 ### h1 数字色块（chip）
@@ -138,25 +138,26 @@ word-break:break-all;
 微信不保留 `ul/ol`，统一输出为 `<p>` + 标记。列表项公共样式：
 
 ```css
-font-size:15px; line-height:1.6; letter-spacing:0.3px; color:#333;
+font-size:15px; line-height:1.8; letter-spacing:0.3px; color:#333;
 text-align:justify;
-padding-left:16px; text-indent:-16px;   /* 悬挂缩进：折行后文字对齐首行文字 */
-margin:0 0 12px 0;                      /* 项间距收紧成组 */
+padding-left:26px; text-indent:-26px;   /* 悬挂缩进：折行后文字对齐首行文字 */
+margin:0 0 8px 0;                       /* 项距略大于行距，分组可读 */
 ```
 
 ### 无序列表：圆点字符
 
 ```html
-<span style="color:#2273b8;font-weight:bold;">•</span>&nbsp;&nbsp;
+&nbsp;<span style="color:#333;font-weight:bold;">•</span>&nbsp;&nbsp;&nbsp;
 ```
 
 - 字符为 U+2022 BULLET：Optima / PingFang SC 均内置，零渲染风险；
-- 标记 + 两个 `&nbsp;` 宽约 16px，与悬挂缩进一致，折行对齐。
+- 圆点取正文深色（非主色），视觉安静、不抢加粗引导词；
+- 前 1 空格让圆点内缩 ~5px，标记 + 空格共约 25px，与 26px 悬挂缩进对齐，折行对齐。
 
-### 有序列表：主题色数字
+### 有序列表：深色数字
 
 ```html
-<span style="color:#2273b8;font-weight:bold;">1.</span>&nbsp;
+&nbsp;<span style="color:#333;font-weight:bold;">1.</span>&nbsp;&nbsp;
 ```
 
 - 计数器由渲染器维护（支持嵌套，各层独立计数）；
