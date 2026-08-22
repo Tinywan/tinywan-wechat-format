@@ -74,7 +74,7 @@ export function buildTheme(p) {
 
     h2Chip: `display:inline-block;width:26px;height:26px;box-sizing:border-box;line-height:24px;text-align:center;border:1px solid ${c.primary};border-radius:4px;color:${c.primary};font-weight:bold;font-size:14px;margin-right:10px;vertical-align:middle;font-family:${FONT};`,
 
-    h3: `font-size:17px;font-weight:bold;text-align:left;color:${c.primary};line-height:1.4;border-left:2px solid ${c.primary};padding-left:10px;margin:0 0 16px 0;font-family:${FONT};`,
+    h3: `font-size:17px;font-weight:bold;text-align:left;color:${c.primary};line-height:1.4;border-left:4px solid ${c.primary};padding-left:10px;margin:0 0 16px 0;font-family:${FONT};`,
 
     h4: `font-size:16px;font-weight:bold;text-align:left;color:${c.deep};line-height:1.4;margin:0 0 14px 0;font-family:${FONT};`,
 
@@ -85,7 +85,7 @@ export function buildTheme(p) {
     listMarker: `color:${c.primary};font-weight:bold;`,
 
     blockquote: {
-      box: `background:${c.quoteBg};border-left:4px solid ${c.primary};padding:16px 20px;margin:0 0 20px 0;`,
+      box: `background:${c.quoteBg};border-left:2px solid ${c.primary};padding:16px 20px;margin:0 0 20px 0;`,
       text: `font-size:16px;line-height:1.7;letter-spacing:0.3px;color:${c.quoteText};margin:0;font-family:${FONT};`,
       textGap: `font-size:16px;line-height:1.7;letter-spacing:0.3px;color:${c.quoteText};margin:0 0 8px 0;font-family:${FONT};`,
       signature: `font-size:13px;line-height:1.8;color:${c.quoteGray};margin:0;font-family:${FONT};`,

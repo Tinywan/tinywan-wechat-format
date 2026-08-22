@@ -1,6 +1,6 @@
 # 样式变更摘要（2026-08-22）
 
-本次更新为 h3 单点样式恢复，7 个主题统一生效：h3 恢复「左侧 4px 主色竖条」样式。共涉及 3 个文件。
+本次更新两处，7 个主题统一生效：h3 恢复「左侧 4px 主色竖条」样式；引用块左边线 4px → 2px。共涉及 3 个文件。
 
 ---
 
@@ -23,12 +23,12 @@
 
 ---
 
-## h3 竖条 4px → 2px
+## 引用块左边线 4px → 2px
 
-**动机**：细线优先（v2 原则），与引用块 2px 边线同档，装饰进一步收敛。
+**动机**：细线优先（v2 原则），引用边线与全局 2px 边线同档；h3 竖条维持 4px 不变。
 
-**改动**：`themes.js` h3 token `border-left` 4px → 2px（仅 h3 竖条一处，blockquote 的 4px 不动）
+**改动**：`themes.js` `blockquote.box` 的 `border-left` 4px → 2px。
 
 **涉及文件**：`src/core/themes.js`、`test-render.mjs`、`docs/typography-spec.md`
 
-**验证**：`node test-render.mjs` 全部断言通过；`test-output.html` h3 输出含 `border-left:2px solid #2273b8`
+**验证**：`node test-render.mjs` 全部断言通过；`test-output.html` 引用块输出含 `border-left:2px solid #2273b8`，h3 维持 `border-left:4px solid #2273b8`。

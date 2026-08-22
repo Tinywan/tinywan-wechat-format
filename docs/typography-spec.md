@@ -51,7 +51,7 @@ padding: 0 16px;    /* 4px 网格，移动端呼吸感 */
 |---|---|---|---|---|---|
 | h1 | 20px | 1.4 | `deep` | 居中 | margin `40px 0 24px` |
 | h2 | 19px | 1.4 | `deep` | 居中 | margin `48px 0 24px`，支持数字色块 |
-| h3 | 17px | 1.4 | `primary` | 左 | 左 2px 主色竖条 + padding-left 10px；margin `0 0 16px` |
+| h3 | 17px | 1.4 | `primary` | 左 | 左 4px 主色竖条 + padding-left 10px；margin `0 0 16px` |
 | h4 | 16px | 1.4 | `deep` | 左 | margin `0 0 14px` |
 
 所有标题 `font-weight:bold`。h4 用 `deep` 而非 `primary`：以字重/明度分层，避免强调色堆叠（Kimi 克制）。
@@ -76,7 +76,7 @@ font-size:14px;                               /* 两位数字收一档，保证�
 margin-right:10px; vertical-align:middle;
 ```
 
-描边芯片呼应全局「细线优先」，与虚线分隔线、4px 引用边线同属一套克制语言；无渐变填充，天然免除降级问题。
+描边芯片呼应全局「细线优先」，与虚线分隔线、2px 引用边线同属一套克制语言；无渐变填充，天然免除降级问题。
 
 实现要点：core rule 在解析期产出中性 token（`h2_chip`/`h2_chip_close`），渲染期才套用 env 主题 —— 解析与配色解耦。
 
@@ -167,7 +167,7 @@ margin:0 0 12px 0;                      /* 项间距收紧成组 */
 ```css
 /* 外框 */
 background:#f0f6fb;                     /* quoteBg，各主题统一调浅一档 */
-border-left:4px solid #2273b8;          /* 引用左线标准宽度；2px 手机端偏细像渲染瑕疵；笔直无弧度 */
+border-left:2px solid #2273b8;          /* 引用左线细边线，与全局 2px 边线同档；笔直无弧度 */
 padding:16px 20px; margin:0 0 20px 0;
 
 /* 段落 */
