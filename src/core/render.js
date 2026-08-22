@@ -139,7 +139,7 @@ rules.list_item_open = (tokens, idx, opts, env) => {
     const n = env.listCounters[env.listCounters.length - 1]
     env.pendingMarker = `${indent}&nbsp;<span style="${th(env).listMarker}">${n}.</span>&nbsp;&nbsp;`
   } else {
-    env.pendingMarker = `${indent}&nbsp;<span style="${th(env).listMarker}">•</span>&nbsp;&nbsp;&nbsp;`
+    env.pendingMarker = `${indent}&nbsp;<span style="${th(env).bulletMarker}">●</span>&nbsp;&nbsp;&nbsp;`
   }
   return ''
 }

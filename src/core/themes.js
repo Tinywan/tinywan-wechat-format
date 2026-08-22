@@ -79,6 +79,8 @@ export function buildTheme(p) {
 
     listMarker: `color:${c.text};font-weight:bold;`,
 
+    bulletMarker: `color:${c.text};font-weight:bold;font-size:12px;`,
+
     blockquote: {
       box: `background:${c.quoteBg};border-left:2px solid ${c.primary};padding:16px 20px;margin:0 0 20px 0;`,
       text: `font-size:15px;line-height:1.7;letter-spacing:0.3px;color:${c.quoteText};margin:0;font-family:${FONT};`,

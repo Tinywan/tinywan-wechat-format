@@ -123,3 +123,18 @@
 **涉及文件**：`src/core/themes.js`、`src/core/render.js`、`test-render.mjs`、`docs/typography-spec.md`
 
 **验证**：`node test-render.mjs` 全部断言通过（圆点深色、列表行高 1.8、悬挂缩进 26px、h3 小方块均 PASS）。
+
+---
+
+## 无序圆点改为 U+25CF 实心圆（12px）
+
+**动机**：`•`（U+2022）在衬线回退平台（Windows 宋体）字形偏小，视觉过弱。
+
+**改动**：
+
+- 无序标记字符 `•` → `●`（U+25CF BLACK CIRCLE），新增 `bulletMarker` token（深色、加粗、12px 收一档）
+- `listMarker` 保持 15px 不变，仅供有序列表数字使用（两 token 解耦）
+
+**涉及文件**：`src/core/themes.js`、`src/core/render.js`、`test-render.mjs`、`docs/typography-spec.md`
+
+**验证**：`node test-render.mjs` 全部断言通过；dev server 预览实心盘渲染清晰、折行对齐正常。
