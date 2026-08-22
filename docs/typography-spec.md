@@ -62,7 +62,7 @@ padding: 0 16px;    /* 4px 网格，移动端呼吸感 */
 |---|---|---|
 | 标题档 | 1.4 | h1–h4（紧凑，标题不占用过多垂直空间） |
 | 密排档 | 1.6–1.7 | 列表 1.6、引用 1.7、代码 1.7、表格 1.6 |
-| 阅读档 | 1.7 | 正文段落（16px 移动端中文舒适区；1.75 收敛至 1.7，去版面膨胀感） |
+| 阅读档 | 1.7 | 正文段落（15px 移动端中文舒适区；1.75 收敛至 1.7，去版面膨胀感） |
 
 ### h2 数字色块（chip）
 
@@ -85,7 +85,7 @@ margin-right:10px; vertical-align:middle;
 ## 5. 正文段落
 
 ```css
-font-size:16px; line-height:1.7; letter-spacing:0.3px;
+font-size:15px; line-height:1.7; letter-spacing:0.3px;
 color:#333; text-align:justify;
 margin:0 0 24px 0;
 ```
@@ -100,7 +100,7 @@ margin:0 0 24px 0;
 
 | 段落 | 样式 |
 |---|---|
-| 引导行（以 `——` 开头） | 14px、`primary`、line-height 1.8、居中、margin `30px 0 8px` |
+| 引导行（以 `——` 开头） | 15px、`primary`、line-height 1.8、居中、margin `30px 0 8px` |
 | 其余各段 | 15px、line-height 2、居中、margin `0 0 8px` |
 
 文末内 `**加粗**` 只输出裸 `<strong>`（无主题色，继承段色）。参考资料等位于两个 `---` 之间的段落不识别为文末，保持正文样式。
@@ -121,11 +121,11 @@ margin:0 0 24px 0;
 ```css
 background:#e8edf2; color:#4a7fa5;   /* blue-tech 取值 */
 border-radius:3px; padding:1px 6px;
-font-size:14px; font-family:Consolas,Menlo,monospace;
+font-size:15px; font-family:Consolas,Menlo,monospace;
 word-break:break-all;
 ```
 
-字号比正文小一档（14px）：代码更紧凑，与正文层级分明。`word-break:break-all`：justify 段落中长标识符若不折行，会整块挤到下一行，上一行余白被两端对齐均摊成字距拉伸。
+字号与正文一致（15px）。`word-break:break-all`：justify 段落中长标识符若不折行，会整块挤到下一行，上一行余白被两端对齐均摊成字距拉伸。
 
 ---
 
@@ -134,7 +134,7 @@ word-break:break-all;
 微信不保留 `ul/ol`，统一输出为 `<p>` + 标记。列表项公共样式：
 
 ```css
-font-size:16px; line-height:1.6; letter-spacing:0.3px; color:#333;
+font-size:15px; line-height:1.6; letter-spacing:0.3px; color:#333;
 text-align:justify;
 padding-left:16px; text-indent:-16px;   /* 悬挂缩进：折行后文字对齐首行文字 */
 margin:0 0 12px 0;                      /* 项间距收紧成组 */
@@ -171,7 +171,7 @@ border-left:2px solid #2273b8;          /* 引用左线细边线，与全局 2px
 padding:16px 20px; margin:0 0 20px 0;
 
 /* 段落 */
-font-size:16px; line-height:1.7; letter-spacing:0.3px;
+font-size:15px; line-height:1.7; letter-spacing:0.3px;
 color:#333; margin:0;                    /* 末段，与正文同号 */
 /* 非末段 margin 改为 0 0 8px，段间留缝 */
 ```
@@ -226,7 +226,7 @@ border-radius:4px; padding:20px 16px; white-space:nowrap;
 ### 代码行
 
 ```css
-font-size:14px; line-height:1.7; color:#aeb6c2;   /* codeText，比正文小一档更紧凑 */
+font-size:15px; line-height:1.7; color:#aeb6c2;   /* codeText */
 font-family:Consolas,Menlo,monospace;
 white-space:nowrap;                                /* 长行不折行，外层横滑查看 */
 margin:0;
@@ -274,7 +274,7 @@ text-align:left; vertical-align:top;
 background:#f0f6fb;                     /* quoteBg 浅底色 */
 ```
 
-15px 密排档与正文 16px 形成层级；padding 走 4px 网格。斑马纹直接写在 td 内联样式上（tr 样式粘贴易丢），表头行不参与。
+15px 密排档统一内容字号；padding 走 4px 网格。斑马纹直接写在 td 内联样式上（tr 样式粘贴易丢），表头行不参与。
 
 ---
 

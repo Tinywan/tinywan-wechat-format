@@ -78,16 +78,16 @@ export function buildTheme(p) {
 
     h4: `font-size:16px;font-weight:bold;text-align:left;color:${c.deep};line-height:1.4;margin:0 0 14px 0;font-family:${FONT};`,
 
-    paragraph: `font-size:16px;line-height:1.7;letter-spacing:0.3px;color:${c.text};text-align:justify;margin:0 0 24px 0;font-family:${FONT};`,
+    paragraph: `font-size:15px;line-height:1.7;letter-spacing:0.3px;color:${c.text};text-align:justify;margin:0 0 24px 0;font-family:${FONT};`,
 
-    listItem: `font-size:16px;line-height:1.6;letter-spacing:0.3px;color:${c.text};text-align:justify;padding-left:16px;text-indent:-16px;margin:0 0 12px 0;font-family:${FONT};`,
+    listItem: `font-size:15px;line-height:1.6;letter-spacing:0.3px;color:${c.text};text-align:justify;padding-left:16px;text-indent:-16px;margin:0 0 12px 0;font-family:${FONT};`,
 
     listMarker: `color:${c.primary};font-weight:bold;`,
 
     blockquote: {
       box: `background:${c.quoteBg};border-left:2px solid ${c.primary};padding:16px 20px;margin:0 0 20px 0;`,
-      text: `font-size:16px;line-height:1.7;letter-spacing:0.3px;color:${c.quoteText};margin:0;font-family:${FONT};`,
-      textGap: `font-size:16px;line-height:1.7;letter-spacing:0.3px;color:${c.quoteText};margin:0 0 8px 0;font-family:${FONT};`,
+      text: `font-size:15px;line-height:1.7;letter-spacing:0.3px;color:${c.quoteText};margin:0;font-family:${FONT};`,
+      textGap: `font-size:15px;line-height:1.7;letter-spacing:0.3px;color:${c.quoteText};margin:0 0 8px 0;font-family:${FONT};`,
       signature: `font-size:13px;line-height:1.8;color:${c.quoteGray};margin:0;font-family:${FONT};`,
     },
 
@@ -98,7 +98,7 @@ export function buildTheme(p) {
       caption: `font-size:13px;line-height:1.6;color:${c.gray};text-align:center;margin:4px 0 24px 0;font-family:${FONT};`,
     },
 
-    inlineCode: `background:${c.inlineCodeBg};color:${c.inlineCodeText};border-radius:3px;padding:1px 6px;font-size:14px;font-family:${MONO};word-break:break-all;`,
+    inlineCode: `background:${c.inlineCodeBg};color:${c.inlineCodeText};border-radius:3px;padding:1px 6px;font-size:15px;font-family:${MONO};word-break:break-all;`,
 
     table: `border-collapse:collapse;width:100%;margin:0 0 20px 0;font-family:${FONT};`,
 
@@ -110,14 +110,14 @@ export function buildTheme(p) {
       scroll: `overflow-x:auto;margin:0 0 20px 0;`,
       table: `border-collapse:collapse;width:100%;margin:0;`,
       block: `background:${c.codeBg};border-radius:4px;padding:20px 16px;white-space:nowrap;`,
-      line: `font-size:14px;line-height:1.7;color:${c.codeText};font-family:${MONO};white-space:nowrap;margin:0;`,
-      titleLine: `font-size:14px;line-height:1.7;color:${p.codeTitleColor};font-weight:bold;font-family:${MONO};white-space:nowrap;margin:0;`,
+      line: `font-size:15px;line-height:1.7;color:${c.codeText};font-family:${MONO};white-space:nowrap;margin:0;`,
+      titleLine: `font-size:15px;line-height:1.7;color:${p.codeTitleColor};font-weight:bold;font-family:${MONO};white-space:nowrap;margin:0;`,
       tokens: tokenMap(p.syntax),
     },
 
     hr: `border:none;border-top:1px dashed ${c.gray};width:100%;margin:40px 0;`,
 
-    footerLead: `font-size:14px;line-height:1.8;color:${c.primary};text-align:center;margin:30px 0 8px 0;font-family:${FONT};`,
+    footerLead: `font-size:15px;line-height:1.8;color:${c.primary};text-align:center;margin:30px 0 8px 0;font-family:${FONT};`,
 
     footerText: `font-size:15px;line-height:2;color:${c.text};text-align:center;margin:0 0 8px 0;font-family:${FONT};`,
   }

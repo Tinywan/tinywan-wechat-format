@@ -32,3 +32,15 @@
 **涉及文件**：`src/core/themes.js`、`test-render.mjs`、`docs/typography-spec.md`
 
 **验证**：`node test-render.mjs` 全部断言通过；`test-output.html` 引用块输出含 `border-left:2px solid #2273b8`，h3 维持 `border-left:4px solid #2273b8`。
+
+---
+
+## 非标题字号统一 15px
+
+**动机**：版面收敛——除标题外内容字号统一 15px，消除正文/引用/代码之间的字号跳跃；字体栈不变（排版目标稿与本项目同为 PingFang SC 优先栈，差异仅为渲染平台）。
+
+**改动**：`paragraph`/`listItem`/`blockquote.text`/`blockquote.textGap` 16px → 15px；`code.line`/`code.titleLine`/`inlineCode`/`footerLead` 14px → 15px。标题、图注 13px、引用签名 13px 不动。
+
+**涉及文件**：`src/core/themes.js`、`test-render.mjs`、`docs/typography-spec.md`
+
+**验证**：`node test-render.mjs` 全部断言通过；`test-output.html` 正文输出为 `font-size:15px;line-height:1.7`。
