@@ -49,12 +49,12 @@ padding: 0 16px;    /* 4px 网格，移动端呼吸感 */
 
 | 级别 | 字号 | 行高 | 颜色 | 对齐 | 其他 |
 |---|---|---|---|---|---|
-| h1 | 18px | 1.4 | `deep` | 居中 | margin `40px 0 24px` |
-| h2 | 17px | 1.4 | `deep` | 居中 | margin `48px 0 24px`，支持数字色块 |
-| h3 | 16px | 1.4 | `primary` | 左 | 左 4px 主色竖条 + padding-left 10px；margin `0 0 16px` |
+| h1 | 18px | 1.4 | `deep` | 居中 | margin `40px 0 24px`，支持数字色块 |
+| h2 | 17px | 1.4 | `primary` | 左 | 左 4px 主色竖条 + padding-left 10px；margin `48px 0 24px` |
+| h3 | 16px | 1.4 | `deep` | 左 | 主色小方块 `▪` 前置；margin `0 0 16px` |
 | h4 | 16px | 1.4 | `deep` | 左 | margin `0 0 14px` |
 
-所有标题 `font-weight:bold`。h4 用 `deep` 而非 `primary`：以字重/明度分层，避免强调色堆叠（Kimi 克制）。
+所有标题 `font-weight:bold`。h3/h4 用 `deep` 而非 `primary`：以字重/明度分层，避免强调色堆叠（Kimi 克制）；h3 的主色小方块与 h1 色块同属「方」的家族语言。
 
 ### 行距三档
 
@@ -64,9 +64,9 @@ padding: 0 16px;    /* 4px 网格，移动端呼吸感 */
 | 密排档 | 1.6–1.7 | 列表 1.6、引用 1.7、代码 1.7、表格 1.6 |
 | 阅读档 | 1.7 | 正文段落（15px 移动端中文舒适区；1.75 收敛至 1.7，去版面膨胀感） |
 
-### h2 数字色块（chip）
+### h1 数字色块（chip）
 
-h2 以数字开头（匹配 `^(\d{1,2})[\s、.．·]+`，如 `1、`、`2.`、`3 `）时，数字被抽出为描边色块，单位数补零为两位（`01`、`02`……）：
+h1 以数字开头（匹配 `^(\d{1,2})[\s、.．·]+`，如 `1、`、`2.`、`3 `）时，数字被抽出为描边色块，单位数补零为两位（`01`、`02`……）：
 
 ```css
 display:inline-block; width:26px; height:26px;  /* 正方形色块，长方形 padding 版已废弃 */
@@ -78,7 +78,11 @@ margin-right:10px; vertical-align:middle;
 
 描边芯片呼应全局「细线优先」，与虚线分隔线、2px 引用边线同属一套克制语言；无渐变填充，天然免除降级问题。
 
-实现要点：core rule 在解析期产出中性 token（`h2_chip`/`h2_chip_close`），渲染期才套用 env 主题 —— 解析与配色解耦。
+实现要点：core rule 在解析期产出中性 token（`h1_chip`/`h1_chip_close`），渲染期才套用 env 主题 —— 解析与配色解耦。
+
+### h3 小方块标记
+
+h3 由渲染器在标题文字前注入 `<span style="color:{primary};font-weight:bold;">▪</span>&nbsp;`（复用 listMarker token，U+25AA BLACK SMALL SQUARE，主色加粗）；标题文字本身为 `deep` 色 16px 加粗，无竖条无底线。
 
 ---
 
@@ -381,7 +385,7 @@ Kami 原生的暖纸背景（`#f5f4ed`）**不可移植**：微信正文区域�
 | 文件 | 职责 |
 |---|---|
 | `src/core/themes.js` | 字体常量、语法色板、`buildTheme` 工厂、7 主题注册表、`getTheme` |
-| `src/core/render.js` | markdown-it 规则：h2 色块、引用卡片、列表短横线标记、代码窗口、表格、图注、容器包裹 |
+| `src/core/render.js` | markdown-it 规则：h1 色块、h3 小方块、引用卡片、列表短横线标记、代码窗口、表格、图注、容器包裹 |
 | `src/core/highlight.js` | hljs 高亮 → 逐行 token span（空格硬化在此） |
 | `src/composables/useFormatter.js` | themeId 状态（localStorage）、图片匹配、渲染调度 |
 | `test-render.mjs` | 回归测试：结构合规、多主题取色、表格、折行、图注格式、短横线标记、新主题注册 |

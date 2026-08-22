@@ -7,12 +7,12 @@ const md = new MarkdownIt({ html: false, linkify: false, breaks: false })
 const esc = (s) =>
   String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
-// ---------- core rule: h2 数字前缀 → 渐变色块（中性 token，渲染时取 env.theme） ----------
-md.core.ruler.push('h2_number_chip', (state) => {
+// ---------- core rule: h1 数字前缀 → 描边色块（中性 token，渲染时取 env.theme） ----------
+md.core.ruler.push('h1_number_chip', (state) => {
   const tokens = state.tokens
   for (let i = 0; i < tokens.length - 1; i++) {
     const t = tokens[i]
-    if (t.type !== 'heading_open' || t.tag !== 'h2') continue
+    if (t.type !== 'heading_open' || t.tag !== 'h1') continue
     const inline = tokens[i + 1]
     if (!inline || inline.type !== 'inline' || !inline.children || !inline.children.length) continue
     const first = inline.children[0]
@@ -21,9 +21,9 @@ md.core.ruler.push('h2_number_chip', (state) => {
     if (!m) continue
     const rest = first.content.slice(m[0].length)
     const chip = [
-      Object.assign(new state.Token('h2_chip', '', 0), {}),
+      Object.assign(new state.Token('h1_chip', '', 0), {}),
       Object.assign(new state.Token('text', '', 0), { content: m[1].padStart(2, '0') }),
-      Object.assign(new state.Token('h2_chip_close', '', 0), {}),
+      Object.assign(new state.Token('h1_chip_close', '', 0), {}),
     ]
     if (rest) {
       first.content = rest
@@ -87,14 +87,15 @@ const lastParaInQuote = (tokens, idx) => {
 // ---------- renderer rules ----------
 const rules = md.renderer.rules
 
-rules.h2_chip = (tokens, idx, opts, env) => `<span style="${th(env).h2Chip}">`
-rules.h2_chip_close = () => '</span>'
+rules.h1_chip = (tokens, idx, opts, env) => `<span style="${th(env).h1Chip}">`
+rules.h1_chip_close = () => '</span>'
 
 rules.heading_open = (tokens, idx, opts, env) => {
   const t = th(env)
   const tag = tokens[idx].tag
   const style = { h1: t.h1, h2: t.h2, h3: t.h3, h4: t.h4 }[tag] || t.h4
-  return `<${tag} style="${style}">`
+  const marker = tag === 'h3' ? `<span style="${t.listMarker}">▪</span>&nbsp;` : ''
+  return `<${tag} style="${style}">${marker}`
 }
 rules.heading_close = (tokens, idx) => `</${tokens[idx].tag}>`
 

@@ -70,3 +70,22 @@
 **涉及文件**：`src/core/themes.js`、`test-render.mjs`、`docs/typography-spec.md`
 
 **验证**：`node test-render.mjs` 全部断言通过；输出含 `font-family:Optima,PingFangSC-regular,serif`。
+
+---
+
+## 标题装饰层级重排（色块 h1 / 竖条 h2 / 小方块 h3）
+
+**动机**：用户指定装饰样式整体上移一级——数字色块挂 h1（章节）、左侧竖条挂 h2（小节），h3 重新设计。
+
+**改动**：
+
+- `render.js`：core rule `h2_number_chip` → `h1_number_chip`（中性 token `h1_chip`/`h1_chip_close`），仅对 h1 抽取前导数字
+- `themes.js`：`h2Chip` 更名 `h1Chip`；h2 改为左对齐主色 + 左 4px 竖条（保留 17px 与 48/24 段距）；h3 改为 16px `deep` 色加粗、无竖条
+- `render.js` `heading_open`：h3 开标签注入主色 `▪`（U+25AA）小方块标记，复用 `listMarker` token
+- `sample.md`：章节 `##` → `#`、小节 `###` → `##`，与新层级方案对齐；示例中无 h3 内容，h3 样式由测试片段覆盖
+
+**字号不变**：18 / 17 / 16 阶梯保持，仅装饰样式迁移。
+
+**涉及文件**：`src/core/render.js`、`src/core/themes.js`、`src/assets/sample.md`、`test-render.mjs`、`docs/typography-spec.md`
+
+**验证**：`node test-render.mjs` 全部断言通过（h1 数字色块、色块序号 01、h2 左侧竖条、h3 小方块标记均 PASS）。
