@@ -44,3 +44,29 @@
 **涉及文件**：`src/core/themes.js`、`test-render.mjs`、`docs/typography-spec.md`
 
 **验证**：`node test-render.mjs` 全部断言通过；`test-output.html` 正文输出为 `font-size:15px;line-height:1.7`。
+
+---
+
+## 标题阶梯下移（18 / 17 / 16）
+
+**动机**：标题整体偏大，用户提出统一 16px；为保留层级区分度，改为阶梯整体下移：h1 20 → 18px、h2 19 → 17px、h3 17 → 16px。
+
+**改动**：`themes.js` `h1`/`h2`/`h3` 三个 token 的 `font-size`。h3 样式其余要素（左对齐、主色、4px 竖条）不变；h4 维持 16px（与新 h3 同号，以颜色 deep/primary 及竖条区分）。
+
+**涉及文件**：`src/core/themes.js`、`test-render.mjs`、`docs/typography-spec.md`
+
+**验证**：`node test-render.mjs` 全部断言通过；h1 输出含 `font-size:18px`，h3 输出含 `font-size:16px;…border-left:4px solid #2273b8`。
+
+---
+
+## 字体栈更换为 Optima / PingFangSC-regular / serif
+
+**动机**：用户指定全局统一字体为 `Optima, PingFangSC-regular, serif`。
+
+**改动**：`themes.js` `FONT` 常量整体替换；所有引用 `${FONT}` 的 token（标题、正文、列表、引用、表格、图注、文末）自动生效。`MONO`（行内代码、代码块）维持 `Consolas,Menlo,monospace` 不变，保证代码等宽可读。
+
+**平台表现**：macOS/iOS 英文与数字用 Optima、中文用苹方；Windows / Android 无这两款字体，回退系统 serif（如宋体），观感与此前雅黑栈差异较大。
+
+**涉及文件**：`src/core/themes.js`、`test-render.mjs`、`docs/typography-spec.md`
+
+**验证**：`node test-render.mjs` 全部断言通过；输出含 `font-family:Optima,PingFangSC-regular,serif`。

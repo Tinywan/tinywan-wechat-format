@@ -22,13 +22,13 @@
 
 | Token | 取值 | 用途 |
 |---|---|---|
-| `FONT` | `'HarmonyOS Sans','PingFang SC','MiSans','Source Han Sans SC','Microsoft YaHei',-apple-system,sans-serif` | 所有正文、标题、表格、图注 |
+| `FONT` | `Optima,PingFangSC-regular,serif` | 所有正文、标题、表格、图注 |
 | `MONO` | `Consolas,Menlo,monospace` | 行内代码、代码块 |
 
 ### 字重策略
 
 - 标题、表头、列表标记：`font-weight:bold`（700）；正文：400。
-- **不用系统衬线栈**：Kami 标志性的衬线标题依赖 web 字体，微信无法加载，系统衬线（宋体/STSong）在安卓端渲染不可控，放弃。
+- **字体栈**：主用 `Optima`（macOS/iOS 内置人文无衬线），中文落 `PingFangSC-regular`，其余平台由 `serif` 系统兜底；不依赖 web 字体。
 - **不用 600 中间字重**：Android 微信多数内核仅渲染 400/700 两档，600 会回退或触发合成粗体（违背「严禁合成粗体」初衷），层级靠字号与颜色而非中间字重。
 
 ---
@@ -49,9 +49,9 @@ padding: 0 16px;    /* 4px 网格，移动端呼吸感 */
 
 | 级别 | 字号 | 行高 | 颜色 | 对齐 | 其他 |
 |---|---|---|---|---|---|
-| h1 | 20px | 1.4 | `deep` | 居中 | margin `40px 0 24px` |
-| h2 | 19px | 1.4 | `deep` | 居中 | margin `48px 0 24px`，支持数字色块 |
-| h3 | 17px | 1.4 | `primary` | 左 | 左 4px 主色竖条 + padding-left 10px；margin `0 0 16px` |
+| h1 | 18px | 1.4 | `deep` | 居中 | margin `40px 0 24px` |
+| h2 | 17px | 1.4 | `deep` | 居中 | margin `48px 0 24px`，支持数字色块 |
+| h3 | 16px | 1.4 | `primary` | 左 | 左 4px 主色竖条 + padding-left 10px；margin `0 0 16px` |
 | h4 | 16px | 1.4 | `deep` | 左 | margin `0 0 14px` |
 
 所有标题 `font-weight:bold`。h4 用 `deep` 而非 `primary`：以字重/明度分层，避免强调色堆叠（Kimi 克制）。
@@ -146,7 +146,7 @@ margin:0 0 12px 0;                      /* 项间距收紧成组 */
 <span style="color:#2273b8;font-weight:bold;">•</span>&nbsp;&nbsp;
 ```
 
-- 字符为 U+2022 BULLET：PingFang / 雅黑 / HarmonyOS 均内置，零渲染风险；
+- 字符为 U+2022 BULLET：Optima / PingFang SC 均内置，零渲染风险；
 - 标记 + 两个 `&nbsp;` 宽约 16px，与悬挂缩进一致，折行对齐。
 
 ### 有序列表：主题色数字

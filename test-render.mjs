@@ -21,10 +21,10 @@ const footerNoHr = render('**—— 如果这篇对你有帮助 ——**\n\n点�
 
 const checks = [
   ['容器 677px', html.includes('max-width:677px')],
-  ['h1 样式', html.includes('font-size:20px;font-weight:bold;text-align:center;color:#1f5fa6;line-height:1.4')],
+  ['h1 样式', html.includes('font-size:18px;font-weight:bold;text-align:center;color:#1f5fa6;line-height:1.4')],
   ['h2 描边色块', html.includes('border:1px solid #2273b8;border-radius:4px;color:#2273b8;font-weight:bold')],
   ['色块序号 01', html.includes('<span style="display:inline-block;width:26px;height:26px;') && html.includes('>01</span>')],
-  ['h3 左侧竖条', html.includes('<h3 style="font-size:17px;font-weight:bold;text-align:left;color:#2273b8;line-height:1.4;border-left:4px solid #2273b8;padding-left:10px;')],
+  ['h3 左侧竖条', html.includes('<h3 style="font-size:16px;font-weight:bold;text-align:left;color:#2273b8;line-height:1.4;border-left:4px solid #2273b8;padding-left:10px;')],
   ['正文 15px', html.includes('font-size:15px;line-height:1.7;letter-spacing:0.3px;color:#333')],
   ['提示框底色', html.includes('background:#f0f6fb')],
   ['引用块 2px 边线', html.includes('background:#f0f6fb;border-left:2px solid #2273b8;padding:16px 20px')],
@@ -48,7 +48,7 @@ const checks = [
   ['关键字高亮紫', html.includes('color:#c678dd')],
   ['字符串高亮橙', html.includes('color:#d19a66')],
   ['注释高亮灰', html.includes('color:#7f848e')],
-  ['字体栈', html.includes("'HarmonyOS Sans','PingFang SC','MiSans','Source Han Sans SC','Microsoft YaHei',-apple-system,sans-serif")],
+  ['字体栈', html.includes("Optima,PingFangSC-regular,serif")],
 ]
 
 // ---------- 多主题 ----------
