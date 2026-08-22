@@ -147,17 +147,17 @@ margin:0 0 8px 0;                       /* 项距略大于行距，分组可读 
 ### 无序列表：实心圆字符
 
 ```html
-&nbsp;<span style="color:#333;font-weight:bold;font-size:12px;">●</span>&nbsp;&nbsp;&nbsp;
+&nbsp;<span style="color:#333;font-weight:bold;font-size:6px;">●</span>&nbsp;&nbsp;&nbsp;
 ```
 
-- 字符为 U+25CF BLACK CIRCLE：12px 收一档，实心盘视觉接近常见公众号排版，各平台字体内置；
+- 字符为 U+25CF BLACK CIRCLE：6px 小字号渲染为实心小点，视觉接近常见公众号排版，各平台字体内置；
 - 圆点取正文深色（非主色），视觉安静、不抢加粗引导词；
 - 前 1 空格让圆点内缩 ~5px，标记 + 空格共约 26px，与 26px 悬挂缩进对齐，折行对齐。
 
-### 有序列表：深色数字
+### 有序列表：主题色数字
 
 ```html
-&nbsp;<span style="color:#333;font-weight:bold;">1.</span>&nbsp;&nbsp;
+&nbsp;<span style="color:#2273b8;font-weight:bold;">1.</span>&nbsp;&nbsp;
 ```
 
 - 计数器由渲染器维护（支持嵌套，各层独立计数）；

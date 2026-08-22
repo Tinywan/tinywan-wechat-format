@@ -138,3 +138,27 @@
 **涉及文件**：`src/core/themes.js`、`src/core/render.js`、`test-render.mjs`、`docs/typography-spec.md`
 
 **验证**：`node test-render.mjs` 全部断言通过；dev server 预览实心盘渲染清晰、折行对齐正常。
+
+---
+
+## 有序列表数字恢复主题主色
+
+**动机**：无序圆点改深色后，有序数字随共享 token 一并变深；用户指定数字保持主色蓝。
+
+**改动**：`listMarker`（现仅供有序数字）恢复 `color:${primary}`；无序圆点继续走 `bulletMarker`（深色 12px），两 token 互不影响。
+
+**涉及文件**：`src/core/themes.js`、`test-render.mjs`、`docs/typography-spec.md`
+
+**验证**：`node test-render.mjs` 全部断言通过（有序数字主色 `#2273b8`、圆点深色 12px 均 PASS）。
+
+---
+
+## 无序圆点 12px → 6px
+
+**动机**：12px 实心盘视觉过大，用户反馈 6px 合适。
+
+**改动**：`bulletMarker` 的 `font-size` 12px → 6px，其余不变（深色、加粗、U+25CF）。
+
+**涉及文件**：`src/core/themes.js`、`test-render.mjs`、`docs/typography-spec.md`
+
+**验证**：`node test-render.mjs` 全部断言通过；预览实心小点比例与参考图一致。
