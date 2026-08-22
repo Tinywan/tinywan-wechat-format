@@ -51,7 +51,7 @@ padding: 0 16px;    /* 4px 网格，移动端呼吸感 */
 |---|---|---|---|---|---|
 | h1 | 20px | 1.4 | `deep` | 居中 | margin `40px 0 24px` |
 | h2 | 19px | 1.4 | `deep` | 居中 | margin `48px 0 24px`，支持数字色块 |
-| h3 | 17px | 1.4 | `primary` | 左 | margin `0 0 16px` |
+| h3 | 17px | 1.4 | `primary` | 左 | 左 4px 主色竖条 + padding-left 10px；margin `0 0 16px` |
 | h4 | 16px | 1.4 | `deep` | 左 | margin `0 0 14px` |
 
 所有标题 `font-weight:bold`。h4 用 `deep` 而非 `primary`：以字重/明度分层，避免强调色堆叠（Kimi 克制）。
