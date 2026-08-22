@@ -89,3 +89,20 @@
 **涉及文件**：`src/core/render.js`、`src/core/themes.js`、`src/assets/sample.md`、`test-render.mjs`、`docs/typography-spec.md`
 
 **验证**：`node test-render.mjs` 全部断言通过（h1 数字色块、色块序号 01、h2 左侧竖条、h3 小方块标记均 PASS）。
+
+---
+
+## 代码块统一浅灰底 + 字号 13px（对齐微信官方编辑器）
+
+**动机**：用户指定代码字体 13px、代码块样式对齐微信公众号官方编辑器的浅灰朴素卡片。
+
+**改动**：
+
+- 7 个主题代码块统一：`codeBg:#f6f8fa`、`codeText:#24292e`、`codeLabel:#6a737d`、`codeTitleColor:#d73a49`，语法板全部切换为 GitHub Light
+- One Dark 深色语法板移除（不再被任何主题引用）
+- 代码行 / 代码标题行 / 行内代码 `font-size` 15px → 13px
+- 横滑窗口、单格 table 撑宽、首行注释标题化等结构不变
+
+**涉及文件**：`src/core/themes.js`、`test-render.mjs`、`docs/typography-spec.md`
+
+**验证**：`node test-render.mjs` 全部断言通过（代码块浅灰底、代码 13px、关键字高亮红 `#d73a49`、字符串高亮深蓝 `#032f62`、注释高亮灰 `#6a737d`）。

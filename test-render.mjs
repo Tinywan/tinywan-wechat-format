@@ -32,7 +32,8 @@ const checks = [
   ['提示框底色', html.includes('background:#f0f6fb')],
   ['引用块 2px 边线', html.includes('background:#f0f6fb;border-left:2px solid #2273b8;padding:16px 20px')],
   ['签名样式', html.includes('font-size:13px;line-height:1.8;color:#8a94a0')],
-  ['代码块深底', html.includes('background:#2a2f3a')],
+  ['代码块浅灰底', html.includes('background:#f6f8fa')],
+  ['代码 13px', html.includes('font-size:13px;line-height:1.7;color:#24292e;font-family:Consolas')],
   ['代码块横滑窗口', html.includes('overflow-x:auto')],
   ['代码块单格表格撑宽', html.includes('<table style="border-collapse:collapse;width:100%;margin:0;">')],
   ['代码行不折行', html.includes('white-space:nowrap')],
@@ -48,9 +49,9 @@ const checks = [
   ['无 ul/ol 标签', !/<\/?(ul|ol)[\s>]/.test(html)],
   ['无 class 属性', !/class=/.test(html)],
   ['无 style 块', !/<style/.test(html)],
-  ['关键字高亮紫', html.includes('color:#c678dd')],
-  ['字符串高亮橙', html.includes('color:#d19a66')],
-  ['注释高亮灰', html.includes('color:#7f848e')],
+  ['关键字高亮红', html.includes('color:#d73a49')],
+  ['字符串高亮深蓝', html.includes('color:#032f62')],
+  ['注释高亮灰', html.includes('color:#6a737d')],
   ['字体栈', html.includes("Optima,PingFangSC-regular,serif")],
 ]
 

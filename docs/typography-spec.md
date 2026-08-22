@@ -125,11 +125,11 @@ margin:0 0 24px 0;
 ```css
 background:#e8edf2; color:#4a7fa5;   /* blue-tech 取值 */
 border-radius:3px; padding:1px 6px;
-font-size:15px; font-family:Consolas,Menlo,monospace;
+font-size:13px; font-family:Consolas,Menlo,monospace;
 word-break:break-all;
 ```
 
-字号与正文一致（15px）。`word-break:break-all`：justify 段落中长标识符若不折行，会整块挤到下一行，上一行余白被两端对齐均摊成字距拉伸。
+字号 13px，较正文收一档（与代码块一致）。`word-break:break-all`：justify 段落中长标识符若不折行，会整块挤到下一行，上一行余白被两端对齐均摊成字距拉伸。
 
 ---
 
@@ -213,7 +213,7 @@ text-align:center; margin:4px 0 24px 0;
 
 ---
 
-## 10. 代码块（横滑窗口，装饰收敛）
+## 10. 代码块（横滑窗口，浅灰底对齐微信官方编辑器）
 
 ```css
 /* 外层：横滑窗口 */
@@ -221,7 +221,7 @@ overflow-x:auto; margin:0 0 20px 0;
 /* 中层：单格表格撑宽（auto 布局宽度 = max(100%, 内容宽)） */
 border-collapse:collapse; width:100%; margin:0;
 /* td：承载底色与圆角 */
-background:#2a2f3a;                     /* codeBg */
+background:#f6f8fa;                     /* codeBg，7 主题统一浅灰 */
 border-radius:4px; padding:20px 16px; white-space:nowrap;
 ```
 
@@ -230,30 +230,30 @@ border-radius:4px; padding:20px 16px; white-space:nowrap;
 ### 代码行
 
 ```css
-font-size:15px; line-height:1.7; color:#aeb6c2;   /* codeText */
+font-size:13px; line-height:1.7; color:#24292e;   /* codeText */
 font-family:Consolas,Menlo,monospace;
 white-space:nowrap;                                /* 长行不折行，外层横滑查看 */
 margin:0;
 ```
 
 - 空格硬化为 `\u00a0` 保对齐（高亮管线处理）；
-- **首行注释标题化**：若首行整行是注释，套用 `titleLine`：加粗、着 `codeTitleColor`（如 `#c678dd`），作为代码块的"标题"。
+- **首行注释标题化**：若首行整行是注释，套用 `titleLine`：加粗、着 `codeTitleColor`（`#d73a49`），作为代码块的"标题"。
 
-### 浅色象牙变体（Kami）
+### 全主题统一浅灰底
 
-浅色代码块不新增 token，复用 `codeBg` + `githubLight` 语法板即可（green、暖纸主题采用）：象牙底 `#faf9f4`、无外边框，契合 Kami「代码块：象牙色背景、4pt 圆角、无外边框」。
+7 个主题代码块统一 `codeBg:#f6f8fa`、`codeText:#24292e`、`codeLabel:#6a737d`、`codeTitleColor:#d73a49` + GitHub Light 语法板，对齐微信官方编辑器的浅灰朴素卡片观感；One Dark 深色板已移除。
 
-### 语法高亮色板
+### 语法高亮色板（GitHub Light）
 
-| 语义 | One Dark（深色底） | GitHub Light（浅色底） |
-|---|---|---|
-| comment / quote | `#7f848e` | `#6a737d` |
-| string / number / attr | `#d19a66` | `#032f62` |
-| keyword / meta | `#c678dd` | `#d73a49` |
-| title / function | `#61afef` | `#6f42c1` |
-| class / type / built_in | `#e5c07b` | `#e36209` |
-| variable / tag | `#e06c75` | `#005cc5` |
-| symbol / bullet / addition | `#98c379` | `#22863a` |
+| 语义 | 取值 |
+|---|---|
+| comment / quote | `#6a737d` |
+| string / number / attr | `#032f62` |
+| keyword / meta | `#d73a49` |
+| title / function | `#6f42c1` |
+| class / type / built_in | `#e36209` |
+| variable / tag | `#005cc5` |
+| symbol / bullet / addition | `#22863a` |
 
 ---
 
@@ -307,7 +307,7 @@ palette: {
   codeBg, codeText, codeLabel, codeTitleColor,
   inlineCodeBg, inlineCodeText,
   tableBorder,
-  syntax: oneDark | githubLight,
+  syntax: githubLight,           // 全主题统一 GitHub Light 浅色系板
   // 可选覆盖：text, gray, quoteText, quoteGray（深色及暖调主题需要）
 }
 ```
@@ -316,13 +316,13 @@ palette: {
 
 | id | 名称 | primary | deep → light | 引用底 | 代码底 | 行内代码 | 表边框 | 语法色板 |
 |---|---|---|---|---|---|---|---|---|
-| `blue-tech` | 蓝色科技 | `#2273b8` | `#1f5fa6 → #3a8ee6` | `#f0f6fb` | `#2a2f3a` | `#e8edf2/#4a7fa5` | `#d5e2ef` | One Dark |
-| `orange-heart` | 橙心 | `#ff3502` | `#e6461f → #ff8052` | `#fdf3ee` | `#2d2a26` | `#ffece3/#d4380d` | `#ffd9cc` | One Dark |
-| `violet` | 姹紫 | `#5d3587` | `#4a2a6b → #8e5fc0` | `#f7f2fb` | `#2b2436` | `#efe6f7/#6b3fa0` | `#e2d5f0` | One Dark |
-| `green` | 绿意 | `#0e8c64` | `#0a6b4c → #3fb88f` | `#f0f9f5` | `#f6f8fa`（浅） | `#e6f4ef/#0e8c64` | `#cfe8df` | GitHub Light |
-| `night` | 凝夜 | `#b39ddb` | `#5e35b1 → #7e57c2` | `#232733` | `#14161c` | `#2b3040/#b39ddb` | `#3a4152` | One Dark |
-| `kami-paper` | 暖纸 | `#1B365D` | `#16283f → #3d5a80` | `#f0eee4` | `#faf9f4`（象牙浅） | `#efece1/#1B365D` | `#e3e0d3` | GitHub Light |
-| `kimi-blue` | Kimi 蓝 | `#007CFF` | `#002F5B → #00A1FF` | `#f2f8ff` | `#0f2740` | `#e8f3ff/#007CFF` | `#E1E3E6` | One Dark |
+| `blue-tech` | 蓝色科技 | `#2273b8` | `#1f5fa6 → #3a8ee6` | `#f0f6fb` | `#f6f8fa` | `#e8edf2/#4a7fa5` | `#d5e2ef` | GitHub Light |
+| `orange-heart` | 橙心 | `#ff3502` | `#e6461f → #ff8052` | `#fdf3ee` | `#f6f8fa` | `#ffece3/#d4380d` | `#ffd9cc` | GitHub Light |
+| `violet` | 姹紫 | `#5d3587` | `#4a2a6b → #8e5fc0` | `#f7f2fb` | `#f6f8fa` | `#efe6f7/#6b3fa0` | `#e2d5f0` | GitHub Light |
+| `green` | 绿意 | `#0e8c64` | `#0a6b4c → #3fb88f` | `#f0f9f5` | `#f6f8fa` | `#e6f4ef/#0e8c64` | `#cfe8df` | GitHub Light |
+| `night` | 凝夜 | `#b39ddb` | `#5e35b1 → #7e57c2` | `#232733` | `#f6f8fa` | `#2b3040/#b39ddb` | `#3a4152` | GitHub Light |
+| `kami-paper` | 暖纸 | `#1B365D` | `#16283f → #3d5a80` | `#f0eee4` | `#f6f8fa` | `#efece1/#1B365D` | `#e3e0d3` | GitHub Light |
+| `kimi-blue` | Kimi 蓝 | `#007CFF` | `#002F5B → #00A1FF` | `#f2f8ff` | `#f6f8fa` | `#e8f3ff/#007CFF` | `#E1E3E6` | GitHub Light |
 
 「凝夜」为暗色主题，额外覆盖 `quoteText:#cfd4e3`、`quoteGray:#8b93a7`，避免浅字落在深底上不可读。
 
@@ -334,7 +334,7 @@ palette: {
   primary:'#1B365D', deep:'#16283f', light:'#3d5a80', accent:'#b08d57',
   text:'#3d3b36', gray:'#8a867d',
   quoteBg:'#f0eee4', quoteText:'#5c5a52',
-  codeBg:'#faf9f4', codeText:'#3d3b36', codeLabel:'#8a867d', codeTitleColor:'#1B365D',
+  codeBg:'#f6f8fa', codeText:'#24292e', codeLabel:'#6a737d', codeTitleColor:'#d73a49',
   inlineCodeBg:'#efece1', inlineCodeText:'#1B365D',
   tableBorder:'#e3e0d3', syntax: githubLight }
 
@@ -343,9 +343,9 @@ palette: {
   primary:'#007CFF', deep:'#002F5B', light:'#00A1FF', accent:'#DFC8F5',
   text:'#2b2f33', gray:'#707070',
   quoteBg:'#f2f8ff', quoteText:'#3a4750',
-  codeBg:'#0f2740', codeText:'#c9d6e3', codeLabel:'#7a93ab', codeTitleColor:'#A0DAF7',
+  codeBg:'#f6f8fa', codeText:'#24292e', codeLabel:'#6a737d', codeTitleColor:'#d73a49',
   inlineCodeBg:'#e8f3ff', inlineCodeText:'#007CFF',
-  tableBorder:'#E1E3E6', syntax: oneDark }
+  tableBorder:'#E1E3E6', syntax: githubLight }
 ```
 
 ### 容器底色限制
