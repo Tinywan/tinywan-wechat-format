@@ -20,3 +20,15 @@
 
 - `node test-render.mjs` 全部断言通过
 - `test-output.html` 中 h3 输出含 `border-left:4px solid #2273b8`
+
+---
+
+## h3 竖条 4px → 2px
+
+**动机**：细线优先（v2 原则），与引用块 2px 边线同档，装饰进一步收敛。
+
+**改动**：`themes.js` h3 token `border-left` 4px → 2px（仅 h3 竖条一处，blockquote 的 4px 不动）
+
+**涉及文件**：`src/core/themes.js`、`test-render.mjs`、`docs/typography-spec.md`
+
+**验证**：`node test-render.mjs` 全部断言通过；`test-output.html` h3 输出含 `border-left:2px solid #2273b8`
