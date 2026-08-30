@@ -99,7 +99,7 @@ export function buildTheme(p) {
 
     table: `border-collapse:collapse;width:100%;margin:0 0 20px 0;font-family:${FONT};`,
 
-    tableTh: `background:${c.primary};color:#ffffff;font-size:15px;font-weight:bold;line-height:1.6;letter-spacing:0.3px;padding:8px 12px;border:1px solid ${c.primary};text-align:left;font-family:${FONT};`,
+    tableTh: `background:${c.primary};color:#ffffff;font-size:15px;font-weight:bold;line-height:1.6;letter-spacing:0.3px;padding:8px 12px;border:1px solid ${c.primary};text-align:left;white-space:nowrap;font-family:${FONT};`,
 
     tableTd: `font-size:15px;line-height:1.6;color:${c.text};padding:8px 12px;border:1px solid ${p.tableBorder};text-align:left;vertical-align:top;font-family:${FONT};`,
 

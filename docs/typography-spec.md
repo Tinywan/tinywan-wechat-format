@@ -268,7 +268,7 @@ margin:0 0 20px 0;
 /* th */
 background:#2273b8; color:#ffffff;
 font-size:15px; font-weight:bold; line-height:1.6; letter-spacing:0.3px;
-padding:8px 12px; border:1px solid #2273b8; text-align:left;
+padding:8px 12px; border:1px solid #2273b8; text-align:left; white-space:nowrap;
 
 /* td */
 font-size:15px; line-height:1.6; color:#333;

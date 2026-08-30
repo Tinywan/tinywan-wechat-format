@@ -82,6 +82,7 @@ for (const t of themes) {
 const tableHtml = render('| 通知 | 触发时机 |\n|---|---|\n| Launch | 调度器启动时 |\n| Suspend | 挂起前 |\n')
 checks.push(
   ['表格表头主题底色', tableHtml.includes('<th style="background:#2273b8;color:#ffffff')],
+  ['表格表头不换行', tableHtml.includes('text-align:left;white-space:nowrap;font-family:')],
   ['表格单元格边框', tableHtml.includes('border:1px solid #d5e2ef')],
   ['表格斑马纹', tableHtml.includes('background:#f0f6fb;font-size:15px;line-height:1.6')],
   ['表格字体栈', tableHtml.includes('border-collapse:collapse;width:100%')],
