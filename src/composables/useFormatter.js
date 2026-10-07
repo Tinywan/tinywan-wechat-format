@@ -5,10 +5,12 @@ import { themes, getTheme, DEFAULT_THEME_ID } from '../core/themes.js'
 
 const DRAFT_KEY = 'md-wechat-formatter:draft'
 const THEME_KEY = 'md-wechat-formatter:theme'
+const LINE_NUMBERS_KEY = 'md-wechat-formatter:line-numbers'
 
 export function useFormatter() {
   const markdown = ref(localStorage.getItem(DRAFT_KEY) || '')
   const themeId = ref(localStorage.getItem(THEME_KEY) || DEFAULT_THEME_ID)
+  const showLineNumbers = ref(localStorage.getItem(LINE_NUMBERS_KEY) !== 'false')
   const html = shallowRef('')
   const warnings = ref([])
   const imageCount = ref(0)
@@ -23,7 +25,12 @@ export function useFormatter() {
 
   let timer = null
   const doRender = () => {
-    const env = { warnings: [], resolveImage: store.resolve, theme: getTheme(themeId.value) }
+    const env = {
+      warnings: [],
+      resolveImage: store.resolve,
+      theme: getTheme(themeId.value),
+      showLineNumbers: showLineNumbers.value,
+    }
     try {
       html.value = markdown.value.trim() ? render(markdown.value, env) : ''
     } catch (e) {
@@ -48,6 +55,16 @@ export function useFormatter() {
     clearTimeout(timer)
     doRender()
   })
+
+  watch(showLineNumbers, (v) => {
+    localStorage.setItem(LINE_NUMBERS_KEY, String(v))
+    clearTimeout(timer)
+    doRender()
+  })
+
+  const toggleLineNumbers = () => {
+    showLineNumbers.value = !showLineNumbers.value
+  }
 
   const refresh = () => {
     clearTimeout(timer)
@@ -80,5 +97,5 @@ export function useFormatter() {
     localStorage.removeItem(DRAFT_KEY)
   }
 
-  return { markdown, themeId, themes, html, warnings, imageCount, lastImagesInfo, stats, loadMarkdownFile, addImages, clear, refresh }
+  return { markdown, themeId, themes, showLineNumbers, toggleLineNumbers, html, warnings, imageCount, lastImagesInfo, stats, loadMarkdownFile, addImages, clear, refresh }
 }

@@ -20,6 +20,7 @@ const linkHtml = render('[文档](https://example.com/long/path)', { warnings: [
 const footerNoHr = render('**—— 如果这篇对你有帮助 ——**\n\n点赞 · 在看 · 转发', { warnings: [] })
 
 const h4Html = render('#### 次级小节\n', { warnings: [] })
+const codeNoNumHtml = render('```js\nconsole.log(1)\n```', { showLineNumbers: false })
 
 const checks = [
   ['容器 677px', html.includes('max-width:677px')],
@@ -37,6 +38,8 @@ const checks = [
   ['签名样式', html.includes('font-size:13px;line-height:23px;color:#8a94a0')],
   ['代码块浅灰底', html.includes('background:#f6f8fa')],
   ['代码 13px', html.includes('font-size:13px;line-height:22px;color:#24292e;font-family:Consolas')],
+  ['代码块序号默认开启', html.includes('color:#8a94a0;font-family:Consolas,Menlo,monospace;font-size:12px;line-height:22px;user-select:none;width:20px;">1</span>')],
+  ['代码块序号支持关闭', !codeNoNumHtml.includes('user-select:none') && codeNoNumHtml.includes('console')],
   ['代码块横滑窗口', html.includes('overflow-x:auto')],
   ['代码块单格表格撑宽', html.includes('<table style="border-collapse:collapse;width:100%;margin:0;font-size:13px;line-height:22px;">')],
   ['代码行不折行', html.includes('white-space:nowrap')],

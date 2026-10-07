@@ -114,6 +114,31 @@ body {
   color: #1b365d;
 }
 
+.toolbar button.toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: #e8e6dc;
+  color: #6b6a64;
+  border: none;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.toolbar button.toggle-btn:hover:not(:disabled) {
+  background: #dfddd0;
+  color: #1b365d;
+}
+
+.toolbar button.toggle-btn.active {
+  background: #1b365d;
+  color: #fff;
+  font-weight: 500;
+}
+
 .toolbar .mode-switch {
   display: flex;
   gap: 4px;

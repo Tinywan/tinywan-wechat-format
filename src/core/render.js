@@ -196,12 +196,18 @@ rules.fence = (tokens, idx, opts, env) => {
 
   // 首行整行注释 → 主题强调标题行
   const commentColor = t.code.tokens['hljs-comment'].match(/color:(#[0-9a-fA-F]+)/)[1]
+  const showLineNumbers = env.showLineNumbers !== false
+  const digits = Math.max(2, String(lines.length).length)
+  const numWidth = Math.max(18, digits * 8 + 4)
+
   const body = lines
     .map((l, i) => {
-      const style = i === 0 && l.includes(`color:${commentColor}`)
-        ? t.code.titleLine
-        : t.code.line
-      return `<p style="${style}">${l}</p>`
+      const isTitle = i === 0 && l.includes(`color:${commentColor}`)
+      const style = isTitle ? t.code.titleLine : t.code.line
+      const lineNum = showLineNumbers
+        ? `<span style="${t.code.lineNumber}width:${numWidth}px;">${i + 1}</span>`
+        : ''
+      return `<p style="${style}">${lineNum}${l}</p>`
     })
     .join('')
 

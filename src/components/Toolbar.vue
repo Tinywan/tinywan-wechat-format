@@ -11,6 +11,14 @@
       <select class="theme-select" :value="themeId" @change="$emit('theme-change', $event.target.value)">
         <option v-for="t in themes" :key="t.id" :value="t.id">{{ t.name }}</option>
       </select>
+      <button
+        class="toggle-btn"
+        :class="{ active: showLineNumbers }"
+        @click="$emit('toggle-line-numbers')"
+        title="代码块行号开关"
+      >
+        行号
+      </button>
       <div class="mode-switch">
         <button :class="{ active: mode === 'pc' }" @click="$emit('mode-change', 'pc')" title="PC 预览">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
@@ -41,6 +49,7 @@ defineProps({
   themeId: { type: String, default: 'blue-tech' },
   themes: { type: Array, default: () => [] },
   mode: { type: String, default: 'pc' },
+  showLineNumbers: { type: Boolean, default: true },
 })
-defineEmits(['open-md', 'pick-images', 'load-sample', 'format-text', 'theme-change', 'mode-change', 'copy-rich', 'copy-html', 'export', 'clear'])
+defineEmits(['open-md', 'pick-images', 'load-sample', 'format-text', 'theme-change', 'mode-change', 'toggle-line-numbers', 'copy-rich', 'copy-html', 'export', 'clear'])
 </script>

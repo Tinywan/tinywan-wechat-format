@@ -267,15 +267,26 @@ border-radius:4px; padding:20px 16px; white-space:nowrap;
 
 微信粘贴会剥离 section 的 `display:inline-block`，内层退回容器宽、nowrap 代码滑出底色；table 自动布局随内容撑宽，是微信最稳的撑宽载体。
 
-### 代码行
+### 代码行与序号（Line Numbers）
 
 ```css
-font-size:13px; line-height:1.7; color:#24292e;   /* codeText */
+/* 代码行 */
+font-size:13px; line-height:22px; color:#24292e;   /* codeText */
 font-family:Consolas,Menlo,monospace;
 white-space:nowrap;                                /* 长行不折行，外层横滑查看 */
 margin:0;
+
+/* 代码行号 */
+display:inline-block; text-align:right; margin-right:12px;
+color:#8a94a0; font-family:Consolas,Menlo,monospace;
+font-size:12px; line-height:22px; user-select:none;
+/* 宽度根据总行数动态计算（1~99 行统一 20px） */
 ```
 
+- **全行严谨连续**：所有行统一带有连续自然序号（首行注释标题行亦标为 1，严格对齐编辑器行号）；
+- **自适应右对齐**：根据代码总行数自动计算行号宽度，多行工整右对齐；
+- **微信行高合规**：行号显式定义 `font-size:12px; line-height:22px;`，彻底防御微信 `#2.3.2` 误判；
+- **工具栏快捷切换**：默认全局开启，顶部工具栏提供「行号」高亮开关，支持一键切换。
 - 空格硬化为 `\u00a0` 保对齐（高亮管线处理）；
 - **首行注释标题化**：若首行整行是注释，套用 `titleLine`：加粗、着 `codeTitleColor`（`#d73a49`），作为代码块的"标题"。
 

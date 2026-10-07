@@ -112,6 +112,7 @@ export function buildTheme(p) {
       block: `background:${c.codeBg};border-radius:4px;padding:20px 16px;white-space:nowrap;font-size:13px;line-height:22px;`,
       line: `font-size:13px;line-height:22px;color:${c.codeText};font-family:${MONO};white-space:nowrap;margin:0;`,
       titleLine: `font-size:13px;line-height:22px;color:${p.codeTitleColor};font-weight:bold;font-family:${MONO};white-space:nowrap;margin:0;`,
+      lineNumber: `display:inline-block;text-align:right;margin-right:12px;color:${c.gray};font-family:${MONO};font-size:12px;line-height:22px;user-select:none;`,
       tokens: tokenMap(p.syntax),
     },
 

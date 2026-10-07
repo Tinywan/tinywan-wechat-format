@@ -7,12 +7,14 @@
       :theme-id="themeId"
       :themes="themes"
       :mode="previewMode"
+      :show-line-numbers="showLineNumbers"
       @open-md="editor.openMd()"
       @pick-images="editor.pickImages()"
       @load-sample="loadSample"
       @format-text="formatText"
       @theme-change="onThemeChange"
       @mode-change="onModeChange"
+      @toggle-line-numbers="toggleLineNumbers"
       @copy-rich="copyRich"
       @copy-html="copyHtmlSource"
       @export="exportHtml"
@@ -46,7 +48,7 @@ const editor = ref(null)
 const preview = ref(null)
 const toast = ref(null)
 
-const { markdown, themeId, themes, html, warnings, imageCount, lastImagesInfo, stats, loadMarkdownFile, addImages, clear: clearAll } = useFormatter()
+const { markdown, themeId, themes, showLineNumbers, toggleLineNumbers, html, warnings, imageCount, lastImagesInfo, stats, loadMarkdownFile, addImages, clear: clearAll } = useFormatter()
 
 const statusText = computed(() => `${stats.value.chars} 字 · ${imageCount.value} 张图片`)
 
