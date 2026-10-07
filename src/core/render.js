@@ -7,12 +7,12 @@ const md = new MarkdownIt({ html: false, linkify: false, breaks: false })
 const esc = (s) =>
   String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
-// ---------- core rule: h1 数字前缀 → 描边色块（中性 token，渲染时取 env.theme） ----------
-md.core.ruler.push('h1_number_chip', (state) => {
+// ---------- core rule: h2 数字前缀 → 描边色块（中性 token，渲染时取 env.theme） ----------
+md.core.ruler.push('h2_number_chip', (state) => {
   const tokens = state.tokens
   for (let i = 0; i < tokens.length - 1; i++) {
     const t = tokens[i]
-    if (t.type !== 'heading_open' || t.tag !== 'h1') continue
+    if (t.type !== 'heading_open' || t.tag !== 'h2') continue
     const inline = tokens[i + 1]
     if (!inline || inline.type !== 'inline' || !inline.children || !inline.children.length) continue
     const first = inline.children[0]
@@ -21,9 +21,9 @@ md.core.ruler.push('h1_number_chip', (state) => {
     if (!m) continue
     const rest = first.content.slice(m[0].length)
     const chip = [
-      Object.assign(new state.Token('h1_chip', '', 0), {}),
+      Object.assign(new state.Token('h2_chip', '', 0), {}),
       Object.assign(new state.Token('text', '', 0), { content: m[1].padStart(2, '0') }),
-      Object.assign(new state.Token('h1_chip_close', '', 0), {}),
+      Object.assign(new state.Token('h2_chip_close', '', 0), {}),
     ]
     if (rest) {
       first.content = rest
@@ -87,17 +87,31 @@ const lastParaInQuote = (tokens, idx) => {
 // ---------- renderer rules ----------
 const rules = md.renderer.rules
 
-rules.h1_chip = (tokens, idx, opts, env) => `<span style="${th(env).h1Chip}">`
-rules.h1_chip_close = () => '</span>'
+rules.h2_chip = (tokens, idx, opts, env) => `<span style="${th(env).h2Chip}">`
+rules.h2_chip_close = () => '</span>'
+rules.h1_chip = rules.h2_chip
+rules.h1_chip_close = rules.h2_chip_close
 
 rules.heading_open = (tokens, idx, opts, env) => {
   const t = th(env)
   const tag = tokens[idx].tag
   const style = { h1: t.h1, h2: t.h2, h3: t.h3, h4: t.h4 }[tag] || t.h4
-  const marker = tag === 'h3' ? `<span style="color:${th(env).colors.primary};font-weight:bold;">▪</span>&nbsp;` : ''
+  if (tag === 'h2') {
+    return `<h2 style="${style}"><span style="${t.h2Wrap}">`
+  }
+  let marker = ''
+  if (tag === 'h3') {
+    marker = `<span style="${t.h3Bar}"></span>`
+  } else if (tag === 'h4') {
+    marker = `<span style="color:${th(env).colors.primary};font-weight:bold;">▪</span>&nbsp;`
+  }
   return `<${tag} style="${style}">${marker}`
 }
-rules.heading_close = (tokens, idx) => `</${tokens[idx].tag}>`
+rules.heading_close = (tokens, idx) => {
+  const tag = tokens[idx].tag
+  if (tag === 'h2') return '</span></h2>'
+  return `</${tag}>`
+}
 
 rules.strong_open = (tokens, idx, opts, env) => {
   if (top(env) === 'footer') return '<strong>'

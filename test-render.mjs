@@ -19,15 +19,17 @@ const imgHtml = render('![架构图](arch.png)', { warnings: [] })
 const linkHtml = render('[文档](https://example.com/long/path)', { warnings: [] })
 const footerNoHr = render('**—— 如果这篇对你有帮助 ——**\n\n点赞 · 在看 · 转发', { warnings: [] })
 
-const h3Html = render('### 小节标题\n', { warnings: [] })
+const h4Html = render('#### 次级小节\n', { warnings: [] })
 
 const checks = [
   ['容器 677px', html.includes('max-width:677px')],
-  ['h1 样式', html.includes('font-size:18px;font-weight:bold;text-align:center;color:#1f5fa6;line-height:1.4')],
-  ['h1 数字色块', html.includes('border:1px solid #2273b8;border-radius:4px;color:#2273b8;font-weight:bold')],
+  ['h1 极简居中 18px', html.includes('font-size:18px;font-weight:bold;text-align:center;color:#1f5fa6;line-height:1.4')],
+  ['h2 居中样式', html.includes('font-size:17px;font-weight:bold;text-align:center;color:#1f5fa6;line-height:1.4')],
+  ['h2 数字色块', html.includes('border:1px solid #2273b8;border-radius:4px;color:#2273b8;font-weight:bold')],
+  ['h2 等宽底横线', html.includes('border-bottom:1px solid #2273b8;padding-bottom:6px;')],
   ['色块序号 01', html.includes('<span style="display:inline-block;width:26px;height:26px;') && html.includes('>01</span>')],
-  ['h2 左侧竖条', html.includes('<h2 style="font-size:17px;font-weight:bold;text-align:left;color:#2273b8;line-height:1.4;border-left:4px solid #2273b8;padding-left:10px;')],
-  ['h3 小方块标记', h3Html.includes('<h3 style="font-size:16px;font-weight:bold;text-align:left;color:#1f5fa6;') && h3Html.includes('>▪</span>&nbsp;小节标题</h3>')],
+  ['h3 竖条直角等高', html.includes('width:4px;height:16px;background:#2273b8;vertical-align:-2px;margin-right:8px;')],
+  ['h4 小方块标记', h4Html.includes('<h4 style="font-size:16px;font-weight:bold;text-align:left;color:#1f5fa6;') && h4Html.includes('>▪</span>&nbsp;次级小节</h4>')],
   ['正文 15px', html.includes('font-size:15px;line-height:1.7;letter-spacing:0.3px;color:#333')],
   ['提示框底色', html.includes('background:#f0f6fb')],
   ['引用块 2px 边线', html.includes('background:#f0f6fb;border-left:2px solid #2273b8;padding:16px 20px')],

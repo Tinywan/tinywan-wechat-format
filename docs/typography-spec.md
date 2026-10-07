@@ -49,12 +49,12 @@ padding: 0 16px;    /* 4px 网格，移动端呼吸感 */
 
 | 级别 | 字号 | 行高 | 颜色 | 对齐 | 其他 |
 |---|---|---|---|---|---|
-| h1 | 18px | 1.4 | `deep` | 居中 | margin `40px 0 24px`，支持数字色块 |
-| h2 | 17px | 1.4 | `primary` | 左 | 左 4px 主色竖条 + padding-left 10px；margin `48px 0 24px` |
-| h3 | 16px | 1.4 | `deep` | 左 | 主色小方块 `▪` 前置；margin `0 0 16px` |
-| h4 | 16px | 1.4 | `deep` | 左 | margin `0 0 14px` |
+| h1 | 18px | 1.4 | `deep` | 居中 | 极简纯净留白，无背景色块；margin `36px 0 24px` |
+| h2 | 17px | 1.4 | `deep` | 居中 | 居中对齐，支持数字色块（chip），带文字等宽 1px 主色底横线；margin `48px 0 24px` |
+| h3 | 16px | 1.4 | `primary` | 左 | 4px 主色竖条前置（高度 16px 精确等高）；margin `32px 0 16px` |
+| h4 | 16px | 1.4 | `deep` | 左 | 主色小方块 `▪` 前置；margin `0 0 14px` |
 
-所有标题 `font-weight:bold`。h3/h4 用 `deep` 而非 `primary`：以字重/明度分层，避免强调色堆叠（Kimi 克制）；h3 的主色小方块与 h1 色块同属「方」的家族语言。
+所有标题 `font-weight:bold`。h1 采用极简纯净留白风格，18px 居中加粗定调全文；h2 采用 17px 居中对齐，支持 01、02 数字描边色块（chip）并带文字等宽 1px 主色底横线；h3 采用 16px 精确等高主色竖条前置强调；h4 继承深主色 + 前置主色小方块。
 
 ### 行距三档
 
@@ -64,9 +64,22 @@ padding: 0 16px;    /* 4px 网格，移动端呼吸感 */
 | 密排档 | 1.6–1.8 | 列表 1.8、引用 1.7、代码 1.7、表格 1.6 |
 | 阅读档 | 1.7 | 正文段落（15px 移动端中文舒适区；1.75 收敛至 1.7，去版面膨胀感） |
 
-### h1 数字色块（chip）
+### h1 极简留白标题
 
-h1 以数字开头（匹配 `^(\d{1,2})[\s、.．·]+`，如 `1、`、`2.`、`3 `）时，数字被抽出为描边色块，单位数补零为两位（`01`、`02`……）：
+h1 作为文章主标题，摒弃笨重色块，采用极简留白排版，字号收束至 18px 居中加粗，开篇纯净通透：
+
+```css
+font-size: 18px;
+font-weight: bold;
+text-align: center;
+color: #1f5fa6;                 /* 主题深主色 deep */
+line-height: 1.4;
+margin: 36px 0 24px 0;
+```
+
+### h2 数字色块与等宽底横线（chip + border-bottom）
+
+h2 以数字开头（匹配 `^(\d{1,2})[\s、.．·]+`，如 `1、`、`2.`、`3 `）时，数字被抽出为描边色块，单位数补零为两位（`01`、`02`……）：
 
 ```css
 display:inline-block; width:26px; height:26px;  /* 正方形色块，长方形 padding 版已废弃 */
@@ -76,13 +89,36 @@ font-size:14px;                               /* 两位数字收一档，保证�
 margin-right:10px; vertical-align:middle;
 ```
 
+同时，h2 内容整体包裹于行内块包装器中，在其下方呈现一条与文字/色块等宽的 1px 主色底边线，精致轻盈、视觉居中对齐：
+
+```css
+display: inline-block;
+border-bottom: 1px solid #2273b8;  /* 主色 primary 细横线 */
+padding-bottom: 6px;              /* 文字与横线间的呼吸间距 */
+max-width: 100%;
+box-sizing: border-box;
+```
+
 描边芯片呼应全局「细线优先」，与虚线分隔线、2px 引用边线同属一套克制语言；无渐变填充，天然免除降级问题。
 
-实现要点：core rule 在解析期产出中性 token（`h1_chip`/`h1_chip_close`），渲染期才套用 env 主题 —— 解析与配色解耦。
+实现要点：core rule 在解析期产出中性 token（`h2_chip`/`h2_chip_close`），渲染期才套用 env 主题 —— 解析与配色解耦。
 
-### h3 小方块标记
+### h3 等高竖条标记
 
-h3 由渲染器在标题文字前注入 `<span style="color:{primary};font-weight:bold;">▪</span>&nbsp;`（复用 listMarker token，U+25AA BLACK SMALL SQUARE，主色加粗）；标题文字本身为 `deep` 色 16px 加粗，无竖条无底线。
+h3 左侧竖条摒弃块级 `border-left`（避免被 1.4 行高撑得过长），而是通过前置独立色块注入，高度严格锁定为 16px 与文字字号高度精准平齐，纯直角平头干练利落：
+
+```css
+display: inline-block;
+width: 4px;
+height: 16px;                   /* 严格等高 16px 字高 */
+background: #2273b8;            /* 主色 primary */
+vertical-align: -2px;           /* 对齐中文字符基线 */
+margin-right: 8px;
+```
+
+### h4 小方块标记
+
+h4 由渲染器在标题文字前注入 `<span style="color:{primary};font-weight:bold;">▪</span>&nbsp;`（复用 listMarker token，U+25AA BLACK SMALL SQUARE，主色加粗）；标题文字本身为 `deep` 色 16px 加粗，无竖条无底线。
 
 ---
 

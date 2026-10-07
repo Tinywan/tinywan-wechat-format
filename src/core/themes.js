@@ -63,13 +63,16 @@ export function buildTheme(p) {
 
     container: `max-width:677px;margin:0 auto;padding:0 16px;`,
 
-    h1: `font-size:18px;font-weight:bold;text-align:center;color:${c.deep};line-height:1.4;margin:40px 0 24px 0;font-family:${FONT};`,
+    h1: `font-size:18px;font-weight:bold;text-align:center;color:${c.deep};line-height:1.4;margin:36px 0 24px 0;font-family:${FONT};`,
 
-    h2: `font-size:17px;font-weight:bold;text-align:left;color:${c.primary};line-height:1.4;border-left:4px solid ${c.primary};padding-left:10px;margin:48px 0 24px 0;font-family:${FONT};`,
+    h2: `font-size:17px;font-weight:bold;text-align:center;color:${c.deep};line-height:1.4;margin:48px 0 24px 0;font-family:${FONT};`,
+    h2Wrap: `display:inline-block;border-bottom:1px solid ${c.primary};padding-bottom:6px;max-width:100%;box-sizing:border-box;`,
 
+    h2Chip: `display:inline-block;width:26px;height:26px;box-sizing:border-box;line-height:24px;text-align:center;border:1px solid ${c.primary};border-radius:4px;color:${c.primary};font-weight:bold;font-size:14px;margin-right:10px;vertical-align:middle;font-family:${FONT};`,
     h1Chip: `display:inline-block;width:26px;height:26px;box-sizing:border-box;line-height:24px;text-align:center;border:1px solid ${c.primary};border-radius:4px;color:${c.primary};font-weight:bold;font-size:14px;margin-right:10px;vertical-align:middle;font-family:${FONT};`,
 
-    h3: `font-size:16px;font-weight:bold;text-align:left;color:${c.deep};line-height:1.4;margin:0 0 16px 0;font-family:${FONT};`,
+    h3: `font-size:16px;font-weight:bold;text-align:left;color:${c.primary};line-height:1.4;margin:32px 0 16px 0;font-family:${FONT};`,
+    h3Bar: `display:inline-block;width:4px;height:16px;background:${c.primary};vertical-align:-2px;margin-right:8px;`,
 
     h4: `font-size:16px;font-weight:bold;text-align:left;color:${c.deep};line-height:1.4;margin:0 0 14px 0;font-family:${FONT};`,
 
