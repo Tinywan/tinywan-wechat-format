@@ -63,22 +63,22 @@ export function buildTheme(p) {
 
     container: `max-width:677px;margin:0 auto;padding:0 16px;`,
 
-    h1: `font-size:18px;font-weight:bold;text-align:center;color:${c.deep};line-height:1.4;margin:36px 0 24px 0;font-family:${FONT};`,
+    h1: `font-size:18px;font-weight:bold;text-align:center;color:${c.deep};line-height:26px;margin:36px 0 24px 0;font-family:${FONT};`,
 
-    h2: `font-size:17px;font-weight:bold;text-align:center;color:${c.deep};line-height:1.4;margin:48px 0 24px 0;font-family:${FONT};`,
+    h2: `font-size:17px;font-weight:bold;text-align:center;color:${c.deep};line-height:25px;margin:48px 0 24px 0;font-family:${FONT};`,
     h2Wrap: `display:inline-block;border-bottom:1px solid ${c.primary};padding-bottom:6px;max-width:100%;box-sizing:border-box;`,
 
     h2Chip: `display:inline-block;width:26px;height:26px;box-sizing:border-box;line-height:24px;text-align:center;border:1px solid ${c.primary};border-radius:4px;color:${c.primary};font-weight:bold;font-size:14px;margin-right:10px;vertical-align:middle;font-family:${FONT};`,
     h1Chip: `display:inline-block;width:26px;height:26px;box-sizing:border-box;line-height:24px;text-align:center;border:1px solid ${c.primary};border-radius:4px;color:${c.primary};font-weight:bold;font-size:14px;margin-right:10px;vertical-align:middle;font-family:${FONT};`,
 
-    h3: `font-size:16px;font-weight:bold;text-align:left;color:${c.primary};line-height:1.4;margin:32px 0 16px 0;font-family:${FONT};`,
+    h3: `font-size:16px;font-weight:bold;text-align:left;color:${c.primary};line-height:24px;margin:32px 0 16px 0;font-family:${FONT};`,
     h3Bar: `display:inline-block;width:4px;height:16px;background:${c.primary};vertical-align:-2px;margin-right:8px;`,
 
-    h4: `font-size:16px;font-weight:bold;text-align:left;color:${c.deep};line-height:1.4;margin:0 0 14px 0;font-family:${FONT};`,
+    h4: `font-size:16px;font-weight:bold;text-align:left;color:${c.deep};line-height:24px;margin:0 0 14px 0;font-family:${FONT};`,
 
-    paragraph: `font-size:15px;line-height:1.7;letter-spacing:0.3px;color:${c.text};text-align:justify;margin:0 0 24px 0;font-family:${FONT};`,
+    paragraph: `font-size:15px;line-height:26px;letter-spacing:0.3px;color:${c.text};text-align:justify;margin:0 0 24px 0;font-family:${FONT};`,
 
-    listItem: `font-size:15px;line-height:1.8;letter-spacing:0.3px;color:${c.text};text-align:justify;padding-left:26px;text-indent:-26px;margin:0 0 8px 0;font-family:${FONT};`,
+    listItem: `font-size:15px;line-height:27px;letter-spacing:0.3px;color:${c.text};text-align:justify;padding-left:26px;text-indent:-26px;margin:0 0 8px 0;font-family:${FONT};`,
 
     listMarker: `color:${c.primary};font-weight:bold;`,
 
@@ -86,40 +86,40 @@ export function buildTheme(p) {
 
     blockquote: {
       box: `background:${c.quoteBg};border-left:2px solid ${c.primary};padding:16px 20px;margin:0 0 20px 0;`,
-      text: `font-size:15px;line-height:1.7;letter-spacing:0.3px;color:${c.quoteText};margin:0;font-family:${FONT};`,
-      textGap: `font-size:15px;line-height:1.7;letter-spacing:0.3px;color:${c.quoteText};margin:0 0 8px 0;font-family:${FONT};`,
-      signature: `font-size:13px;line-height:1.8;color:${c.quoteGray};margin:0;font-family:${FONT};`,
+      text: `font-size:15px;line-height:26px;letter-spacing:0.3px;color:${c.quoteText};margin:0;font-family:${FONT};`,
+      textGap: `font-size:15px;line-height:26px;letter-spacing:0.3px;color:${c.quoteText};margin:0 0 8px 0;font-family:${FONT};`,
+      signature: `font-size:13px;line-height:23px;color:${c.quoteGray};margin:0;font-family:${FONT};`,
     },
 
     image: {
       figure: `text-align:center;margin:0;font-size:0;line-height:0;`,
       img: `max-width:100%;display:block;margin:0 auto;border-radius:6px;`,
       imgMissing: `max-width:100%;display:block;margin:0 auto;border-radius:6px;outline:2px dashed #e06c75;outline-offset:4px;`,
-      caption: `font-size:13px;line-height:1.6;color:${c.gray};text-align:center;margin:4px 0 24px 0;font-family:${FONT};`,
+      caption: `font-size:13px;line-height:21px;color:${c.gray};text-align:center;margin:4px 0 24px 0;font-family:${FONT};`,
     },
 
     inlineCode: `background:${c.inlineCodeBg};color:${c.inlineCodeText};border-radius:3px;padding:1px 6px;font-size:13px;font-family:${MONO};word-break:break-all;`,
 
     table: `border-collapse:collapse;width:100%;margin:0 0 20px 0;font-family:${FONT};`,
 
-    tableTh: `background:${c.primary};color:#ffffff;font-size:15px;font-weight:bold;line-height:1.6;letter-spacing:0.3px;padding:8px 12px;border:1px solid ${c.primary};text-align:left;white-space:nowrap;font-family:${FONT};`,
+    tableTh: `background:${c.primary};color:#ffffff;font-size:15px;font-weight:bold;line-height:24px;letter-spacing:0.3px;padding:8px 12px;border:1px solid ${c.primary};text-align:left;white-space:nowrap;font-family:${FONT};`,
 
-    tableTd: `font-size:15px;line-height:1.6;color:${c.text};padding:8px 12px;border:1px solid ${p.tableBorder};text-align:left;vertical-align:top;font-family:${FONT};`,
+    tableTd: `font-size:15px;line-height:24px;color:${c.text};padding:8px 12px;border:1px solid ${p.tableBorder};text-align:left;vertical-align:top;font-family:${FONT};`,
 
     code: {
       scroll: `overflow-x:auto;margin:0 0 20px 0;`,
       table: `border-collapse:collapse;width:100%;margin:0;`,
       block: `background:${c.codeBg};border-radius:4px;padding:20px 16px;white-space:nowrap;`,
-      line: `font-size:13px;line-height:1.7;color:${c.codeText};font-family:${MONO};white-space:nowrap;margin:0;`,
-      titleLine: `font-size:13px;line-height:1.7;color:${p.codeTitleColor};font-weight:bold;font-family:${MONO};white-space:nowrap;margin:0;`,
+      line: `font-size:13px;line-height:22px;color:${c.codeText};font-family:${MONO};white-space:nowrap;margin:0;`,
+      titleLine: `font-size:13px;line-height:22px;color:${p.codeTitleColor};font-weight:bold;font-family:${MONO};white-space:nowrap;margin:0;`,
       tokens: tokenMap(p.syntax),
     },
 
     hr: `border:none;border-top:1px dashed ${c.gray};width:100%;margin:40px 0;`,
 
-    footerLead: `font-size:15px;line-height:1.8;color:${c.primary};text-align:center;margin:30px 0 8px 0;font-family:${FONT};`,
+    footerLead: `font-size:15px;line-height:27px;color:${c.primary};text-align:center;margin:30px 0 8px 0;font-family:${FONT};`,
 
-    footerText: `font-size:15px;line-height:2;color:${c.text};text-align:center;margin:0 0 8px 0;font-family:${FONT};`,
+    footerText: `font-size:15px;line-height:30px;color:${c.text};text-align:center;margin:0 0 8px 0;font-family:${FONT};`,
   }
 }
 

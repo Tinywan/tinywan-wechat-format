@@ -49,20 +49,22 @@ padding: 0 16px;    /* 4px 网格，移动端呼吸感 */
 
 | 级别 | 字号 | 行高 | 颜色 | 对齐 | 其他 |
 |---|---|---|---|---|---|
-| h1 | 18px | 1.4 | `deep` | 居中 | 极简纯净留白，无背景色块；margin `36px 0 24px` |
-| h2 | 17px | 1.4 | `deep` | 居中 | 居中对齐，支持数字色块（chip），带文字等宽 1px 主色底横线；margin `48px 0 24px` |
-| h3 | 16px | 1.4 | `primary` | 左 | 4px 主色竖条前置（高度 16px 精确等高）；margin `32px 0 16px` |
-| h4 | 16px | 1.4 | `deep` | 左 | 主色小方块 `▪` 前置；margin `0 0 14px` |
+| h1 | 18px | 26px | `deep` | 居中 | 极简纯净留白，无背景色块；margin `36px 0 24px` |
+| h2 | 17px | 25px | `deep` | 居中 | 居中对齐，支持数字色块（chip），带文字等宽 1px 主色底横线；margin `48px 0 24px` |
+| h3 | 16px | 24px | `primary` | 左 | 4px 主色竖条前置（高度 16px 精确等高）；margin `32px 0 16px` |
+| h4 | 16px | 24px | `deep` | 左 | 主色小方块 `▪` 前置；margin `0 0 14px` |
 
 所有标题 `font-weight:bold`。h1 采用极简纯净留白风格，18px 居中加粗定调全文；h2 采用 17px 居中对齐，支持 01、02 数字描边色块（chip）并带文字等宽 1px 主色底横线；h3 采用 16px 精确等高主色竖条前置强调；h4 继承深主色 + 前置主色小方块。
 
-### 行距三档
+### 行距规范（规避微信 #2.3.2 误判）
+
+微信公众号后台及插件校验规则 `#2.3.2 line-height-overlapping` 会将无单位行高误判为像素值（如 `1.7 < 15` 报错“行高小于字号”）。为彻底消除报警并保证多端绝对不重叠，统一采用明确像素值：
 
 | 档位 | 值 | 应用 |
 |---|---|---|
-| 标题档 | 1.4 | h1–h4（紧凑，标题不占用过多垂直空间） |
-| 密排档 | 1.6–1.8 | 列表 1.8、引用 1.7、代码 1.7、表格 1.6 |
-| 阅读档 | 1.7 | 正文段落（15px 移动端中文舒适区；1.75 收敛至 1.7，去版面膨胀感） |
+| 标题档 | 24px–26px | h1 (26px)、h2 (25px)、h3 (24px)、h4 (24px) |
+| 密排档 | 22px–27px | 列表 27px、引用 26px、代码 22px、表格 24px |
+| 阅读档 | 26px | 正文段落（15px 字号下实测约 1.73 倍，通透自然） |
 
 ### h1 极简留白标题
 
@@ -73,7 +75,7 @@ font-size: 18px;
 font-weight: bold;
 text-align: center;
 color: #1f5fa6;                 /* 主题深主色 deep */
-line-height: 1.4;
+line-height: 26px;
 margin: 36px 0 24px 0;
 ```
 
@@ -125,7 +127,7 @@ h4 由渲染器在标题文字前注入 `<span style="color:{primary};font-weigh
 ## 5. 正文段落
 
 ```css
-font-size:15px; line-height:1.7; letter-spacing:0.3px;
+font-size:15px; line-height:26px; letter-spacing:0.3px;
 color:#333; text-align:justify;
 margin:0 0 24px 0;
 ```
@@ -140,8 +142,8 @@ margin:0 0 24px 0;
 
 | 段落 | 样式 |
 |---|---|
-| 引导行（以 `——` 开头） | 15px、`primary`、line-height 1.8、居中、margin `30px 0 8px` |
-| 其余各段 | 15px、line-height 2、居中、margin `0 0 8px` |
+| 引导行（以 `——` 开头） | 15px、`primary`、line-height 27px、居中、margin `30px 0 8px` |
+| 其余各段 | 15px、line-height 30px、居中、margin `0 0 8px` |
 
 文末内 `**加粗**` 只输出裸 `<strong>`（无主题色，继承段色）。参考资料等位于两个 `---` 之间的段落不识别为文末，保持正文样式。
 
@@ -174,7 +176,7 @@ word-break:break-all;
 微信不保留 `ul/ol`，统一输出为 `<p>` + 标记。列表项公共样式：
 
 ```css
-font-size:15px; line-height:1.8; letter-spacing:0.3px; color:#333;
+font-size:15px; line-height:27px; letter-spacing:0.3px; color:#333;
 text-align:justify;
 padding-left:26px; text-indent:-26px;   /* 悬挂缩进：折行后文字对齐首行文字 */
 margin:0 0 8px 0;                       /* 项距略大于行距，分组可读 */
