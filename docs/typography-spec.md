@@ -208,13 +208,14 @@ margin:0 0 8px 0;                       /* 项距略大于行距，分组可读 
 输出为 `<section>` 卡片（非 `<blockquote>`），Kami 式细边线：
 
 ```css
-/* 外框 */
+/* 外框：显式指定 font-size 与 line-height，消除微信 #2.3.2 对包含多行文本的 section 容器的误判 */
 background:#f0f6fb;                     /* quoteBg，各主题统一调浅一档 */
 border-left:2px solid #2273b8;          /* 引用左线细边线，与全局 2px 边线同档；笔直无弧度 */
 padding:16px 20px; margin:0 0 20px 0;
+font-size:15px; line-height:26px;
 
 /* 段落 */
-font-size:15px; line-height:1.7; letter-spacing:0.3px;
+font-size:15px; line-height:26px; letter-spacing:0.3px;
 color:#333; margin:0;                    /* 末段，与正文同号 */
 /* 非末段 margin 改为 0 0 8px，段间留缝 */
 ```
@@ -223,7 +224,7 @@ color:#333; margin:0;                    /* 末段，与正文同号 */
 
 | 规则 | 说明 |
 |---|---|
-| 签名行 | 以 `——` 开头的段落：13px、`gray` 色（`#8a94a0`）、line-height 1.8 |
+| 签名行 | 以 `——` 开头的段落：13px、`gray` 色（`#8a94a0`）、line-height 23px |
 | 加粗着色 | 引用内 `**加粗**` 着 `primary` 色 |
 | 字距 | 引用文字 `letter-spacing:0.3px`，与正文字感一致 |
 
