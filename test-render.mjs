@@ -40,6 +40,7 @@ const checks = [
   ['代码 13px', html.includes('font-size:13px;line-height:22px;color:#24292e;font-family:Consolas')],
   ['代码块序号默认开启', html.includes('color:#8a94a0;font-family:Consolas,Menlo,monospace;font-size:12px;line-height:22px;user-select:none;width:20px;">1</span>')],
   ['代码块序号支持关闭', !codeNoNumHtml.includes('user-select:none') && codeNoNumHtml.includes('console')],
+  ['PHP代码标签转义显示', html.includes('&lt;?php')],
   ['代码块横滑窗口', html.includes('overflow-x:auto')],
   ['代码块单格表格撑宽', html.includes('<table style="border-collapse:collapse;width:100%;margin:0;font-size:13px;line-height:22px;">')],
   ['代码行不折行', html.includes('white-space:nowrap')],

@@ -4,7 +4,7 @@ const escapeHtml = (s) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
 const harden = (s) =>
-  s.replace(/\t/g, '\u00a0\u00a0\u00a0\u00a0').replace(/ /g, '\u00a0')
+  escapeHtml(s).replace(/\t/g, '\u00a0\u00a0\u00a0\u00a0').replace(/ /g, '\u00a0')
 
 // hljs 输出转内联样式并按行拆分：
 // DOMParser 解析 → 深度遍历（span 查映射压样式栈）→ 文本节点层按 \n 拆行 + 空格硬化
