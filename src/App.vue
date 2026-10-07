@@ -10,6 +10,7 @@
       @open-md="editor.openMd()"
       @pick-images="editor.pickImages()"
       @load-sample="loadSample"
+      @format-text="formatText"
       @theme-change="onThemeChange"
       @mode-change="onModeChange"
       @copy-rich="copyRich"
@@ -39,6 +40,7 @@ import ToastTip from './components/ToastTip.vue'
 import { useFormatter } from './composables/useFormatter.js'
 import { copyRichText, copyText, downloadHtml } from './composables/useClipboard.js'
 import sampleMd from './assets/sample.md?raw'
+import { spacingMarkdown } from './core/pangu.js'
 
 const editor = ref(null)
 const preview = ref(null)
@@ -51,6 +53,17 @@ const statusText = computed(() => `${stats.value.chars} 字 · ${imageCount.valu
 const loadSample = () => {
   markdown.value = sampleMd
   toast.value.show('已载入示例文章')
+}
+
+const formatText = () => {
+  const before = markdown.value
+  const after = spacingMarkdown(before)
+  if (after === before) {
+    toast.value.show('文本已符合规范，无需调整')
+  } else {
+    markdown.value = after
+    toast.value.show('已自动在中英文之间加空格')
+  }
 }
 
 const onThemeChange = (id) => {

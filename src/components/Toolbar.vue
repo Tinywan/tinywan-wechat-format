@@ -4,6 +4,7 @@
       <button class="ghost" @click="$emit('open-md')">打开 .md</button>
       <button class="ghost" @click="$emit('pick-images')">图片{{ imageCount ? ' · ' + imageCount : '' }}</button>
       <button class="ghost" @click="$emit('load-sample')">示例</button>
+      <button class="ghost" @click="$emit('format-text')" title="中英文之间自动加空格">格式化</button>
     </div>
     <span class="sep"></span>
     <div class="toolbar-group">
@@ -41,5 +42,5 @@ defineProps({
   themes: { type: Array, default: () => [] },
   mode: { type: String, default: 'pc' },
 })
-defineEmits(['open-md', 'pick-images', 'load-sample', 'theme-change', 'mode-change', 'copy-rich', 'copy-html', 'export', 'clear'])
+defineEmits(['open-md', 'pick-images', 'load-sample', 'format-text', 'theme-change', 'mode-change', 'copy-rich', 'copy-html', 'export', 'clear'])
 </script>
