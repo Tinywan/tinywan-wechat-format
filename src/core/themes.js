@@ -100,11 +100,11 @@ export function buildTheme(p) {
 
     inlineCode: `background:${c.inlineCodeBg};color:${c.inlineCodeText};border-radius:3px;padding:1px 6px;font-size:13px;font-family:${MONO};word-break:break-all;`,
 
-    table: `border-collapse:collapse;width:100%;margin:0 0 20px 0;font-size:15px;line-height:24px;font-family:${FONT};`,
+    table: `border-collapse:collapse;width:100%;margin:0 0 20px 0;font-size:14px;line-height:22px;table-layout:auto;word-break:break-word;font-family:${FONT};`,
 
-    tableTh: `background:${c.primary};color:#ffffff;font-size:15px;font-weight:bold;line-height:24px;letter-spacing:0.3px;padding:8px 12px;border:1px solid ${c.primary};text-align:left;white-space:nowrap;font-family:${FONT};`,
+    tableTh: `background:${c.primary};color:#ffffff;font-size:14px;font-weight:bold;line-height:22px;letter-spacing:0.3px;padding:8px 8px;border:1px solid ${c.primary};text-align:left;word-break:break-word;font-family:${FONT};`,
 
-    tableTd: `font-size:15px;line-height:24px;color:${c.text};padding:8px 12px;border:1px solid ${p.tableBorder};text-align:left;vertical-align:top;font-family:${FONT};`,
+    tableTd: `font-size:14px;line-height:22px;color:${c.text};padding:8px 8px;border:1px solid ${p.tableBorder};text-align:left;vertical-align:top;word-break:break-word;word-wrap:break-word;font-family:${FONT};`,
 
     code: {
       scroll: `overflow-x:auto;margin:0 0 20px 0;font-size:13px;line-height:22px;`,
