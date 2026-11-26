@@ -40,7 +40,7 @@
 ```css
 max-width: 677px;   /* 微信正文经典阅读宽度 */
 margin: 0 auto;
-padding: 0 16px;    /* 4px 网格，移动端呼吸感 */
+padding: 0 16px;    /* 必须保留：置 0 后粘贴进微信编辑器预览会变样（实测） */
 ```
 
 ---
@@ -51,10 +51,10 @@ padding: 0 16px;    /* 4px 网格，移动端呼吸感 */
 |---|---|---|---|---|---|
 | h1 | 18px | 26px | `deep` | 居中 | 极简纯净留白，无背景色块；margin `36px 0 24px` |
 | h2 | 17px | 25px | `deep` | 居中 | 居中对齐，支持数字色块（chip），带文字等宽 1px 主色底横线；margin `48px 0 24px` |
-| h3 | 16px | 24px | `primary` | 左 | 4px 主色竖条前置（高度 16px 精确等高）；margin `32px 0 16px` |
+| h3 | 16px | 24px | `primary` | 左 | 主色字符竖杆 `▎` 前置（避免微信清除空 span）；margin `32px 0 16px` |
 | h4 | 16px | 24px | `deep` | 左 | 主色小方块 `▪` 前置；margin `0 0 14px` |
 
-所有标题 `font-weight:bold`。h1 采用极简纯净留白风格，18px 居中加粗定调全文；h2 采用 17px 居中对齐，支持 01、02 数字描边色块（chip）并带文字等宽 1px 主色底横线；h3 采用 16px 精确等高主色竖条前置强调；h4 继承深主色 + 前置主色小方块。
+所有标题 `font-weight:bold`。h1 采用极简纯净留白风格，18px 居中加粗定调全文；h2 采用 17px 居中对齐，支持 01、02 数字描边色块（chip）并带文字等宽 1px 主色底横线；h3 采用 16px 主色字符竖杆 `▎` 前置强调；h4 继承深主色 + 前置主色小方块。
 
 ### 行距规范（规避微信 #2.3.2 误判）
 
@@ -63,7 +63,7 @@ padding: 0 16px;    /* 4px 网格，移动端呼吸感 */
 | 档位 | 值 | 应用 |
 |---|---|---|
 | 标题档 | 24px–26px | h1 (26px)、h2 (25px)、h3 (24px)、h4 (24px) |
-| 密排档 | 22px–27px | 列表 27px、引用 26px、代码 22px、表格 24px |
+| 密排档 | 22px–27px | 列表 22px、引用 26px、代码 24px、表格 24px |
 | 阅读档 | 26px | 正文段落（15px 字号下实测约 1.73 倍，通透自然） |
 
 ### h1 极简留白标题
@@ -105,18 +105,19 @@ box-sizing: border-box;
 
 实现要点：core rule 在解析期产出中性 token（`h2_chip`/`h2_chip_close`），渲染期才套用 env 主题 —— 解析与配色解耦。
 
-### h3 等高竖条标记
+### h3 字符竖杆标记
 
-h3 左侧竖条摒弃块级 `border-left`（避免被 1.4 行高撑得过长），而是通过前置独立色块注入，高度严格锁定为 16px 与文字字号高度精准平齐，纯直角平头干练利落：
+h3 左侧使用真实文本字符 `▎`（U+258E LEFT ONE QUARTER BLOCK），不再使用空的 CSS 色块 `<span>`。微信编辑器粘贴时可能清除无内容节点，而字符竖杆与 h4 的 `▪` 一样会作为正文保留：
 
 ```css
-display: inline-block;
-width: 4px;
-height: 16px;                   /* 严格等高 16px 字高 */
-background: #2273b8;            /* 主色 primary */
-vertical-align: -2px;           /* 对齐中文字符基线 */
-margin-right: 8px;
+display:inline-block; width:4px;
+color:#2273b8; font-weight:bold;
+font-size:16px; line-height:24px;
+margin-right:8px; vertical-align:0;
+font-family:Optima,PingFangSC-regular,serif;
 ```
+
+字符在 16px 字号下形成主色直角竖杆，外层以 `width:4px` 固定占位，保留 4px 杆宽与 8px 右侧间距；不使用 `overflow:hidden`，避免行内块基线下移至盒底而与标题文字错位。即使微信忽略尺寸，竖杆仍作为文本字符保留，不再依赖空元素的背景样式。
 
 ### h4 小方块标记
 
@@ -155,19 +156,19 @@ margin:0 0 24px 0;
 |---|---|---|
 | `**加粗**` | `<strong>` | 一律 `primary` 主题色字色、无下划线；文末区域内输出裸 `<strong>` |
 | `*斜体*` | `<em>` | 原样输出 |
-| `[链接](url)` | 主题色加粗 `<span>` | 公众号正文外链无效，丢弃 href：`color:${primary};font-weight:bold;word-break:break-all`（长 URL 不可断行会在 justify 段落拉伸前一行字距） |
+| `[链接](url)` | 主题色加粗 `<span>` + 灰色小字地址 | 公众号正文外链无效，链接文字保留 `color:${primary};font-weight:bold;word-break:break-all`，其后以 `（原始 URL）` 形式附灰色小字（12px / 22px / gray / `word-break:break-all`）供读者追溯；链接文字与 href 相同（裸链接）或为 `mailto:` 时不重复附地址 |
 | 软/硬换行 | `<br>` | — |
 
 ### 行内代码
 
 ```css
-background:#e8edf2; color:#4a7fa5;   /* blue-tech 取值 */
+background:#f3f6f8; color:#4a7fa5;   /* blue-tech 取值 */
 border-radius:3px; padding:1px 6px;
-font-size:13px; font-family:Consolas,Menlo,monospace;
+font-size:15px; font-family:Consolas,Menlo,monospace;
 word-break:break-all;
 ```
 
-字号 13px，较正文收一档（与代码块一致）。`word-break:break-all`：justify 段落中长标识符若不折行，会整块挤到下一行，上一行余白被两端对齐均摊成字距拉伸。
+字号 15px 与正文一致（代码块为 14px）。`word-break:break-all`：justify 段落中长标识符若不折行，会整块挤到下一行，上一行余白被两端对齐均摊成字距拉伸。
 
 ---
 
@@ -176,28 +177,35 @@ word-break:break-all;
 微信不保留 `ul/ol`，统一输出为 `<p>` + 标记。列表项公共样式：
 
 ```css
-font-size:15px; line-height:27px; letter-spacing:0.3px; color:#333;
-text-align:justify;
-padding-left:26px; text-indent:-26px;   /* 悬挂缩进：折行后文字对齐首行文字 */
-margin:0 0 8px 0;                       /* 项距略大于行距，分组可读 */
+font-size:15px; line-height:22px; letter-spacing:0.3px; color:#333;
+text-align:left;                        /* 短句列表不用 justify，避免字距被拉散 */
+padding-left:14px; text-indent:-14px;   /* 悬挂缩进：折行后文字对齐首行文字 */
+margin:0 0 8px 8px;                     /* 项距 8px；整体左缩进 8px，标记不越过正文左缘 */
 ```
 
-### 无序列表：实心圆字符
+列表作为整体与前后正文保持 16px 间距：列表前的普通段落将 `margin-bottom` 从 24px 调整为 16px，列表最后一项将 `margin-bottom` 从 8px 调整为 16px；中间各项仍为 8px，普通正文之间的 24px 段距不变。
+
+### 标记统一为 10px 定宽 inline-block + 1 空格
+
+无序方块与有序数字共用同一套定位模型：`10px` 定宽标记盒 + 尾部 `&nbsp;`（约 4px），合计约 14px，与 14px 悬挂缩进精确对齐；首行 `text-indent:-14px` 让标记盒伸到缩进区，折行文字与首行文字左缘齐平。位数变化（`1.` → `10.`）不改变文字起点，不会错位。盒宽克制在 10px，方块与正文之间的空隙约 5px，紧凑但不粘连。
+
+### 无序列表：主题色小方块
 
 ```html
-&nbsp;<span style="color:#333;font-weight:bold;font-size:6px;">●</span>&nbsp;&nbsp;&nbsp;
+<span style="display:inline-block;width:10px;text-align:center;color:#2273b8;font-weight:bold;font-size:8px;vertical-align:2px;">■</span>&nbsp;
 ```
 
-- 字符为 U+25CF BLACK CIRCLE：6px 小字号渲染为实心小点，视觉接近常见公众号排版，各平台字体内置；
-- 圆点取正文深色（非主色），视觉安静、不抢加粗引导词；
-- 前 1 空格让圆点内缩 ~5px，标记 + 空格共约 26px，与 26px 悬挂缩进对齐，折行对齐。
+- 字符为 U+25AA 同族的 U+25A0 BLACK SQUARE：字形比 `▪` 大一圈，8px 字号下实际渲染约 5–6px，清晰挺括（`▪` 同字号仅约 3px，过小发虚）；
+- 方块在 10px 盒内水平居中，`vertical-align:2px` 上提至文字视觉中线；
+- 方块取主色 `primary`，与有序数字、h4 `▪` 前缀、加粗引导词同属一套主题强调语言；面积仅约 6px²，点缀而不喧哗。
 
 ### 有序列表：主题色数字
 
 ```html
-&nbsp;<span style="color:#2273b8;font-weight:bold;">1.</span>&nbsp;&nbsp;
+<span style="display:inline-block;width:10px;text-align:right;color:#2273b8;font-weight:bold;">1.</span>&nbsp;
 ```
 
+- 数字在 10px 盒内右对齐，个位/两位数的文字起点一致（数字超出盒宽时向左溢出，不推挤正文）；
 - 计数器由渲染器维护（支持嵌套，各层独立计数）；
 - 嵌套层级用 3 个 `\u00a0` × 层深做缩进。
 
@@ -253,58 +261,70 @@ text-align:center; margin:4px 0 24px 0;
 
 ---
 
-## 10. 代码块（横滑窗口，浅灰底对齐微信官方编辑器）
+## 10. 代码块（macOS 浅灰窗口与长行横滑）
 
 ```css
-/* 外层：横滑窗口 */
-overflow-x:auto; margin:0 0 20px 0;
-/* 中层：单格表格撑宽（auto 布局宽度 = max(100%, 内容宽)） */
-border-collapse:collapse; width:100%; margin:0;
-/* td：承载底色与圆角 */
-background:#f6f8fa;                     /* codeBg，7 主题统一浅灰 */
-border-radius:4px; padding:20px 16px; white-space:nowrap;
+/* 外层：超长代码行横向滚动 */
+display:block; max-width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch;
+margin:0 0 20px 0;
+/* 中层：双行表格承载圆点顶栏与代码区（微信最稳的结构载体） */
+border-collapse:separate; border-spacing:0; width:100%; margin:0;
+background:#e9edf1; border:none;
+border-radius:6px; overflow:hidden;
+/* 圆点顶栏 td：独立浅灰底与细分隔线 */
+background:#dde2e7; color:#8a919c; border:none; border-bottom:1px solid #d2d8df;
+padding:8px 16px; font-size:12px; line-height:20px;
+font-weight:normal; letter-spacing:0; text-align:left;
+/* 代码区 td：左右 16px 内边距 */
+background:#e9edf1; border:none; padding:12px 16px 16px;
+text-align:left; white-space:nowrap; word-break:normal;
+word-wrap:normal; overflow-wrap:normal;
 ```
 
-微信粘贴会剥离 section 的 `display:inline-block`，内层退回容器宽、nowrap 代码滑出底色；table 自动布局随内容撑宽，是微信最稳的撑宽载体。
+圆点依次使用 `●#ff5f56`、`●#ffbd2e`、`●#27c93f`，字号 16px、右侧间距 8px，以真实彩色字符而非空元素 + `border-radius:50%` 实现，避免微信清除空节点或剥离圆形样式。表格外框及两个单元格均显式 `border:none`，防止微信默认表格样式补回边框；顶栏仅保留 `1px` 下分隔线。语言标识只用于语法高亮，不再输出可见标签；圆点顶栏 `#dde2e7` 与代码区 `#e9edf1` 形成 macOS 浅灰窗口层次。除 `highlight.js/lib/common` 外，显式注册 Dockerfile 语言并支持 `docker` 别名，避免这类代码块静默退化为无高亮纯文本。
+
+代码只保留源码中的原始换行，不在手机端自动折行：每个代码行使用块级 `<span>` 而非 `<p>`，避免微信编辑器重写段落的白空格与断词样式；`white-space:nowrap` 配合 `\u00a0` 保留缩进与完整代码行，不再追加 `<wbr>` 折行点；`word-break:normal`、`word-wrap:normal`、`overflow-wrap:normal` 禁止从 token 中间断行。长行由外层 `max-width:100%`、`overflow-x:auto` 与 `-webkit-overflow-scrolling:touch` 承载横向滚动，代码单元格与每行继续显式 `text-align:left`，防止微信编辑器的两端对齐拉伸空格。
 
 ### 代码行与序号（Line Numbers）
 
 ```css
-/* 代码行 */
-font-size:13px; line-height:22px; color:#24292e;   /* codeText */
+/* 代码行：块级 span，避免微信重写 p 样式 */
+display:block; font-size:13px; line-height:22px; color:#3f4650;
 font-family:Consolas,Menlo,monospace;
-white-space:nowrap;                                /* 长行不折行，外层横滑查看 */
+text-align:left; white-space:nowrap; word-break:normal;
+word-wrap:normal; overflow-wrap:normal;
 margin:0;
 
-/* 代码行号 */
+/* 可选代码行号 */
 display:inline-block; text-align:right; margin-right:12px;
-color:#8a94a0; font-family:Consolas,Menlo,monospace;
+color:#8a919c; font-family:Consolas,Menlo,monospace;
 font-size:12px; line-height:22px; user-select:none;
 /* 宽度根据总行数动态计算（1~99 行统一 20px） */
 ```
 
-- **全行严谨连续**：所有行统一带有连续自然序号（首行注释标题行亦标为 1，严格对齐编辑器行号）；
+- **全行严谨连续**：开启行号后，所有行统一带有连续自然序号，严格对齐编辑器行号；
 - **自适应右对齐**：根据代码总行数自动计算行号宽度，多行工整右对齐；
 - **微信行高合规**：行号显式定义 `font-size:12px; line-height:22px;`，彻底防御微信 `#2.3.2` 误判；
-- **工具栏快捷切换**：默认全局开启，顶部工具栏提供「行号」高亮开关，支持一键切换。
-- 空格硬化为 `\u00a0` 保对齐（高亮管线处理）；
-- **首行注释标题化**：若首行整行是注释，套用 `titleLine`：加粗、着 `codeTitleColor`（`#d73a49`），作为代码块的"标题"。
+- **工具栏快捷切换**：默认关闭以匹配简洁参考样式，顶部工具栏提供「行号」开关；
+- 空格硬化为 `\u00a0` 保对齐，不插入 `<wbr>`，避免手机端出现额外折行点（高亮管线处理）；
+- **首行注释弱化**：若首行整行是注释，套用 `titleLine`，以 `codeTitleColor`（`#8a919c`）和正常字重显示。
 
-### 全主题统一浅灰底
+### 全主题统一浅灰终端
 
-7 个主题代码块统一 `codeBg:#f6f8fa`、`codeText:#24292e`、`codeLabel:#6a737d`、`codeTitleColor:#d73a49` + GitHub Light 语法板，对齐微信官方编辑器的浅灰朴素卡片观感；One Dark 深色板已移除。
+7 个主题代码块统一 `codeBg:#e9edf1`、`codeHeaderBg:#dde2e7`、`codeBorder:#d2d8df`、`codeText:#3f4650`、`codeLabel:#8a919c`、`codeTitleColor:#8a919c` + 低饱和浅灰语法板；仅代码区使用浅灰底，文章正文与各主题强调色不变。
 
-### 语法高亮色板（GitHub Light）
+### 语法高亮色板（低饱和浅灰）
 
 | 语义 | 取值 |
 |---|---|
-| comment / quote | `#6a737d` |
-| string / number / attr | `#032f62` |
-| keyword / meta | `#d73a49` |
-| title / function | `#6f42c1` |
-| class / type / built_in | `#e36209` |
-| variable / tag | `#005cc5` |
-| symbol / bullet / addition | `#22863a` |
+| comment / quote | `#8a919c` |
+| string / number / attr | `#9a6a16` |
+| keyword / meta | `#3f4650` |
+| title / function | `#3f4650` |
+| class / type | `#9a6a16` |
+| built_in（如 Shell `exec`） | `#3f4650` + 加粗 |
+| variable / tag | `#9a6a16` |
+| symbol / bullet / addition | `#4d7c5b` |
 
 ---
 
@@ -326,10 +346,10 @@ padding:8px 12px; border:1px solid #d5e2ef;   /* tableBorder */
 text-align:left; vertical-align:top;
 
 /* 斑马纹：第 2、4… 数据行 td 前置 */
-background:#f0f6fb;                     /* quoteBg 浅底色 */
+background:#f0f6fb;                     /* zebraBg，默认回落 quoteBg */
 ```
 
-15px 密排档统一内容字号；padding 走 4px 网格。斑马纹直接写在 td 内联样式上（tr 样式粘贴易丢），表头行不参与。
+15px 密排档统一内容字号；padding 走 4px 网格。斑马纹直接写在 td 内联样式上（tr 样式粘贴易丢），表头行不参与。斑马底色独立 token `zebraBg`（默认取 `quoteBg`）：凝夜等深色引用块主题必须单独配浅斑纹色（凝夜 `#efeaf7`），否则深底撞上默认深字 `#333` 无法阅读。
 
 ---
 
@@ -358,8 +378,8 @@ palette: {
   codeBg, codeText, codeLabel, codeTitleColor,
   inlineCodeBg, inlineCodeText,
   tableBorder,
-  syntax: githubLight,           // 全主题统一 GitHub Light 浅色系板
-  // 可选覆盖：text, gray, quoteText, quoteGray（深色及暖调主题需要）
+  syntax: lightMuted,             // 全主题统一低饱和浅灰色板
+  // 可选覆盖：text, gray, quoteText, quoteGray, codeHeaderBg, codeBorder
 }
 ```
 
@@ -367,13 +387,13 @@ palette: {
 
 | id | 名称 | primary | deep → light | 引用底 | 代码底 | 行内代码 | 表边框 | 语法色板 |
 |---|---|---|---|---|---|---|---|---|
-| `blue-tech` | 蓝色科技 | `#2273b8` | `#1f5fa6 → #3a8ee6` | `#f0f6fb` | `#f6f8fa` | `#e8edf2/#4a7fa5` | `#d5e2ef` | GitHub Light |
-| `orange-heart` | 橙心 | `#ff3502` | `#e6461f → #ff8052` | `#fdf3ee` | `#f6f8fa` | `#ffece3/#d4380d` | `#ffd9cc` | GitHub Light |
-| `violet` | 姹紫 | `#5d3587` | `#4a2a6b → #8e5fc0` | `#f7f2fb` | `#f6f8fa` | `#efe6f7/#6b3fa0` | `#e2d5f0` | GitHub Light |
-| `green` | 绿意 | `#0e8c64` | `#0a6b4c → #3fb88f` | `#f0f9f5` | `#f6f8fa` | `#e6f4ef/#0e8c64` | `#cfe8df` | GitHub Light |
-| `night` | 凝夜 | `#b39ddb` | `#5e35b1 → #7e57c2` | `#232733` | `#f6f8fa` | `#2b3040/#b39ddb` | `#3a4152` | GitHub Light |
-| `kami-paper` | 暖纸 | `#1B365D` | `#16283f → #3d5a80` | `#f0eee4` | `#f6f8fa` | `#efece1/#1B365D` | `#e3e0d3` | GitHub Light |
-| `kimi-blue` | Kimi 蓝 | `#007CFF` | `#002F5B → #00A1FF` | `#f2f8ff` | `#f6f8fa` | `#e8f3ff/#007CFF` | `#E1E3E6` | GitHub Light |
+| `blue-tech` | 蓝色科技 | `#2273b8` | `#1f5fa6 → #3a8ee6` | `#f0f6fb` | `#e9edf1` | `#f3f6f8/#4a7fa5` | `#d5e2ef` | 低饱和浅灰 |
+| `orange-heart` | 橙心 | `#ff3502` | `#e6461f → #ff8052` | `#fdf3ee` | `#e9edf1` | `#ffece3/#d4380d` | `#ffd9cc` | 低饱和浅灰 |
+| `violet` | 姹紫 | `#5d3587` | `#4a2a6b → #8e5fc0` | `#f7f2fb` | `#e9edf1` | `#efe6f7/#6b3fa0` | `#e2d5f0` | 低饱和浅灰 |
+| `green` | 绿意 | `#0e8c64` | `#0a6b4c → #3fb88f` | `#f0f9f5` | `#e9edf1` | `#e6f4ef/#0e8c64` | `#cfe8df` | 低饱和浅灰 |
+| `night` | 凝夜 | `#b39ddb` | `#5e35b1 → #7e57c2` | `#232733` | `#e9edf1` | `#2b3040/#b39ddb` | `#3a4152` | 低饱和浅灰 |
+| `kami-paper` | 暖纸 | `#1B365D` | `#16283f → #3d5a80` | `#f0eee4` | `#e9edf1` | `#efece1/#1B365D` | `#e3e0d3` | 低饱和浅灰 |
+| `kimi-blue` | Kimi 蓝 | `#007CFF` | `#002F5B → #00A1FF` | `#f2f8ff` | `#e9edf1` | `#e8f3ff/#007CFF` | `#E1E3E6` | 低饱和浅灰 |
 
 「凝夜」为暗色主题，额外覆盖 `quoteText:#cfd4e3`、`quoteGray:#8b93a7`，避免浅字落在深底上不可读。
 
@@ -385,18 +405,18 @@ palette: {
   primary:'#1B365D', deep:'#16283f', light:'#3d5a80', accent:'#b08d57',
   text:'#3d3b36', gray:'#8a867d',
   quoteBg:'#f0eee4', quoteText:'#5c5a52',
-  codeBg:'#f6f8fa', codeText:'#24292e', codeLabel:'#6a737d', codeTitleColor:'#d73a49',
+  codeBg:'#e9edf1', codeText:'#3f4650', codeLabel:'#8a919c', codeTitleColor:'#8a919c',
   inlineCodeBg:'#efece1', inlineCodeText:'#1B365D',
-  tableBorder:'#e3e0d3', syntax: githubLight }
+  tableBorder:'#e3e0d3', syntax: lightMuted }
 
 // kimi-blue —— Kimi 品牌蓝 #007CFF + 深海军蓝 #002F5B，干净中性灰
 { id:'kimi-blue', name:'Kimi 蓝',
   primary:'#007CFF', deep:'#002F5B', light:'#00A1FF', accent:'#DFC8F5',
   text:'#2b2f33', gray:'#707070',
   quoteBg:'#f2f8ff', quoteText:'#3a4750',
-  codeBg:'#f6f8fa', codeText:'#24292e', codeLabel:'#6a737d', codeTitleColor:'#d73a49',
+  codeBg:'#e9edf1', codeText:'#3f4650', codeLabel:'#8a919c', codeTitleColor:'#8a919c',
   inlineCodeBg:'#e8f3ff', inlineCodeText:'#007CFF',
-  tableBorder:'#E1E3E6', syntax: githubLight }
+  tableBorder:'#E1E3E6', syntax: lightMuted }
 ```
 
 ### 容器底色限制
@@ -420,12 +440,12 @@ Kami 原生的暖纸背景（`#f5f4ed`）**不可移植**：微信正文区域�
 | 不用 ul/ol/li | 列表 → `<p>` + 标记 span（见 §7） |
 | 渐变降级 | 若使用 `linear-gradient`：纯色在前、渐变在后（当前输出无渐变） |
 | 空格保形 | 代码空格 → `\u00a0` |
-| 长行不溢出 | 代码块横滑（`overflow-x:auto` + 单格 table 撑宽，行 `white-space:nowrap`）；行内代码 `word-break:break-all` |
-| 外链无效 | 链接 → 主题色加粗文本，丢弃 href，`word-break:break-all` 防 justify 拉伸 |
+| 长行不折行 | 代码块保留原始换行（`white-space:nowrap` + `word-break:normal` + `overflow-wrap:normal`，旧环境以 `word-wrap:normal` 兼容），超长行由外层 `overflow-x:auto` 横向滚动；行内代码 `word-break:break-all` |
+| 外链无效 | 链接 → 主题色加粗文本 + 灰色小字原始 URL（裸链接不重复），`word-break:break-all` 防 justify 拉伸 |
 | 外链图无效 | 图片 → base64 内嵌（文件名匹配） |
 | 字体继承被打断 | 每个文字元素显式声明完整字体栈 |
 | 中间字重不稳 | 不用 600：Android 微信仅 400/700 两档，标题/表头用 bold |
-| 列表标记字符 | U+25CF 实心圆全端字体内置；不用 CSS 圆点 span（旧版渐变圆点已废弃） |
+| 列表标记字符 | U+25A0 主色实心方块全端字体内置（`▪` 字形过小已弃用）；不用 CSS 圆点 span（旧版渐变圆点已废弃） |
 | 0.5pt 无 CSS 对应 | 分隔线用 `1px dashed`（微信最小可靠单位），视觉轻重等效 |
 | 容器底色失效 | 微信正文白底；主题调性由组件底色（引用/行内代码/表边框）承载 |
 
@@ -436,7 +456,7 @@ Kami 原生的暖纸背景（`#f5f4ed`）**不可移植**：微信正文区域�
 | 文件 | 职责 |
 |---|---|
 | `src/core/themes.js` | 字体常量、语法色板、`buildTheme` 工厂、7 主题注册表、`getTheme` |
-| `src/core/render.js` | markdown-it 规则：h1 色块、h3 小方块、引用卡片、列表短横线标记、代码窗口、表格、图注、容器包裹 |
+| `src/core/render.js` | markdown-it 规则：h1 色块、h3 字符竖杆、引用卡片、列表短横线标记、代码窗口、表格、图注、容器包裹 |
 | `src/core/highlight.js` | hljs 高亮 → 逐行 token span（空格硬化在此） |
 | `src/composables/useFormatter.js` | themeId 状态（localStorage）、图片匹配、渲染调度 |
 | `test-render.mjs` | 回归测试：结构合规、多主题取色、表格、折行、图注格式、短横线标记、新主题注册 |

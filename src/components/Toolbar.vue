@@ -49,7 +49,7 @@ defineProps({
   themeId: { type: String, default: 'blue-tech' },
   themes: { type: Array, default: () => [] },
   mode: { type: String, default: 'pc' },
-  showLineNumbers: { type: Boolean, default: true },
+  showLineNumbers: { type: Boolean, default: false },
 })
 defineEmits(['open-md', 'pick-images', 'load-sample', 'format-text', 'theme-change', 'mode-change', 'toggle-line-numbers', 'copy-rich', 'copy-html', 'export', 'clear'])
 </script>

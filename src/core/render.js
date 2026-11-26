@@ -101,7 +101,7 @@ rules.heading_open = (tokens, idx, opts, env) => {
   }
   let marker = ''
   if (tag === 'h3') {
-    marker = `<span style="${t.h3Bar}"></span>`
+    marker = `<span style="${t.h3Bar}">▎</span>`
   } else if (tag === 'h4') {
     marker = `<span style="color:${th(env).colors.primary};font-weight:bold;">▪</span>&nbsp;`
   }
@@ -151,9 +151,9 @@ rules.list_item_open = (tokens, idx, opts, env) => {
   if (env.inOrderedList) {
     env.listCounters[env.listCounters.length - 1] += 1
     const n = env.listCounters[env.listCounters.length - 1]
-    env.pendingMarker = `${indent}&nbsp;<span style="${th(env).listMarker}">${n}.</span>&nbsp;&nbsp;`
+    env.pendingMarker = `${indent}<span style="${th(env).listMarker}">${n}.</span>&nbsp;`
   } else {
-    env.pendingMarker = `${indent}&nbsp;<span style="${th(env).bulletMarker}">●</span>&nbsp;&nbsp;&nbsp;`
+    env.pendingMarker = `${indent}<span style="${th(env).bulletMarker}">■</span>&nbsp;`
   }
   return ''
 }
@@ -179,9 +179,22 @@ rules.ordered_list_close = (tokens, idx, opts, env) => {
 rules.code_inline = (tokens, idx, opts, env) =>
   `<span style="${th(env).inlineCode}">${esc(tokens[idx].content)}</span>`
 
-rules.link_open = (tokens, idx, opts, env) =>
-  `<span style="color:${th(env).colors.primary};font-weight:bold;word-break:break-all;">`
-rules.link_close = () => '</span>'
+// 公众号正文外链不可跳转：保留链接文字，并以灰色小字附上原始地址供读者追溯
+rules.link_open = (tokens, idx, opts, env) => {
+  const href = tokens[idx].attrGet('href') || ''
+  let text = ''
+  for (let j = idx + 1; j < tokens.length && tokens[j].type !== 'link_close'; j++) {
+    if (tokens[j].type === 'text' || tokens[j].type === 'code_inline') text += tokens[j].content
+  }
+  env.linkHref = href && text.trim() !== href && !href.startsWith('mailto:') ? href : ''
+  return `<span style="color:${th(env).colors.primary};font-weight:bold;word-break:break-all;">`
+}
+rules.link_close = (tokens, idx, opts, env) => {
+  const href = env.linkHref || ''
+  env.linkHref = ''
+  if (!href) return '</span>'
+  return `</span><span style="font-size:12px;line-height:22px;color:${th(env).colors.gray};word-break:break-all;">（${esc(href)}）</span>`
+}
 
 rules.softbreak = () => '<br>'
 rules.hardbreak = () => '<br>'
@@ -196,7 +209,7 @@ rules.fence = (tokens, idx, opts, env) => {
 
   // 首行整行注释 → 主题强调标题行
   const commentColor = t.code.tokens['hljs-comment'].match(/color:(#[0-9a-fA-F]+)/)[1]
-  const showLineNumbers = env.showLineNumbers !== false
+  const showLineNumbers = env.showLineNumbers === true
   const digits = Math.max(2, String(lines.length).length)
   const numWidth = Math.max(18, digits * 8 + 4)
 
@@ -207,11 +220,15 @@ rules.fence = (tokens, idx, opts, env) => {
       const lineNum = showLineNumbers
         ? `<span style="${t.code.lineNumber}width:${numWidth}px;">${i + 1}</span>`
         : ''
-      return `<p style="${style}">${lineNum}${l}</p>`
+      return `<span style="${style}">${lineNum}${l}</span>`
     })
     .join('')
 
-  return `<section style="${t.code.scroll}"><table style="${t.code.table}"><tbody><tr><td style="${t.code.block}">${body}</td></tr></tbody></table></section>`
+  const lights = ['#ff5f56', '#ffbd2e', '#27c93f']
+    .map((color) => `<span style="${t.code.dot}color:${color};">●</span>`)
+    .join('')
+
+  return `<section style="${t.code.scroll}"><table style="${t.code.table}"><tbody><tr><td style="${t.code.header}">${lights}</td></tr><tr><td style="${t.code.block}">${body}</td></tr></tbody></table></section>`
 }
 rules.code_block = rules.fence
 
@@ -237,7 +254,7 @@ rules.th_open = (tokens, idx, opts, env) => `<th style="${th(env).tableTh}">`
 rules.th_close = () => '</th>'
 rules.td_open = (tokens, idx, opts, env) => {
   const t = th(env)
-  const zebra = env.inTbody && env.tbodyRow % 2 === 1 ? `background:${t.colors.quoteBg};` : ''
+  const zebra = env.inTbody && env.tbodyRow % 2 === 1 ? `background:${t.colors.zebraBg};` : ''
   return `<td style="${zebra}${t.tableTd}">`
 }
 rules.td_close = () => '</td>'
@@ -281,6 +298,11 @@ rules.paragraph_open = (tokens, idx, opts, env) => {
   env.skipPara = false
 
   const t = th(env)
+  const nextType = tokens[idx + 3]?.type
+  const afterItemType = tokens[idx + 4]?.type
+  const isBeforeList = nextType === 'bullet_list_open' || nextType === 'ordered_list_open'
+  const isLastListItem = nextType === 'list_item_close' &&
+    (afterItemType === 'bullet_list_close' || afterItemType === 'ordered_list_close')
   let style
   if (tokens[idx].meta && tokens[idx].meta.footer) {
     const isLead = inlineTok && inlineTok.content.replace(/^\*+/, '').trim().startsWith('——')
@@ -291,7 +313,11 @@ rules.paragraph_open = (tokens, idx, opts, env) => {
     if (isSignature) style = t.blockquote.signature
     else style = lastParaInQuote(tokens, idx) ? t.blockquote.text : t.blockquote.textGap
   } else if (inList(env)) {
-    style = t.listItem
+    style = isLastListItem
+      ? t.listItem.replace('margin:0 0 8px 8px;', 'margin:0 0 16px 8px;')
+      : t.listItem
+  } else if (isBeforeList) {
+    style = t.paragraph.replace('margin:0 0 24px 0;', 'margin:0 0 16px 0;')
   } else {
     style = t.paragraph
   }
@@ -320,6 +346,7 @@ export function render(src, env = {}) {
   env.inOrderedList = false
   env.listCounters = []
   env.pendingMarker = null
+  env.linkHref = ''
   env.figureCount = 0
   env.warnings = env.warnings || []
   env.skipPara = false

@@ -2,10 +2,10 @@ export const FONT = `Optima,PingFangSC-regular,serif`
 export const MONO = `Consolas,Menlo,monospace`
 
 // ---------- 语法高亮色板 ----------
-// GitHub Light（浅色代码块，对齐微信官方编辑器风格）
-const githubLight = {
-  comment: '#6a737d', string: '#032f62', keyword: '#d73a49',
-  title: '#6f42c1', klass: '#e36209', variable: '#005cc5', green: '#22863a',
+// 低饱和浅灰色板（7 主题统一）
+const lightMuted = {
+  comment: '#8a919c', string: '#9a6a16', keyword: '#3f4650',
+  title: '#3f4650', klass: '#9a6a16', variable: '#9a6a16', green: '#4d7c5b',
 }
 
 const tokenMap = (t) => ({
@@ -27,7 +27,7 @@ const tokenMap = (t) => ({
   'hljs-name': `color:${t.variable};`,
   'hljs-attr': `color:${t.string};`,
   'hljs-attribute': `color:${t.string};`,
-  'hljs-built_in': `color:${t.klass};`,
+  'hljs-built_in': `color:${t.title};font-weight:bold;`,
   'hljs-type': `color:${t.klass};`,
   'hljs-params': `color:${t.string};`,
   'hljs-variable': `color:${t.variable};`,
@@ -53,9 +53,12 @@ export function buildTheme(p) {
     primary: p.primary, deep: p.deep, light: p.light,
     text: p.text || '#333', gray: p.gray || '#8a94a0', accent: p.accent,
     quoteBg: p.quoteBg, codeBg: p.codeBg, codeText: p.codeText,
+    codeHeaderBg: p.codeHeaderBg || '#dde2e7', codeBorder: p.codeBorder || '#d2d8df',
+    codeLabel: p.codeLabel || '#8a919c',
     inlineCodeBg: p.inlineCodeBg, inlineCodeText: p.inlineCodeText,
     quoteText: p.quoteText || p.text || '#333',
     quoteGray: p.quoteGray || p.gray || '#8a94a0',
+    zebraBg: p.zebraBg || p.quoteBg,
   }
   return {
     name: p.name,
@@ -72,17 +75,17 @@ export function buildTheme(p) {
     h1Chip: `display:inline-block;width:26px;height:26px;box-sizing:border-box;line-height:24px;text-align:center;border:1px solid ${c.primary};border-radius:4px;color:${c.primary};font-weight:bold;font-size:14px;margin-right:10px;vertical-align:middle;font-family:${FONT};`,
 
     h3: `font-size:16px;font-weight:bold;text-align:left;color:${c.primary};line-height:24px;margin:32px 0 16px 0;font-family:${FONT};`,
-    h3Bar: `display:inline-block;width:4px;height:16px;background:${c.primary};vertical-align:-2px;margin-right:8px;`,
+    h3Bar: `display:inline-block;width:4px;color:${c.primary};font-weight:bold;font-size:16px;line-height:24px;margin-right:8px;vertical-align:0;font-family:${FONT};`,
 
     h4: `font-size:16px;font-weight:bold;text-align:left;color:${c.deep};line-height:24px;margin:0 0 14px 0;font-family:${FONT};`,
 
     paragraph: `font-size:15px;line-height:26px;letter-spacing:0.3px;color:${c.text};text-align:justify;margin:0 0 24px 0;font-family:${FONT};`,
 
-    listItem: `font-size:15px;line-height:27px;letter-spacing:0.3px;color:${c.text};text-align:justify;padding-left:26px;text-indent:-26px;margin:0 0 8px 0;font-family:${FONT};`,
+    listItem: `font-size:15px;line-height:22px;letter-spacing:0.3px;color:${c.text};text-align:left;padding-left:14px;text-indent:-14px;margin:0 0 8px 8px;font-family:${FONT};`,
 
-    listMarker: `color:${c.primary};font-weight:bold;`,
+    listMarker: `display:inline-block;width:10px;text-align:right;color:${c.primary};font-weight:bold;`,
 
-    bulletMarker: `color:${c.text};font-weight:bold;font-size:6px;`,
+    bulletMarker: `display:inline-block;width:10px;text-align:center;color:${c.primary};font-weight:bold;font-size:8px;vertical-align:2px;`,
 
     blockquote: {
       box: `background:${c.quoteBg};border-left:2px solid ${c.primary};padding:16px 20px;margin:0 0 20px 0;font-size:15px;line-height:26px;font-family:${FONT};`,
@@ -98,7 +101,7 @@ export function buildTheme(p) {
       caption: `font-size:13px;line-height:21px;color:${c.gray};text-align:center;margin:4px 0 24px 0;font-family:${FONT};`,
     },
 
-    inlineCode: `background:${c.inlineCodeBg};color:${c.inlineCodeText};border-radius:3px;padding:1px 6px;font-size:13px;font-family:${MONO};word-break:break-all;`,
+    inlineCode: `background:${c.inlineCodeBg};color:${c.inlineCodeText};border-radius:3px;padding:1px 6px;font-size:15px;font-family:${MONO};word-break:break-all;`,
 
     table: `border-collapse:collapse;width:100%;margin:0 0 20px 0;font-size:14px;line-height:22px;table-layout:auto;word-break:break-word;font-family:${FONT};`,
 
@@ -107,12 +110,14 @@ export function buildTheme(p) {
     tableTd: `font-size:14px;line-height:22px;color:${c.text};padding:8px 8px;border:1px solid ${p.tableBorder};text-align:left;vertical-align:top;word-break:break-word;word-wrap:break-word;font-family:${FONT};`,
 
     code: {
-      scroll: `overflow-x:auto;margin:0 0 20px 0;font-size:13px;line-height:22px;`,
-      table: `border-collapse:collapse;width:100%;margin:0;font-size:13px;line-height:22px;`,
-      block: `background:${c.codeBg};border-radius:4px;padding:20px 16px;white-space:nowrap;font-size:13px;line-height:22px;`,
-      line: `font-size:13px;line-height:22px;color:${c.codeText};font-family:${MONO};white-space:nowrap;margin:0;`,
-      titleLine: `font-size:13px;line-height:22px;color:${p.codeTitleColor};font-weight:bold;font-family:${MONO};white-space:nowrap;margin:0;`,
-      lineNumber: `display:inline-block;text-align:right;margin-right:12px;color:${c.gray};font-family:${MONO};font-size:12px;line-height:22px;user-select:none;`,
+      scroll: `display:block;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 0 20px 0;font-size:13px;line-height:22px;`,
+      table: `border-collapse:separate;border-spacing:0;width:100%;margin:0;font-size:13px;line-height:22px;background:${c.codeBg};border:none;border-radius:6px;overflow:hidden;`,
+      header: `background:${c.codeHeaderBg};color:${c.codeLabel};border:none;border-bottom:1px solid ${c.codeBorder};padding:8px 16px;font-size:12px;line-height:20px;font-weight:normal;letter-spacing:0;text-align:left;font-family:${MONO};`,
+      dot: `display:inline-block;font-size:16px;line-height:20px;font-weight:normal;letter-spacing:0;margin-right:8px;vertical-align:0;font-family:Arial,sans-serif;`,
+      block: `background:${c.codeBg};border:none;padding:12px 16px 16px;text-align:left;white-space:nowrap;word-break:normal;word-wrap:normal;overflow-wrap:normal;font-size:13px;line-height:22px;`,
+      line: `display:block;font-size:13px;line-height:22px;color:${c.codeText};font-family:${MONO};text-align:left;white-space:nowrap;word-break:normal;word-wrap:normal;overflow-wrap:normal;margin:0;`,
+      titleLine: `display:block;font-size:13px;line-height:22px;color:${p.codeTitleColor};font-weight:normal;font-family:${MONO};text-align:left;white-space:nowrap;word-break:normal;word-wrap:normal;overflow-wrap:normal;margin:0;`,
+      lineNumber: `display:inline-block;text-align:right;margin-right:12px;color:${c.codeLabel};font-family:${MONO};font-size:12px;line-height:22px;user-select:none;`,
       tokens: tokenMap(p.syntax),
     },
 
@@ -130,59 +135,59 @@ export const themes = [
     id: 'blue-tech', name: '蓝色科技',
     primary: '#2273b8', deep: '#1f5fa6', light: '#3a8ee6', accent: '#e8833a',
     quoteBg: '#f0f6fb',
-    codeBg: '#f6f8fa', codeText: '#24292e', codeLabel: '#6a737d', codeTitleColor: '#d73a49',
-    inlineCodeBg: '#e8edf2', inlineCodeText: '#4a7fa5', tableBorder: '#d5e2ef',
-    syntax: githubLight,
+    codeBg: '#e9edf1', codeText: '#3f4650', codeLabel: '#8a919c', codeTitleColor: '#8a919c',
+    inlineCodeBg: '#f3f6f8', inlineCodeText: '#4a7fa5', tableBorder: '#d5e2ef',
+    syntax: lightMuted,
   },
   {
     id: 'orange-heart', name: '橙心',
     primary: '#ff3502', deep: '#e6461f', light: '#ff8052', accent: '#1e80ff',
     quoteBg: '#fdf3ee',
-    codeBg: '#f6f8fa', codeText: '#24292e', codeLabel: '#6a737d', codeTitleColor: '#d73a49',
+    codeBg: '#e9edf1', codeText: '#3f4650', codeLabel: '#8a919c', codeTitleColor: '#8a919c',
     inlineCodeBg: '#ffece3', inlineCodeText: '#d4380d', tableBorder: '#ffd9cc',
-    syntax: githubLight,
+    syntax: lightMuted,
   },
   {
     id: 'violet', name: '姹紫',
     primary: '#5d3587', deep: '#4a2a6b', light: '#8e5fc0', accent: '#e8833a',
     quoteBg: '#f7f2fb',
-    codeBg: '#f6f8fa', codeText: '#24292e', codeLabel: '#6a737d', codeTitleColor: '#d73a49',
+    codeBg: '#e9edf1', codeText: '#3f4650', codeLabel: '#8a919c', codeTitleColor: '#8a919c',
     inlineCodeBg: '#efe6f7', inlineCodeText: '#6b3fa0', tableBorder: '#e2d5f0',
-    syntax: githubLight,
+    syntax: lightMuted,
   },
   {
     id: 'green', name: '绿意',
     primary: '#0e8c64', deep: '#0a6b4c', light: '#3fb88f', accent: '#e8833a',
     quoteBg: '#f0f9f5',
-    codeBg: '#f6f8fa', codeText: '#24292e', codeLabel: '#6a737d', codeTitleColor: '#d73a49',
+    codeBg: '#e9edf1', codeText: '#3f4650', codeLabel: '#8a919c', codeTitleColor: '#8a919c',
     inlineCodeBg: '#e6f4ef', inlineCodeText: '#0e8c64', tableBorder: '#cfe8df',
-    syntax: githubLight,
+    syntax: lightMuted,
   },
   {
     id: 'night', name: '凝夜',
     primary: '#b39ddb', deep: '#5e35b1', light: '#7e57c2', accent: '#ffb74d',
-    quoteBg: '#232733', quoteText: '#cfd4e3', quoteGray: '#8b93a7',
-    codeBg: '#f6f8fa', codeText: '#24292e', codeLabel: '#6a737d', codeTitleColor: '#d73a49',
+    quoteBg: '#232733', quoteText: '#cfd4e3', quoteGray: '#8b93a7', zebraBg: '#efeaf7',
+    codeBg: '#e9edf1', codeText: '#3f4650', codeLabel: '#8a919c', codeTitleColor: '#8a919c',
     inlineCodeBg: '#2b3040', inlineCodeText: '#b39ddb', tableBorder: '#3a4152',
-    syntax: githubLight,
+    syntax: lightMuted,
   },
   {
     id: 'kami-paper', name: '暖纸',
     primary: '#1B365D', deep: '#16283f', light: '#3d5a80', accent: '#b08d57',
     text: '#3d3b36', gray: '#8a867d',
     quoteBg: '#f0eee4', quoteText: '#5c5a52',
-    codeBg: '#f6f8fa', codeText: '#24292e', codeLabel: '#6a737d', codeTitleColor: '#d73a49',
+    codeBg: '#e9edf1', codeText: '#3f4650', codeLabel: '#8a919c', codeTitleColor: '#8a919c',
     inlineCodeBg: '#efece1', inlineCodeText: '#1B365D',
-    tableBorder: '#e3e0d3', syntax: githubLight,
+    tableBorder: '#e3e0d3', syntax: lightMuted,
   },
   {
     id: 'kimi-blue', name: 'Kimi 蓝',
     primary: '#007CFF', deep: '#002F5B', light: '#00A1FF', accent: '#DFC8F5',
     text: '#2b2f33', gray: '#707070',
     quoteBg: '#f2f8ff', quoteText: '#3a4750',
-    codeBg: '#f6f8fa', codeText: '#24292e', codeLabel: '#6a737d', codeTitleColor: '#d73a49',
+    codeBg: '#e9edf1', codeText: '#3f4650', codeLabel: '#8a919c', codeTitleColor: '#8a919c',
     inlineCodeBg: '#e8f3ff', inlineCodeText: '#007CFF',
-    tableBorder: '#E1E3E6', syntax: githubLight,
+    tableBorder: '#E1E3E6', syntax: lightMuted,
   },
 ].map((p) => ({ id: p.id, name: p.name, theme: buildTheme(p) }))
 

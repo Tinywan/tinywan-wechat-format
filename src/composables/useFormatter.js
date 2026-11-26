@@ -10,7 +10,7 @@ const LINE_NUMBERS_KEY = 'md-wechat-formatter:line-numbers'
 export function useFormatter() {
   const markdown = ref(localStorage.getItem(DRAFT_KEY) || '')
   const themeId = ref(localStorage.getItem(THEME_KEY) || DEFAULT_THEME_ID)
-  const showLineNumbers = ref(localStorage.getItem(LINE_NUMBERS_KEY) !== 'false')
+  const showLineNumbers = ref(localStorage.getItem(LINE_NUMBERS_KEY) === 'true')
   const html = shallowRef('')
   const warnings = ref([])
   const imageCount = ref(0)
